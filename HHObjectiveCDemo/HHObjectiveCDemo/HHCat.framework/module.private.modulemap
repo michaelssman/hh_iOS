@@ -1,0 +1,9 @@
+//_Private是固定格式
+framework module Cat_Private {
+    header "HHCat.h"
+    export *
+}
+
+
+//HHCat.framework使用的是module.modulemap。
+//module.private.modulemap是外面工程使用的。对当前工程是隐藏的。

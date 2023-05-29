@@ -1,0 +1,48 @@
+//
+//  HHOCDemo_Base.xcconfig
+//  HHObjectiveCDemo
+//
+//  Created by Michael on 2022/11/16.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+//继承
+//$(inherited)
+
+// clang
+///LGApp/模块探究/module.modulemap
+//OTHER_CFLAGS = "-fmodule-map-file=${SRCROOT}/HHObjectiveCDemo/HHCat.framework/module.modulemap"
+MODULEMAP_FILE = "${SRCROOT}/HHObjectiveCDemo/HHCat.framework/module.modulemap"
+MODULEMAP_PRIVATE_FILE = "${SRCROOT}/HHObjectiveCDemo/HHCat.framework/module.private.modulemap"
+
+// FRAMEWORK_SEARCH_PATHS -> clang传递 -F参数，framework搜索目录
+//FRAMEWORK_SEARCH_PATHS  = $(inherited) "${SRCROOT}/HHObjectiveCDemo"
+
+//二进制重排
+OTHER_CFLAGS = "-fsanitize-coverage=func,trace-pc-guard"
+OTHER_CPLUSPLUSFLAGS = $(OTHER_CFLAGS)
+
+//order file
+//ORDER_FILE = "$(SRCROOT)/HHObjectiveCDemo/HHStartOptimization/hh.order"
+
+HEADER_SEARCH_PATHS = $(inherited)
+
+//TARGET info
+//bundle id
+PRODUCT_BUNDLE_IDENTIFIER = com.HHObjectiveCDemo.HHObjectiveCDemo
+//app名字
+PRODUCT_BUNDLE_NAME = 学习项目
+//版本号Bundle version string (short)
+MARKETING_VERSION = 1.0.0
+//build号Bundle version
+CURRENT_PROJECT_VERSION = 3
+
+//iOS Deployment Target
+IPHONEOS_DEPLOYMENT_TARGET = 14.0
+
+
+//OC调用swift，在build setting里对应的设置$(inherited)
+SWIFT_OBJC_INTERFACE_HEADER_NAME = SCM-Swift.h
+SWIFT_OBJC_BRIDGING_HEADER = HHObjectiveCDemo/Configurations/HHObjectiveCDemo-Bridging-Header.h

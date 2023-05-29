@@ -1,0 +1,88 @@
+[
+  {
+    "ParentId" : 0,
+    "Children" : [
+      {
+        "ParentId" : 100000001,
+        "Children" : [
+          {
+            "ParentId" : 100000010,
+            "Children" : [
+
+            ],
+            "TypeId" : 100000032,
+            "TypeName" : "C#1"
+          },
+          {
+            "ParentId" : 100000010,
+            "Children" : [
+
+            ],
+            "TypeId" : 100000033,
+            "TypeName" : "C#2"
+          }
+        ],
+        "TypeId" : 100000010,
+        "TypeName" : "C#"
+      },
+      {
+        "ParentId" : 100000001,
+        "Children" : [
+
+        ],
+        "TypeId" : 100000031,
+        "TypeName" : "javca"
+      }
+    ],
+    "TypeId" : 100000001,
+    "TypeName" : "后台"
+  },
+  {
+    "ParentId" : 0,
+    "Children" : [
+
+    ],
+    "TypeId" : 100000002,
+    "TypeName" : "前端"
+  },
+  {
+    "ParentId" : 0,
+    "Children" : [
+
+    ],
+    "TypeId" : 100000003,
+    "TypeName" : "iOS"
+  },
+  {
+    "ParentId" : 0,
+    "Children" : [
+
+    ],
+    "TypeId" : 100000009,
+    "TypeName" : "安卓"
+  },
+  {
+    "ParentId" : 0,
+    "Children" : [
+
+    ],
+    "TypeId" : 100000021,
+    "TypeName" : "是不一样"
+  },
+  {
+    "ParentId" : 0,
+    "Children" : [
+
+    ],
+    "TypeId" : 100000024,
+    "TypeName" : "fudged官方代购好韩国韩国韩国返回法国红酒改"
+  },
+  {
+    "ParentId" : 0,
+    "Children" : [
+
+    ],
+    "TypeId" : 100000026,
+    "TypeName" : "在一起了"
+  }
+]

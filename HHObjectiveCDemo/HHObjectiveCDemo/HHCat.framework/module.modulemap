@@ -1,0 +1,54 @@
+
+////定义HHCat名称，里面管理哪些头文件
+//module HHCat {
+//    header "HHCat-umbrella.h"
+//    //umbrella用一个头文件 映射其它头文件，就不需要每一个都写了。
+////    umbrella header "HHCat-umbrella.h"
+//
+//    //HHCat里面引入的头文件 需要重新导出
+//    //    export Foundation
+//    export *
+//}
+
+
+////framework是文件夹
+//framework module HHCat {
+////    header "HHCat-umbrella.h"
+//    //umbrella用一个头文件 映射其它头文件，就不需要每一个都写了。
+//    umbrella header "HHCat-umbrella.h"
+//
+//    //HHCat里面引入的头文件 需要重新导出
+//    //    export Foundation
+//    export *
+//}
+
+//framework是文件夹
+framework module Cat {
+//    header "HHCat-umbrella.h"
+    //umbrella用一个头文件 映射其它头文件，就不需要每一个都写了。
+    umbrella header "HHCat-umbrella.h"
+
+    //HHCat里面引入的其它头文件 需要重新导出
+    //    export Foundation
+    export *
+    
+    //explicit表示当显示的引入HHCat的时候（import Cat.HHCat），才会把HHCat模块引入的头文件引入。
+    //不加explicit的话 引入Cat就会引入HHCat
+    explicit module HHCat {
+        header "HHCat.h"
+        export *
+    }
+    
+    requires objc
+    // requires：引入该module所需要点环境
+    // requires objc：当前文件，引入该module时，必须支持Objective-C
+    // requires cplusplus
+    // requires cplusplus11
+    // requires objc_arc
+}
+
+//子module
+//module Cat.SubCat {
+//        header "Headers/HHCat.h"
+//        export *
+//}

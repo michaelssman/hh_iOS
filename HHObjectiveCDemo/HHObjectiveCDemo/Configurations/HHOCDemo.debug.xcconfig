@@ -1,0 +1,6 @@
+//使用相对路径
+#include "../../Pods/Target Support Files/Pods-HHObjectiveCDemo/Pods-HHObjectiveCDemo.debug.xcconfig"
+//同级目录
+#include "HHOCDemo_Base.xcconfig"
+////或者
+//#include "./HHOCDemo_Base.xcconfig"

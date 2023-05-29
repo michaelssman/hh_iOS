@@ -1,0 +1,128 @@
++[HHStudent(HH) load]
+___21+[HHStudent(HH) load]_block_invoke
++[NSObject(MethodSwizzling) hh_hookWithClass:origInstanceMenthod:newInstanceMenthod:]
++[HHTraceViewController load]
+_test3
+_test4
++[HHAnimal load]
++[HHDog load]
+___copy_helper_block_e8_32w
+___copy_helper_block_e8_32b
+___destroy_helper_block_e8_32s40s
++[UINavigationController(HHLeaksTest) load]
+___43+[UINavigationController(HHLeaksTest) load]_block_invoke
++[NSObject(HHSwizzling) swizzleSEL:withSEL:]
++[HHAnimal(a) load]
++[NSURL(Util) load]
+___19+[NSURL(Util) load]_block_invoke
++[UIViewController(SwizzleTest) load]
+___37+[UIViewController(SwizzleTest) load]_block_invoke
++[NSObject(Aspects) aspect_hookSelector:withOptions:usingBlock:error:]
+_aspect_add
+_aspect_performLocked
+___aspect_add_block_invoke
+_aspect_isSelectorAllowedAndTrack
+___aspect_isSelectorAllowedAndTrack_block_invoke
+_aspect_getSwizzledClassesDict
+___aspect_getSwizzledClassesDict_block_invoke
+-[AspectTracker initWithTrackedClass:]
+-[AspectTracker selectorNames]
+-[AspectTracker addSubclassTracker:hookingSelectorName:]
+-[AspectTracker selectorNamesToSubclassTrackers]
+_aspect_getContainerForObject
+_aspect_aliasForSelector
++[AspectIdentifier identifierWithSelector:object:options:block:error:]
+_aspect_blockMethodSignature
+_aspect_isCompatibleBlockSignature
+-[AspectIdentifier setSelector:]
+-[AspectIdentifier setBlock:]
+-[AspectIdentifier setBlockSignature:]
+-[AspectIdentifier setOptions:]
+-[AspectIdentifier setObject:]
+-[AspectsContainer addAspect:withOptions:]
+-[AspectsContainer afterAspects]
+-[AspectsContainer setAfterAspects:]
+_aspect_prepareClassAndHookSelector
+_aspect_hookClass
+_aspect_swizzleClassInPlace
+__aspect_modifySwizzledClasses
+____aspect_modifySwizzledClasses_block_invoke
+___aspect_swizzleClassInPlace_block_invoke
+_aspect_swizzleForwardInvocation
+_aspect_isMsgForwardIMP
+_aspect_getMsgForwardIMP
++[HHDog(a) load]
++[NSArray(HHCrash) load]
+___24+[NSArray(HHCrash) load]_block_invoke
++[UISwitch(Util) load]
+___22+[UISwitch(Util) load]_block_invoke
++[UIViewController(HHLeaksTest) load]
+___37+[UIViewController(HHLeaksTest) load]_block_invoke
+_before_main
+_main
+-[NSArray(HHCrash) hh_objectAtIndex:]
+-[AppDelegate application:didFinishLaunchingWithOptions:]
+_InstallUncaughtExceptionHandler
+_InstallSignalHandler
++[AppLaunchTime mark]
++[AppLaunchTime processStartTime]
++[LGBlockMonitor sharedInstance]
+___32+[LGBlockMonitor sharedInstance]_block_invoke
+-[LGBlockMonitor start]
+-[LGBlockMonitor registerObserver]
+-[LGBlockMonitor startMonitor]
+___copy_helper_block_e8_32s
+___30-[LGBlockMonitor startMonitor]_block_invoke
+_CallBack
++[NSArray(HHCrash) hh_arrayWithArray:]
+-[SceneDelegate window]
+-[SceneDelegate setWindow:]
+-[SceneDelegate scene:willConnectToSession:options:]
+-[RootViewController viewDidLoad]
+-[ViewController initWithType:]
+-[ViewController setObjects:]
+-[RootViewController navigationControllerWithRootVC:tabBarImages:]
+-[BaseNavigationController pushViewController:animated:]
+-[NSArray(HHCrash) hh_objectAtIndexedSubscript:]
+-[BaseNavigationController viewDidLoad]
++[UIImage(Util) imageWithColor:]
+_CGRectMake
+-[RootViewController moveTabLineAddShader]
+_CGSizeMake
+-[RootViewController dropShadowWithOffset:radius:color:opacity:]
+-[UIViewController(HHLeaksTest) hh_viewWillAppear:]
+-[SceneDelegate sceneWillEnterForeground:]
+___ASPECTS_ARE_BEING_CALLED__
+_aspect_getContainerForClass
+-[AspectsContainer hasAspects]
+-[AspectsContainer beforeAspects]
+-[AspectsContainer insteadAspects]
+-[AspectInfo initWithInstance:invocation:]
+-[AspectIdentifier invokeWithInfo:]
+-[AspectIdentifier blockSignature]
+-[AspectInfo originalInvocation]
+-[AspectIdentifier block]
+___37+[UIViewController(SwizzleTest) load]_block_invoke_2
+-[AspectInfo instance]
+-[AspectIdentifier options]
+-[AspectInfo .cxx_destruct]
+-[ViewController viewDidLoad]
+-[LMDataSource initWithIdentifier:configureBlock:]
+-[ViewController setDataSource:]
+-[ViewController dataSource]
+-[ViewController objects]
+-[LMDataSource addDataArray:]
+-[LMDataSource dataArray]
+-[ViewController tableView]
+_hh_safeAreaInsets
+-[ViewController setTableView:]
+-[LMDataSource tableView:numberOfRowsInSection:]
+-[ViewController tableView:heightForRowAtIndexPath:]
+-[LMDataSource tableView:cellForRowAtIndexPath:]
+-[LMDataSource cellIdentifier]
+-[LMDataSource modelsAtIndexPath:]
+-[LMDataSource cellConfigureBefore]
+___29-[ViewController viewDidLoad]_block_invoke
+___destroy_helper_block_e8_32s
+___21+[AppLaunchTime mark]_block_invoke
+-[SceneDelegate sceneDidBecomeActive:]
