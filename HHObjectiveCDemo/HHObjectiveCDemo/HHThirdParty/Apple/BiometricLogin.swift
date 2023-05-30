@@ -16,9 +16,12 @@ class BiometricManager: NSObject {
     /// 检查设备是否支持Face ID功能。
     /// - Returns: 如果支持，则返回 true，否则返回 false。
     static func BiometricSupprot() -> Bool {
-        let context = LAContext()
-        var error: NSError?
-        return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
+        if #available(iOS 11.2, *) {
+            return self.biometryType() != .none
+        } else {
+            // Fallback on earlier versions
+            return false
+        }
     }
     
     /// 判断设备支持的身份验证方式
@@ -85,7 +88,7 @@ class KeychainManager {
     static func saveToken(_ dictionary: [String: Any]) -> Bool {
         //序列化
         guard let data = try? NSKeyedArchiver.archivedData(withRootObject: dictionary, requiringSecureCoding: false) else { return false }
-//        let data = token.data(using: .utf8)!
+        //        let data = token.data(using: .utf8)!
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrAccount as String: secAttrAccount,
                                     kSecValueData as String: data]
@@ -105,7 +108,7 @@ class KeychainManager {
         guard status == errSecSuccess, let data = result as? Data, let dictionary = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String: Any] else {
             return nil
         }
-//        return String(data: data, encoding: .utf8)
+        //        return String(data: data, encoding: .utf8)
         return dictionary
     }
     

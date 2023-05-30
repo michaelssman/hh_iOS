@@ -149,4 +149,7 @@ extension AppDelegate {
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
+    func deleteLocalNotification() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.example.notification"])
+    }
 }

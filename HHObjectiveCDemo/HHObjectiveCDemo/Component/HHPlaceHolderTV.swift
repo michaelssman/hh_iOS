@@ -154,7 +154,7 @@ class HHGrowingTextV: HHPlaceHolderTV {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    /// 自适应高度
+    /// 根据textView的内容和size，获取自适应高度
     @objc func measureHeight() -> Float {
         return ceilf(Float(sizeThatFits(frame.size).height) + 10)
     }

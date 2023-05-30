@@ -61,6 +61,8 @@
 		4C7F5DEC296D95530019007F /* HHPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F5DEB296D95530019007F /* HHPhotosViewController.swift */; };
 		4C88C76F2A0C84ED0006A559 /* BiometricLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C88C76E2A0C84ED0006A559 /* BiometricLogin.swift */; };
 		4C89121828C9B71300060F74 /* LongPress.md in Resources */ = {isa = PBXBuildFile; fileRef = 4C89121728C9B71300060F74 /* LongPress.md */; };
+		4C89EA822A259B7F00885A4C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C89EA812A259B7F00885A4C /* String.swift */; };
+		4C89EA842A25A25100885A4C /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C89EA832A25A25100885A4C /* UITextView.swift */; };
 		4C8C966729F4E2C800D0C14B /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C966629F4E2C800D0C14B /* UIBarButtonItem.swift */; };
 		4C8CD98329ED2631006A5C40 /* HHPlaceHolderTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8CD98229ED2631006A5C40 /* HHPlaceHolderTV.swift */; };
 		4C9006CE29D6B5F8008814F2 /* UIScrollView+HHTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9006A129D6B5F7008814F2 /* UIScrollView+HHTab.m */; };
@@ -824,6 +826,8 @@
 		4C7F5DEB296D95530019007F /* HHPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHPhotosViewController.swift; sourceTree = "<group>"; };
 		4C88C76E2A0C84ED0006A559 /* BiometricLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricLogin.swift; sourceTree = "<group>"; };
 		4C89121728C9B71300060F74 /* LongPress.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LongPress.md; sourceTree = "<group>"; };
+		4C89EA812A259B7F00885A4C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		4C89EA832A25A25100885A4C /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		4C8C966629F4E2C800D0C14B /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
 		4C8CD98229ED2631006A5C40 /* HHPlaceHolderTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHPlaceHolderTV.swift; sourceTree = "<group>"; };
 		4C90069C29D6B5F7008814F2 /* UIScrollView+HHTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+HHTab.h"; sourceTree = "<group>"; };
@@ -2184,6 +2188,8 @@
 				4C09E5F329DBCF760027984F /* UIView.swift */,
 				4C8C966629F4E2C800D0C14B /* UIBarButtonItem.swift */,
 				4C2CC75E29F9037200EE2CC5 /* Date.swift */,
+				4C89EA812A259B7F00885A4C /* String.swift */,
+				4C89EA832A25A25100885A4C /* UITextView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -4783,6 +4789,7 @@
 				D2C8F9FD2785AE64008021C7 /* HHEmojiViewController.m in Sources */,
 				D2C8FAC92785AE65008021C7 /* HHEqualCellSpaceFlowLayout.m in Sources */,
 				D2A9662B277D56EF003F173F /* WKProcessPool+ShareProcessPool.m in Sources */,
+				4C89EA822A259B7F00885A4C /* String.swift in Sources */,
 				4CEB0C6F29BF691800F85D73 /* UIViewController.swift in Sources */,
 				D2A96669277D83F0003F173F /* CalculateManager.m in Sources */,
 				4C88C76F2A0C84ED0006A559 /* BiometricLogin.swift in Sources */,
@@ -4811,6 +4818,7 @@
 				4CD8748D2A172A30009843F4 /* HHButton.swift in Sources */,
 				4C6A1E1C292FC7C200B9F019 /* HHFMDBUtil.m in Sources */,
 				D272622827BF8BEA00897167 /* MoneyTextField.m in Sources */,
+				4C89EA842A25A25100885A4C /* UITextView.swift in Sources */,
 				D2D7E1992796CACF00BA3EAD /* DispatchSourceViewController.m in Sources */,
 				4C6A1E1D292FC7C200B9F019 /* HHFMDBTool.m in Sources */,
 				D2A9662C277D56EF003F173F /* HHWebViewCookieManager.m in Sources */,
