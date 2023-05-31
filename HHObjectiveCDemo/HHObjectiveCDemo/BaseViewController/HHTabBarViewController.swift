@@ -21,7 +21,7 @@ class HHTabBarViewController: UITabBarController {
         addChildViewController(MineViewController(), title: "我的", image: R.image.mine(), selectedImage: R.image.mine_selected())
         
         setUpStyle()
-        setUpShadow()
+//        setUpShadow()
     }
     
 }
@@ -44,15 +44,20 @@ extension UITabBarController {
     func setUpStyle() {
         if #available(iOS 13.0, *) {
             let appearance: UITabBarAppearance = UITabBarAppearance()
-            appearance.backgroundColor = .white
+            appearance.backgroundColor = UIColor.designKit.background
             appearance.backgroundImage = UIImage()
             appearance.shadowColor = .clear
             tabBar.standardAppearance = appearance
+            //滑动到底部，变色
+            if #available(iOS 15.0, *) {
+                tabBar.scrollEdgeAppearance = appearance
+            }
         } else {
             UITabBar.appearance().shadowImage = UIImage()
             UITabBar.appearance().backgroundImage = UIImage()
         }
-        tabBar.backgroundColor = .white
+        //选中字体颜色
+        tabBar.tintColor = UIColor.black
     }
     
     // MARK: 设置阴影
