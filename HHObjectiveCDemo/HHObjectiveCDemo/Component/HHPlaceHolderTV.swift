@@ -107,6 +107,11 @@ class HHPlaceHolderTV: UITextView {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
+    
+    //占位文字的自适应高度
+    func placeHolderMeasureHeight() -> Float {
+        return ceilf(Float(placeholderV.sizeThatFits(frame.size).height) + 10)
+    }
 }
 
 //// MARK: UITextViewDelegate
@@ -156,6 +161,10 @@ class HHGrowingTextV: HHPlaceHolderTV {
     }
     /// 根据textView的内容和size，获取自适应高度
     @objc func measureHeight() -> Float {
-        return ceilf(Float(sizeThatFits(frame.size).height) + 10)
+        if text.count == 0 {
+            return placeHolderMeasureHeight()
+        } else {
+            return ceilf(Float(sizeThatFits(frame.size).height) + 10)
+        }
     }
 }

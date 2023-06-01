@@ -397,7 +397,6 @@
 		D2C0B748278FC9EC000B9D99 /* UISwitch+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B70B278FC9EB000B9D99 /* UISwitch+Util.m */; };
 		D2C0B74B278FC9EC000B9D99 /* UILabel+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B712278FC9EB000B9D99 /* UILabel+Util.m */; };
 		D2C0B74F278FC9EC000B9D99 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B71E278FC9EB000B9D99 /* UIColor+Util.m */; };
-		D2C0B750278FC9EC000B9D99 /* UIView+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B721278FC9EB000B9D99 /* UIView+Util.m */; };
 		D2C0B754278FC9EC000B9D99 /* NSString+Adaptive.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B72B278FC9EB000B9D99 /* NSString+Adaptive.m */; };
 		D2C0B75A278FC9EC000B9D99 /* NSObject+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B738278FC9EC000B9D99 /* NSObject+Util.m */; };
 		D2C0B75B278FC9EC000B9D99 /* UITextField+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B73C278FC9EC000B9D99 /* UITextField+Util.m */; };
@@ -1354,8 +1353,6 @@
 		D2C0B712278FC9EB000B9D99 /* UILabel+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Util.m"; sourceTree = "<group>"; };
 		D2C0B71D278FC9EB000B9D99 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
 		D2C0B71E278FC9EB000B9D99 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
-		D2C0B721278FC9EB000B9D99 /* UIView+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Util.m"; sourceTree = "<group>"; };
-		D2C0B724278FC9EB000B9D99 /* UIView+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Util.h"; sourceTree = "<group>"; };
 		D2C0B728278FC9EB000B9D99 /* NSString+Adaptive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Adaptive.h"; sourceTree = "<group>"; };
 		D2C0B72B278FC9EB000B9D99 /* NSString+Adaptive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Adaptive.m"; sourceTree = "<group>"; };
 		D2C0B738278FC9EC000B9D99 /* NSObject+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Util.m"; sourceTree = "<group>"; };
@@ -3455,8 +3452,6 @@
 				D2C0B70B278FC9EB000B9D99 /* UISwitch+Util.m */,
 				D2C0B73B278FC9EC000B9D99 /* UITextField+Util.h */,
 				D2C0B73C278FC9EC000B9D99 /* UITextField+Util.m */,
-				D2C0B724278FC9EB000B9D99 /* UIView+Util.h */,
-				D2C0B721278FC9EB000B9D99 /* UIView+Util.m */,
 			);
 			path = HHCategorys;
 			sourceTree = "<group>";
@@ -3980,7 +3975,7 @@
 		D2EBF2F927BA2F7E008B86BE /* HHThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				D2EBF2FE27BA3031008B86BE /* Apple */,
+				D2EBF2FE27BA3031008B86BE /* Login */,
 				4CD3F3E627D5043A00BA0B02 /* HHAliyun */,
 				4C6F44E327D634880012447B /* HHJPush */,
 				D2EBF30F27BA38DC008B86BE /* HHPay */,
@@ -4004,14 +3999,14 @@
 			path = UM;
 			sourceTree = "<group>";
 		};
-		D2EBF2FE27BA3031008B86BE /* Apple */ = {
+		D2EBF2FE27BA3031008B86BE /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				D2EBF30027BA3067008B86BE /* HHAppleLogin.h */,
 				D2EBF2FF27BA3067008B86BE /* HHAppleLogin.m */,
 				4C88C76E2A0C84ED0006A559 /* BiometricLogin.swift */,
 			);
-			path = Apple;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		D2EBF30527BA30C1008B86BE /* Share */ = {
@@ -4982,7 +4977,6 @@
 				D26A1097278C0ACD007FE88A /* TableViewCellOne.m in Sources */,
 				4C01F8432990A5950042EB2A /* HHPermissionTool.swift in Sources */,
 				D2C8F9F62785AE64008021C7 /* CellAnimateViewController.m in Sources */,
-				D2C0B750278FC9EC000B9D99 /* UIView+Util.m in Sources */,
 				D2EBF31827BA3918008B86BE /* MJPayApi.m in Sources */,
 				D2EBF30E27BA31F6008B86BE /* HHUMLogin.m in Sources */,
 				4CEB0C1A29BF462D00F85D73 /* BaseViewController.swift in Sources */,

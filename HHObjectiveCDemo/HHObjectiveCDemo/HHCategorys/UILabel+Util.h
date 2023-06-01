@@ -10,22 +10,6 @@
 
 @interface UILabel (Util)
 
-#pragma mark - ShowDifferentStyles
-/**
- label中特殊字符显示不同的样式
-
- @param text 特殊字符
- @param color 特殊字符的字体颜色
- @param font 特殊字符的字体大小
- */
--(void)setSpecialText:(NSString *)text
-                color:(UIColor *)color
-                 font:(UIFont *)font;
-
--(void)setSpecialTextWithRange:(NSRange)range
-                         color:(UIColor *)color
-                          font:(UIFont *)font;
-
 /// 设置字间距
 /// @param space 字间距
 - (void)setWordSpace:(float)space;

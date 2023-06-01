@@ -10,40 +10,6 @@
 
 @implementation UILabel (Util)
 
-#pragma mark - ShowDifferentStyles
-- (void)setSpecialText:(NSString *)text
-                 color:(UIColor *)color
-                  font:(UIFont *)font
-{
-    //传数字需要转换
-    text = [NSString stringWithFormat:@"%@",text];
-    //如果不包含指定的字符串，直接return
-    if (![self.text containsString:text]) {
-        return;
-    }
-    
-    NSRange range = [self.text rangeOfString:text];
-    
-    [self setSpecialTextWithRange:range color:color font:font];
-}
-
--(void)setSpecialTextWithRange:(NSRange)range
-                         color:(UIColor *)color
-                          font:(UIFont *)font
-{
-    //    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-    
-    //设置字号
-    [attributedString addAttribute:NSFontAttributeName value:font range:range];
-    //设置文字颜色
-    [attributedString addAttribute:NSForegroundColorAttributeName value:color range:range];
-    //    //设置中划线
-    //    [attributedString addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, 12)];
-    
-    self.attributedText = attributedString;
-}
-
 #pragma mark - 字间距
 - (void)setWordSpace:(float)space
 {

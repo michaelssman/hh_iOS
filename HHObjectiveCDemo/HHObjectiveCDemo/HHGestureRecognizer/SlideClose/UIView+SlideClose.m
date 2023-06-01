@@ -8,7 +8,6 @@
 
 #import "UIView+SlideClose.h"
 #import <objc/runtime.h>
-#import "UIView+Util.h"
 
 @implementation UIView (SlideClose)
 
