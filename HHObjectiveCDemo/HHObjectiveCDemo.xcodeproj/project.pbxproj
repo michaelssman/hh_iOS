@@ -34,6 +34,7 @@
 		4C14AD4E29C4E3D600520788 /* AppDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C14AD4D29C4E3D600520788 /* AppDelegateExtension.swift */; };
 		4C14AD5629C4E41E00520788 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C14AD5529C4E41E00520788 /* NotificationService.swift */; };
 		4C14AD5A29C4E41E00520788 /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4C14AD5329C4E41E00520788 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4C1DDD442A2DDB420051DC7F /* HHNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1DDD432A2DDB420051DC7F /* HHNavBarView.swift */; };
 		4C1EA0B7298CED1000DBAA02 /* HHPresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1EA0B6298CED1000DBAA02 /* HHPresentAnimator.swift */; };
 		4C2C7329297996D0001903D8 /* LGTeacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C7328297996D0001903D8 /* LGTeacher.m */; };
 		4C2CC75F29F9037200EE2CC5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2CC75E29F9037200EE2CC5 /* Date.swift */; };
@@ -256,7 +257,6 @@
 		D246FA4C279ABFE200CE418F /* HHPDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246FA23279ABFE200CE418F /* HHPDFView.m */; };
 		D246FA4D279ABFE200CE418F /* UIView+CGPDFDocumentRef.m in Sources */ = {isa = PBXBuildFile; fileRef = D246FA26279ABFE200CE418F /* UIView+CGPDFDocumentRef.m */; };
 		D246FA4E279ABFE200CE418F /* PdfBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246FA28279ABFE200CE418F /* PdfBottomView.m */; };
-		D246FA4F279ABFE200CE418F /* PdfNavBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D246FA2A279ABFE200CE418F /* PdfNavBarView.m */; };
 		D246FA50279ABFE200CE418F /* CatalogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D246FA2C279ABFE200CE418F /* CatalogueViewController.m */; };
 		D256DD2B27A0F85400699953 /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D256DD0527A0F85400699953 /* DrawingView.m */; };
 		D256DD2C27A0F85400699953 /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D256DD0627A0F85400699953 /* DrawingViewController.m */; };
@@ -780,6 +780,7 @@
 		4C14AD5329C4E41E00520788 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C14AD5529C4E41E00520788 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		4C14AD5729C4E41E00520788 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C1DDD432A2DDB420051DC7F /* HHNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHNavBarView.swift; sourceTree = "<group>"; };
 		4C1EA0B6298CED1000DBAA02 /* HHPresentAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HHPresentAnimator.swift; sourceTree = "<group>"; };
 		4C2C7327297996D0001903D8 /* LGTeacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGTeacher.h; sourceTree = "<group>"; };
 		4C2C7328297996D0001903D8 /* LGTeacher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGTeacher.m; sourceTree = "<group>"; };
@@ -1097,8 +1098,6 @@
 		D246FA25279ABFE200CE418F /* HHPDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHPDFView.h; sourceTree = "<group>"; };
 		D246FA26279ABFE200CE418F /* UIView+CGPDFDocumentRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CGPDFDocumentRef.m"; sourceTree = "<group>"; };
 		D246FA28279ABFE200CE418F /* PdfBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PdfBottomView.m; sourceTree = "<group>"; };
-		D246FA29279ABFE200CE418F /* PdfNavBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PdfNavBarView.h; sourceTree = "<group>"; };
-		D246FA2A279ABFE200CE418F /* PdfNavBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PdfNavBarView.m; sourceTree = "<group>"; };
 		D246FA2B279ABFE200CE418F /* PdfBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PdfBottomView.h; sourceTree = "<group>"; };
 		D246FA2C279ABFE200CE418F /* CatalogueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogueViewController.m; sourceTree = "<group>"; };
 		D256DD0527A0F85400699953 /* DrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingView.m; sourceTree = "<group>"; };
@@ -2684,10 +2683,9 @@
 		D246FA27279ABFE200CE418F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D246FA28279ABFE200CE418F /* PdfBottomView.m */,
-				D246FA29279ABFE200CE418F /* PdfNavBarView.h */,
-				D246FA2A279ABFE200CE418F /* PdfNavBarView.m */,
 				D246FA2B279ABFE200CE418F /* PdfBottomView.h */,
+				D246FA28279ABFE200CE418F /* PdfBottomView.m */,
+				4C1DDD432A2DDB420051DC7F /* HHNavBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4808,7 +4806,6 @@
 				D2A96660277D83F0003F173F /* LMDataSource.m in Sources */,
 				D2B207A327C35D0200A0684E /* HHCardView.m in Sources */,
 				4C03AA2C29DA89AB00DB4788 /* HHTabItem.swift in Sources */,
-				D246FA4F279ABFE200CE418F /* PdfNavBarView.m in Sources */,
 				4C0E67C22836FFB700F519EF /* UIButton+ImagePosition.m in Sources */,
 				4CD8748D2A172A30009843F4 /* HHButton.swift in Sources */,
 				4C6A1E1C292FC7C200B9F019 /* HHFMDBUtil.m in Sources */,
@@ -5009,6 +5006,7 @@
 				4CEB0C6D29BF681500F85D73 /* R.generated.swift in Sources */,
 				D272622927BF8BEA00897167 /* SearchTextField.m in Sources */,
 				D2A96662277D83F0003F173F /* MVVMViewModel.m in Sources */,
+				4C1DDD442A2DDB420051DC7F /* HHNavBarView.swift in Sources */,
 				D206EC8C2786FC7C002F1B53 /* NSString+Base64.m in Sources */,
 				D2F5B03E279129AB0095865D /* HHUtilViewController.m in Sources */,
 				D246FA30279ABFE200CE418F /* HHPDFViewController.m in Sources */,

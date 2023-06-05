@@ -11,7 +11,7 @@
 #import "CatalogueViewController.h"
 #import "PageNumberTool.h"
 #import "PdfBottomView.h"
-#import "PdfNavBarView.h"
+#import <SCM-Swift.h>
 
 #define BOOK_NAME                       @"book"
 
@@ -20,7 +20,7 @@
 @property (nonatomic, strong)NSMutableArray *pdfArr;
 @property (nonatomic, strong)CatalogueViewController *catalogueVC;
 @property (nonatomic, strong)PdfBottomView *pdfBottomV;
-@property (nonatomic, strong)PdfNavBarView *navBarView;
+@property (nonatomic, strong)HHNavBarView *navBarView;
 @end
 
 @implementation HHPDFViewController
@@ -62,11 +62,12 @@
     self.pdfBottomV.pageSlider.value = 1.0;
     [self.pdfBottomV.pageSlider addTarget:self action:@selector(handleSliderAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navBarView = [[PdfNavBarView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, STATUS_AND_NAVIGATION_HEIGHT)];
+    self.navBarView = [[HHNavBarView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, STATUS_AND_NAVIGATION_HEIGHT)];
+    self.navBarView.backgroundColor = [UIColor themeColor];
     [self.view addSubview:self.navBarView];
     [self.view bringSubviewToFront:self.navBarView];
     self.navBarView.titleLab.text = @"音准";
-    
+    [self.navBarView.leftItem setImage:[UIImage imageNamed:@"icon_return"] forState:UIControlStateNormal];
     [self setUpLockButton];
     
     self.catalogueVC = [[CatalogueViewController alloc]init];
