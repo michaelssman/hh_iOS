@@ -48,18 +48,14 @@ extension UIColor {
     convenience init(_ hexValue: Int) {
         self.init(hexValue, alphaValue: 1)
     }
-    convenience init(_ lightColor: UIColor, darkColor: UIColor) {
+
+    //深色模式
+    static func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
         if #available(iOS 13.0, *) {
-            self.init { traitCollection in
-                if traitCollection.userInterfaceStyle == .dark {
-                    return darkColor
-                } else {
-                    return lightColor
-                }
-            }
+            return UIColor { $0.userInterfaceStyle == .dark ? dark : light }
         } else {
             // Fallback on earlier versions
-            self.init()
+            return light
         }
     }
     
