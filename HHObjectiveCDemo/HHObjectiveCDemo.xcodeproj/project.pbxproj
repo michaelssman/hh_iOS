@@ -66,6 +66,7 @@
 		4C89EA842A25A25100885A4C /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C89EA832A25A25100885A4C /* UITextView.swift */; };
 		4C8C966729F4E2C800D0C14B /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C966629F4E2C800D0C14B /* UIBarButtonItem.swift */; };
 		4C8CD98329ED2631006A5C40 /* HHPlaceHolderTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8CD98229ED2631006A5C40 /* HHPlaceHolderTV.swift */; };
+		4C8FF44D2A308536003E5523 /* HHNetworkingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8FF44C2A308536003E5523 /* HHNetworkingViewController.swift */; };
 		4C9006CE29D6B5F8008814F2 /* UIScrollView+HHTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9006A129D6B5F7008814F2 /* UIScrollView+HHTab.m */; };
 		4C9006CF29D6B5F8008814F2 /* HHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9006A329D6B5F7008814F2 /* HHViewController.m */; };
 		4C9006D029D6B5F8008814F2 /* HHTabViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9006A529D6B5F7008814F2 /* HHTabViewsController.m */; };
@@ -830,6 +831,7 @@
 		4C89EA832A25A25100885A4C /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		4C8C966629F4E2C800D0C14B /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
 		4C8CD98229ED2631006A5C40 /* HHPlaceHolderTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHPlaceHolderTV.swift; sourceTree = "<group>"; };
+		4C8FF44C2A308536003E5523 /* HHNetworkingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHNetworkingViewController.swift; sourceTree = "<group>"; };
 		4C90069C29D6B5F7008814F2 /* UIScrollView+HHTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+HHTab.h"; sourceTree = "<group>"; };
 		4C9006A129D6B5F7008814F2 /* UIScrollView+HHTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+HHTab.m"; sourceTree = "<group>"; };
 		4C9006A329D6B5F7008814F2 /* HHViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHViewController.m; sourceTree = "<group>"; };
@@ -1853,6 +1855,7 @@
 			children = (
 				4CA147CC2A13250B009972D1 /* HHNetWorking.swift */,
 				4CEB0C9829BF701100F85D73 /* APISession.swift */,
+				4C8FF44C2A308536003E5523 /* HHNetworkingViewController.swift */,
 			);
 			path = Foundations;
 			sourceTree = "<group>";
@@ -4921,6 +4924,7 @@
 				4CEB0C9E29BF701200F85D73 /* HHMemento.swift in Sources */,
 				D2B7240F2797EF45008B1581 /* Model.xcdatamodeld in Sources */,
 				D2B2080327C388DA00A0684E /* CommunityView.m in Sources */,
+				4C8FF44D2A308536003E5523 /* HHNetworkingViewController.swift in Sources */,
 				D272622A27BF8BEA00897167 /* HHTextField.m in Sources */,
 				D2A96614277D5257003F173F /* main.m in Sources */,
 				D2A9666A277D83F0003F173F /* ProgrammingViewController.m in Sources */,

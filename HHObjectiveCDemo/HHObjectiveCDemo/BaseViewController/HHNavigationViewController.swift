@@ -17,8 +17,8 @@ class HHNavigationViewController: UINavigationController {
         if #available(iOS 15, *) {
             let appearance: UINavigationBarAppearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundImage = UIColor(UIColor(0xFFFFFF), darkColor: UIColor(0x1B1B21)).toImage()
-            appearance.backgroundColor = UIColor(UIColor(0xFFFFFF), darkColor: UIColor(0x1B1B21))
+            appearance.backgroundImage = UIColor.dynamicColor(light: UIColor(0xFFFFFF), dark: UIColor(0x1B1B21)).toImage()
+            appearance.backgroundColor = UIColor.dynamicColor(light: UIColor(0xFFFFFF), dark: UIColor(0x1B1B21))
             appearance.shadowColor = .clear
             appearance.backgroundEffect = UIBlurEffect(style: .regular);
             self.navigationBar.standardAppearance = appearance

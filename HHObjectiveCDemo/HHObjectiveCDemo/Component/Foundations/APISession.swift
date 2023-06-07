@@ -64,21 +64,24 @@ private extension APISession {
         return Observable.create { observer -> Disposable in
             let queue = DispatchQueue(label: "hh.app.api", qos: .background, attributes: .concurrent)
             let request = AF.request(url, method: method, parameters: parameters, encoding: encoding, headers: allHeaders, interceptor: nil)
-                .validate()
+                .validate()//.validate()：状态码是否在默认的可接受范围内200…299
                 .responseJSON(queue: queue) { response in
                     debugPrint(response)
                     switch response.result {
                     case .success:
-                        guard let data = response.data else {
+                        if let data = response.data, !data.isEmpty {
+                            // 响应数据非空，进行序列化和处理
+                            do {
+                                let model = try JSONDecoder().decode(ReponseType.self, from: data)
+                                observer.onNext(model)
+                                observer.onCompleted()
+                            } catch {
+                                observer.onError(error)
+                            }
+                        } else {
+                            // 响应数据为空或长度为零，进行错误处理
+                            print("Response data is empty.")
                             observer.onError(response.error ?? APISessionError.noData)
-                            return
-                        }
-                        do {
-                            let model = try JSONDecoder().decode(ReponseType.self, from: data)
-                            observer.onNext(model)
-                            observer.onCompleted()
-                        } catch {
-                            observer.onError(error)
                         }
                     case .failure(let error):
                         if let statusCode = response.response?.statusCode {
