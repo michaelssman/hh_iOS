@@ -25,28 +25,7 @@ class HHPickerView: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
     }()
     private var dataSource: [Any] = [] {
         didSet {
-            let pickerCount = dataSource.count
-            let pickerWidth = SCREEN_WIDTH * 1.0 / CGFloat(pickerCount)
-            for i in 0..<pickerCount {
-                let pickerView = UIPickerView()
-                pickerView.dataSource = self
-                pickerView.delegate = self
-                pickerView.tag = i
-                // pickerView 初始化显示
-                pickerView.selectRow(0, inComponent: 0, animated: true)
-                addSubview(pickerView)
-                pickerView.snp.makeConstraints { make in
-                    make.left.equalToSuperview().offset(pickerWidth * CGFloat(i))
-                    make.width.equalTo(pickerWidth)
-                    make.top.height.equalToSuperview()
-                }
-                pickerViews.append(pickerView)
-            }
-            for i in 0...1 {
-                let lineView: UIView = UIView(frame: CGRect(x: 15, y: (bounds.height - kRowHeight) * 0.5 + kRowHeight * CGFloat(i), width: SCREEN_WIDTH - 30, height: 0.5))
-                lineView.backgroundColor = UIColor(0xEBEDF0)
-                addSubview(lineView)
-            }
+            
         }
     }
     
@@ -54,7 +33,33 @@ class HHPickerView: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
         let pickView = HHPickerView(frame: frame)
         pickView.backgroundColor = .white
         pickView.dataSource = dataSource
+        pickView.setUpSubViews()
         return pickView
+    }
+    
+    private func setUpSubViews() {
+        let pickerCount = dataSource.count
+        let pickerWidth = SCREEN_WIDTH * 1.0 / CGFloat(pickerCount)
+        for i in 0..<pickerCount {
+            let pickerView = UIPickerView()
+            pickerView.dataSource = self
+            pickerView.delegate = self
+            pickerView.tag = i
+            // pickerView 初始化显示
+            pickerView.selectRow(0, inComponent: 0, animated: true)
+            addSubview(pickerView)
+            pickerView.snp.makeConstraints { make in
+                make.left.equalToSuperview().offset(pickerWidth * CGFloat(i))
+                make.width.equalTo(pickerWidth)
+                make.top.height.equalToSuperview()
+            }
+            pickerViews.append(pickerView)
+        }
+        for i in 0...1 {
+            let lineView: UIView = UIView(frame: CGRect(x: 15, y: (bounds.height - kRowHeight) * 0.5 + kRowHeight * CGFloat(i), width: SCREEN_WIDTH - 30, height: 0.5))
+            lineView.backgroundColor = UIColor(0xEBEDF0)
+            addSubview(lineView)
+        }
     }
     
     // MARK: - UIPickerViewDataSource & UIPickerViewDelegate
