@@ -97,6 +97,8 @@
 		4CB1E43C28511BDF0080D7D0 /* HHRuntimeDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E43B28511BDF0080D7D0 /* HHRuntimeDemoVC.m */; };
 		4CB201A42A120F17002FDAC0 /* BiometricLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB201A32A120F17002FDAC0 /* BiometricLoginViewController.swift */; };
 		4CB7CA9529EFE67600B3D083 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB7CA9429EFE67600B3D083 /* CoreDataHelper.swift */; };
+		4CB7E79F2A36FE9B001F9BE7 /* HHGroupShadowTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB7E79A2A36FE9B001F9BE7 /* HHGroupShadowTableViewController.m */; };
+		4CB7E7A12A36FE9B001F9BE7 /* GroupShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB7E79E2A36FE9B001F9BE7 /* GroupShadowTableView.m */; };
 		4CC0C57A2952B09200FE0EDA /* HHPreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0C5792952B09200FE0EDA /* HHPreView.m */; };
 		4CC0C57D2952C05D00FE0EDA /* HHBarCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0C57C2952C05D00FE0EDA /* HHBarCodeView.m */; };
 		4CCD08F329DC72F400F91A5C /* HHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD08F229DC72F400F91A5C /* HHViewController.swift */; };
@@ -870,6 +872,10 @@
 		4CB1E43B28511BDF0080D7D0 /* HHRuntimeDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHRuntimeDemoVC.m; sourceTree = "<group>"; };
 		4CB201A32A120F17002FDAC0 /* BiometricLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricLoginViewController.swift; sourceTree = "<group>"; };
 		4CB7CA9429EFE67600B3D083 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		4CB7E79A2A36FE9B001F9BE7 /* HHGroupShadowTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHGroupShadowTableViewController.m; sourceTree = "<group>"; };
+		4CB7E79B2A36FE9B001F9BE7 /* GroupShadowTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupShadowTableView.h; sourceTree = "<group>"; };
+		4CB7E79D2A36FE9B001F9BE7 /* HHGroupShadowTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHGroupShadowTableViewController.h; sourceTree = "<group>"; };
+		4CB7E79E2A36FE9B001F9BE7 /* GroupShadowTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupShadowTableView.m; sourceTree = "<group>"; };
 		4CC0C5782952B09200FE0EDA /* HHPreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHPreView.h; sourceTree = "<group>"; };
 		4CC0C5792952B09200FE0EDA /* HHPreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HHPreView.m; sourceTree = "<group>"; };
 		4CC0C57B2952C05D00FE0EDA /* HHBarCodeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHBarCodeView.h; sourceTree = "<group>"; };
@@ -1903,6 +1909,7 @@
 		4C8CD97B29ECED4C006A5C40 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				4CB7E7992A36FE9B001F9BE7 /* HHGroupShadowTableView */,
 				4CFFC3F62A06519E00AC500A /* BaseObjectViewController */,
 				4C49D5FF29F686A30016E357 /* Foundations */,
 				D2295EF627C6248D006A7EEF /* HHSelectPhoto */,
@@ -2015,6 +2022,17 @@
 				4CB1E4352850BC6F0080D7D0 /* HHIsaViewController.m */,
 			);
 			name = "类的原理";
+			sourceTree = "<group>";
+		};
+		4CB7E7992A36FE9B001F9BE7 /* HHGroupShadowTableView */ = {
+			isa = PBXGroup;
+			children = (
+				4CB7E79B2A36FE9B001F9BE7 /* GroupShadowTableView.h */,
+				4CB7E79E2A36FE9B001F9BE7 /* GroupShadowTableView.m */,
+				4CB7E79D2A36FE9B001F9BE7 /* HHGroupShadowTableViewController.h */,
+				4CB7E79A2A36FE9B001F9BE7 /* HHGroupShadowTableViewController.m */,
+			);
+			path = HHGroupShadowTableView;
 			sourceTree = "<group>";
 		};
 		4CCE00062951BB9B00439F99 /* AVPlayer */ = {
@@ -4857,6 +4875,7 @@
 				D2F6F5F927C4F96200AAA110 /* HHPublishToolView.m in Sources */,
 				D2A9666B277D83F0003F173F /* ChainProgrammingController.m in Sources */,
 				D23E55D427840E6800877325 /* PageJumpUtil.m in Sources */,
+				4CB7E79F2A36FE9B001F9BE7 /* HHGroupShadowTableViewController.m in Sources */,
 				D2D7E0E127968D7B00BA3EAD /* NSObject+HHKVO.m in Sources */,
 				D2D7E1652796C9C500BA3EAD /* HHImageViewController.m in Sources */,
 				4CEB0CB129BF735600F85D73 /* TargetClassMetadataViewController.swift in Sources */,
@@ -5087,6 +5106,7 @@
 				D2C34D1B278EC72E00F4214D /* HHSpringAnimationViewController.m in Sources */,
 				D2B723C12797D78E008B1581 /* HHCDTeacherViewController.m in Sources */,
 				D2C0B75B278FC9EC000B9D99 /* UITextField+Util.m in Sources */,
+				4CB7E7A12A36FE9B001F9BE7 /* GroupShadowTableView.m in Sources */,
 				4CCE00212951BB9B00439F99 /* CCVideoEncoder.m in Sources */,
 				4C14AD4E29C4E3D600520788 /* AppDelegateExtension.swift in Sources */,
 				4CEB0C1B29BF462D00F85D73 /* HHTabBarViewController.swift in Sources */,

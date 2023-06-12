@@ -69,6 +69,7 @@ static const NSString *vc = @"vc";
                                 @{title:@"相册图片选择",vc:@"HHSelectPHDemoViewController"},
                                 @{title:@"贴吧、微博 发帖动画",vc:@"HHPlusPopViewController"},
                                 @{title:@"评论输入框",vc:@"HHCommentInputBoxViewController"},
+                                @{title:@"分区带圆角的tableView",vc:@"HHGroupShadowTableViewController"},
                                 nil];
                 break;
             default:
