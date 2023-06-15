@@ -29,18 +29,10 @@ class HHButton: UIButton {
         return super.imageRect(forContentRect: contentRect)
     }
     
-
-    func calculateStringWidth(string: String, font: UIFont) -> CGFloat {
-        let attributes = [NSAttributedString.Key.font: font]
-        let attributedString = NSAttributedString(string: string, attributes: attributes)
-        let size = attributedString.size()
-        return size.width
-    }
-    
     /// 计算文字宽度
     var calculatedTitleWidth: CGFloat {
         if let titleLabel = self.titleLabel, let text = titleLabel.text {
-            return calculateStringWidth(string: text, font: titleLabel.font)
+            return text.calculateStringWidth(font: titleLabel.font)
         } else {
             return titleWidth;
         }

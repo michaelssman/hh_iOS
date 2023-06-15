@@ -399,8 +399,6 @@
 		D2B7243727981961008B1581 /* HHmain.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B7243527981960008B1581 /* HHmain.m */; };
 		D2C0B748278FC9EC000B9D99 /* UISwitch+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B70B278FC9EB000B9D99 /* UISwitch+Util.m */; };
 		D2C0B74B278FC9EC000B9D99 /* UILabel+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B712278FC9EB000B9D99 /* UILabel+Util.m */; };
-		D2C0B74F278FC9EC000B9D99 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B71E278FC9EB000B9D99 /* UIColor+Util.m */; };
-		D2C0B754278FC9EC000B9D99 /* NSString+Adaptive.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B72B278FC9EB000B9D99 /* NSString+Adaptive.m */; };
 		D2C0B75A278FC9EC000B9D99 /* NSObject+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B738278FC9EC000B9D99 /* NSObject+Util.m */; };
 		D2C0B75B278FC9EC000B9D99 /* UITextField+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B73C278FC9EC000B9D99 /* UITextField+Util.m */; };
 		D2C0B75C278FC9EC000B9D99 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C0B73E278FC9EC000B9D99 /* TestViewController.m */; };
@@ -1358,10 +1356,6 @@
 		D2C0B70C278FC9EB000B9D99 /* UISwitch+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISwitch+Util.h"; sourceTree = "<group>"; };
 		D2C0B710278FC9EB000B9D99 /* UILabel+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Util.h"; sourceTree = "<group>"; };
 		D2C0B712278FC9EB000B9D99 /* UILabel+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Util.m"; sourceTree = "<group>"; };
-		D2C0B71D278FC9EB000B9D99 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
-		D2C0B71E278FC9EB000B9D99 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
-		D2C0B728278FC9EB000B9D99 /* NSString+Adaptive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Adaptive.h"; sourceTree = "<group>"; };
-		D2C0B72B278FC9EB000B9D99 /* NSString+Adaptive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Adaptive.m"; sourceTree = "<group>"; };
 		D2C0B738278FC9EC000B9D99 /* NSObject+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Util.m"; sourceTree = "<group>"; };
 		D2C0B739278FC9EC000B9D99 /* NSObject+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Util.h"; sourceTree = "<group>"; };
 		D2C0B73B278FC9EC000B9D99 /* UITextField+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Util.h"; sourceTree = "<group>"; };
@@ -3461,10 +3455,8 @@
 			children = (
 				D2C0B739278FC9EC000B9D99 /* NSObject+Util.h */,
 				D2C0B738278FC9EC000B9D99 /* NSObject+Util.m */,
-				D2C0B725278FC9EB000B9D99 /* NSString */,
 				D2C0B760278FCA2F000B9D99 /* readme.md */,
 				D2C0B717278FC9EB000B9D99 /* UIButton */,
-				D2C0B71C278FC9EB000B9D99 /* UIColor */,
 				D2C0B710278FC9EB000B9D99 /* UILabel+Util.h */,
 				D2C0B712278FC9EB000B9D99 /* UILabel+Util.m */,
 				D2C0B70C278FC9EB000B9D99 /* UISwitch+Util.h */,
@@ -3482,24 +3474,6 @@
 				4C0E67C12836FFB700F519EF /* UIButton+ImagePosition.m */,
 			);
 			path = UIButton;
-			sourceTree = "<group>";
-		};
-		D2C0B71C278FC9EB000B9D99 /* UIColor */ = {
-			isa = PBXGroup;
-			children = (
-				D2C0B71D278FC9EB000B9D99 /* UIColor+Util.h */,
-				D2C0B71E278FC9EB000B9D99 /* UIColor+Util.m */,
-			);
-			path = UIColor;
-			sourceTree = "<group>";
-		};
-		D2C0B725278FC9EB000B9D99 /* NSString */ = {
-			isa = PBXGroup;
-			children = (
-				D2C0B728278FC9EB000B9D99 /* NSString+Adaptive.h */,
-				D2C0B72B278FC9EB000B9D99 /* NSString+Adaptive.m */,
-			);
-			path = NSString;
 			sourceTree = "<group>";
 		};
 		D2C0B73D278FC9EC000B9D99 /* HHCategorysDemo */ = {
@@ -5050,7 +5024,6 @@
 				D20083D927C7284900651CFC /* HHCommentInputBoxViewController.m in Sources */,
 				D20BBC6527C33A0800C42823 /* HHAddressTabBar.m in Sources */,
 				D2F6F5FA27C4F96200AAA110 /* HHPublishView.m in Sources */,
-				D2C0B754278FC9EC000B9D99 /* NSString+Adaptive.m in Sources */,
 				D256DD6A27A12A0900699953 /* ToViewController.m in Sources */,
 				D2EBF30B27BA30C1008B86BE /* AppDelegate+UM.m in Sources */,
 				4C7F5DEC296D95530019007F /* HHPhotosViewController.swift in Sources */,
@@ -5110,7 +5083,6 @@
 				4CCE00212951BB9B00439F99 /* CCVideoEncoder.m in Sources */,
 				4C14AD4E29C4E3D600520788 /* AppDelegateExtension.swift in Sources */,
 				4CEB0C1B29BF462D00F85D73 /* HHTabBarViewController.swift in Sources */,
-				D2C0B74F278FC9EC000B9D99 /* UIColor+Util.m in Sources */,
 				D2B72433279807E0008B1581 /* LGBlockMonitor.m in Sources */,
 				4CEB0C9F29BF701300F85D73 /* HHSingleton.swift in Sources */,
 				4C426B8429E7DBE5009D63C2 /* HHPickerView.swift in Sources */,

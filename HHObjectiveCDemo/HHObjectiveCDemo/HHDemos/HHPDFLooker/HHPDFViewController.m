@@ -63,7 +63,7 @@
     [self.pdfBottomV.pageSlider addTarget:self action:@selector(handleSliderAction:) forControlEvents:UIControlEventTouchUpInside];
     
     self.navBarView = [[HHNavBarView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, STATUS_AND_NAVIGATION_HEIGHT)];
-    self.navBarView.backgroundColor = [UIColor themeColor];
+    self.navBarView.backgroundColor = [UIColor hexColor:0x01C257];
     [self.view addSubview:self.navBarView];
     [self.view bringSubviewToFront:self.navBarView];
     self.navBarView.titleLab.text = @"音准";

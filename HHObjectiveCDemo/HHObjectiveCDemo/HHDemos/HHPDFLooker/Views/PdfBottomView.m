@@ -21,7 +21,7 @@
 #pragma mark bottomView
 - (void)createBottomView {
     self.bottomView = [[UIView alloc]init];
-    self.bottomView.backgroundColor = [UIColor colorWithHex:0xffffff];
+    self.bottomView.backgroundColor = [UIColor hexColor:0xffffff];
     [self addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(0);
@@ -32,15 +32,15 @@
     [self.catalogueBtn setTitle:@"目录" forState:UIControlStateNormal];
     [self.catalogueBtn setImage:[UIImage imageNamed:@"icon_list"] forState:UIControlStateNormal];
     [self.catalogueBtn setImage:[UIImage imageNamed:@"icon_list_sel"] forState:UIControlStateHighlighted];
-    [self.catalogueBtn setTitleColor:[UIColor colorWithHex:0x404548] forState:UIControlStateNormal];
-    [self.catalogueBtn setTitleColor:[UIColor themeColor] forState:UIControlStateHighlighted];
+    [self.catalogueBtn setTitleColor:[UIColor hexColor:0x404548] forState:UIControlStateNormal];
+    [self.catalogueBtn setTitleColor:[UIColor hexColor:0x01C257] forState:UIControlStateHighlighted];
     [self.bottomView addSubview:self.catalogueBtn];
     [self.catalogueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.top.mas_equalTo(0);
     }];
     
     UILabel *lineLab = [[UILabel alloc]init];
-    lineLab.backgroundColor = [UIColor colorWithHex:0xdddddd];
+    lineLab.backgroundColor = [UIColor hexColor:0xdddddd];
     [self.bottomView addSubview:lineLab];
     [lineLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.catalogueBtn.mas_right).offset(0);
@@ -53,8 +53,8 @@
     [self.pageBtn setTitle:@"翻页" forState:UIControlStateNormal];
     [self.pageBtn setImage:[UIImage imageNamed:@"icon_page_turn"] forState:UIControlStateNormal];
     [self.pageBtn setImage:[UIImage imageNamed:@"icon_page_turn_sel"] forState:UIControlStateSelected];
-    [self.pageBtn setTitleColor:[UIColor colorWithHex:0x404548] forState:UIControlStateNormal];
-    [self.pageBtn setTitleColor:[UIColor themeColor] forState:UIControlStateSelected];
+    [self.pageBtn setTitleColor:[UIColor hexColor:0x404548] forState:UIControlStateNormal];
+    [self.pageBtn setTitleColor:[UIColor hexColor:0x01C257] forState:UIControlStateSelected];
     [self.pageBtn addTarget:self action:@selector(handleFilpPage) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomView addSubview:self.pageBtn];
     [self.pageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,11 +67,11 @@
 #pragma mark
 - (void)setUpFilpPageView {
     self.flipPageView = [[UIView alloc]initWithFrame:CGRectMake(0, PdfFlipPageHeight + PdfBottomHeight, SCREEN_WIDTH, PdfFlipPageHeight)];
-    self.flipPageView.backgroundColor = [UIColor colorWithHex:0xffffff];
+    self.flipPageView.backgroundColor = [UIColor hexColor:0xffffff];
     [self addSubview:self.flipPageView];
     
     WEAKSELF
-    self.pageLab = [[UILabel alloc] initWithTextColor:[UIColor colorWithHex:404548] fontSize:28];
+    self.pageLab = [[UILabel alloc] initWithTextColor:[UIColor hexColor:404548] fontSize:28];
     [self.flipPageView addSubview:self.pageLab];
     [self.pageLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.flipPageView);
@@ -94,9 +94,9 @@
     }];
     
     self.pageSlider = [[UISlider alloc]init];
-    self.pageSlider.minimumTrackTintColor = [UIColor themeColor];
-    self.pageSlider.maximumTrackTintColor = [UIColor colorWithHex:0xd2d2d2];
-    self.pageSlider.thumbTintColor = [UIColor themeColor];
+    self.pageSlider.minimumTrackTintColor = [UIColor hexColor:0x01C257];
+    self.pageSlider.maximumTrackTintColor = [UIColor hexColor:0xd2d2d2];
+    self.pageSlider.thumbTintColor = [UIColor hexColor:0x01C257];
     [self.flipPageView addSubview:self.pageSlider];
     [self.pageSlider mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(20);

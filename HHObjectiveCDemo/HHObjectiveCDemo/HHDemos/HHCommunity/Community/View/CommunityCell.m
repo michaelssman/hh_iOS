@@ -8,7 +8,6 @@
 
 #import "CommunityCell.h"
 #import "CommunityModel.h"
-#import "UIColor+Util.h"
 #import <Masonry.h>
 #define CellPadding     1.0
 

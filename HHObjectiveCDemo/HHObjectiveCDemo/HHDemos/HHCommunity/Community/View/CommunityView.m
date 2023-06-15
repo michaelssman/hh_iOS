@@ -9,12 +9,9 @@
 #import "CommunityView.h"
 #import "CommunityModel.h"
 #import "GridImageView.h"
-
-#import "NSString+Adaptive.h"
 #import "NSDate+Util.h"
 #import "UIImageView+WebCache.h"
 #import <SCM-Swift.h>
-#import "UIColor+Util.h"
 #define ContentWidth    SCREEN_WIDTH - AvatarSize - 30
 #define ContentFontSize 18
 #define kButtonFont     [UIFont systemFontOfSize:11]
@@ -33,8 +30,8 @@
     if (!_supportBtn) {
         _supportBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _supportBtn.titleLabel.font = kButtonFont;
-        [_supportBtn setTitleColor:[UIColor lightContentTextColor] forState:UIControlStateNormal];
-        [_supportBtn setTitleColor:[UIColor themeColor] forState:UIControlStateSelected];
+        [_supportBtn setTitleColor:[UIColor hexColor:0x404548] forState:UIControlStateNormal];
+        [_supportBtn setTitleColor:[UIColor hexColor:0x01C257] forState:UIControlStateSelected];
         [_supportBtn setImage:[UIImage imageNamed:@"icon_supportBtn"] forState:UIControlStateNormal];
         [_supportBtn setImage:[UIImage imageNamed:@"icon_supportBtn_sel"] forState:UIControlStateSelected];
         _supportBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -46,7 +43,7 @@
     if (!_commentCntBtn) {
         _commentCntBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _commentCntBtn.titleLabel.font = kButtonFont;
-        [_commentCntBtn setTitleColor:[UIColor lightContentTextColor] forState:UIControlStateNormal];
+        [_commentCntBtn setTitleColor:[UIColor hexColor:0x404548] forState:UIControlStateNormal];
         [_commentCntBtn setImage:[UIImage imageNamed:@"icon_commentBtn"] forState:UIControlStateNormal];
         [_commentCntBtn setImage:[UIImage imageNamed:@"icon_commentBtn_sel"] forState:UIControlStateHighlighted];
         _commentCntBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -67,11 +64,11 @@
 - (void)setUpViews {
     self.avatarView = [[UIImageView alloc] init];
     
-    self.nicknameLabel = [[UILabel alloc] initWithTextColor:[UIColor lightContentTextColor] fontSize:14];
-    self.contentLabel = [[UILabel alloc] initWithTextColor:[UIColor darkContentTextColor] fontSize:ContentFontSize];
+    self.nicknameLabel = [[UILabel alloc] initWithTextColor:[UIColor hexColor:0x404548] fontSize:14];
+    self.contentLabel = [[UILabel alloc] initWithTextColor:[UIColor darkTextColor] fontSize:ContentFontSize];
     self.contentLabel.numberOfLines = 0;
     self.contentLabel.lineBreakMode = NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
-    self.dateLabel = [[UILabel alloc] initWithTextColor:[UIColor lightContentTextColor] fontSize:11];
+    self.dateLabel = [[UILabel alloc] initWithTextColor:[UIColor hexColor:0x404548] fontSize:11];
     self.pictureView = [[GridImageView alloc] initWithMaxWidth:ContentWidth];
     
     [self addSubview:self.avatarView];

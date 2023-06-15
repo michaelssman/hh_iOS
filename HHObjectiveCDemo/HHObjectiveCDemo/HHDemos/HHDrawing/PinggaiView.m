@@ -8,7 +8,7 @@
 
 #import "PinggaiView.h"
 #import "Masonry.h"
-#import "UIColor+Util.h"
+#import <SCM-Swift.h>
 #import "UIButton+ImagePosition.h"
 #define WEAKSELF                        __weak __typeof(self) weakSelf = self;
 
@@ -39,7 +39,7 @@ static const int drawingViewTag = 300;
 //添加内容视图
 - (void)addContentView {
     self.scrollView = [[UIScrollView alloc]init];
-    self.scrollView.backgroundColor = [UIColor colorWithHex:0xffffda];
+    self.scrollView.backgroundColor = [UIColor hexColor:0xffffda];
     //设置scrollView按页滚动
     self.scrollView.pagingEnabled = YES;
     self.scrollView.scrollEnabled = NO;
@@ -55,7 +55,7 @@ static const int drawingViewTag = 300;
     
     self.commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.commentBtn setTitle:@"评语" forState:UIControlStateNormal];
-    [self.commentBtn setTitleColor:[UIColor colorWithHex:0x404548] forState:UIControlStateNormal];
+    [self.commentBtn setTitleColor:[UIColor hexColor:0x404548] forState:UIControlStateNormal];
     [self.commentBtn setImage:[UIImage imageNamed:@"icon_comment"] forState:UIControlStateNormal];
     [self.commentBtn setImage:[UIImage imageNamed:@"icon_comment_sel"] forState:UIControlStateSelected];
     [self.commentBtn setImagePosition:ImagePositionTop spacing:0];
@@ -63,8 +63,8 @@ static const int drawingViewTag = 300;
     self.correntBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.correntBtn setTitle:@"批改" forState:UIControlStateNormal];
     [self.correntBtn setTitle:@"预览" forState:UIControlStateSelected];
-    [self.correntBtn setTitleColor:[UIColor colorWithHex:0x404548] forState:UIControlStateNormal];
-    [self.correntBtn setTitleColor:[UIColor colorWithHex:0x404548] forState:UIControlStateSelected];
+    [self.correntBtn setTitleColor:[UIColor hexColor:0x404548] forState:UIControlStateNormal];
+    [self.correntBtn setTitleColor:[UIColor hexColor:0x404548] forState:UIControlStateSelected];
     [self.correntBtn setImage:[UIImage imageNamed:@"icon_correct"] forState:UIControlStateNormal];
     [self.correntBtn setImage:[UIImage imageNamed:@"icon_preview"] forState:UIControlStateSelected];
     [self.correntBtn setImagePosition:ImagePositionTop spacing:0];

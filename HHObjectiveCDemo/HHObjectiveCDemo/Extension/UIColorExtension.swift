@@ -32,10 +32,10 @@ extension UIColor {
     }
     
     //静态方法
-    static func hexColor(_ hexValue: Int, alphaValue: Float) -> UIColor {
+    @objc static func hexColor(_ hexValue: Int, alphaValue: Float) -> UIColor {
         return UIColor(red: CGFloat((hexValue & 0xFF0000) >> 16) / 255, green: CGFloat((hexValue & 0x00FF00) >> 8) / 255, blue: CGFloat(hexValue & 0x0000FF) / 255, alpha: CGFloat(alphaValue))
     }
-    static func hexColor(_ hexValue: Int) -> UIColor {
+    @objc static func hexColor(_ hexValue: Int) -> UIColor {
         return hexColor(hexValue, alphaValue: 1)
     }
     ///便捷初始化方法
@@ -57,6 +57,17 @@ extension UIColor {
             // Fallback on earlier versions
             return light
         }
+    }
+    
+    @objc static func backgroundColor() -> UIColor {
+        return hexColor(0xebebeb)
+    }
+    
+    @objc static func randomColor() -> UIColor {
+        let red = CGFloat(arc4random() % 256) / 255.0
+        let green = CGFloat(arc4random() % 256) / 255.0
+        let blue = CGFloat(arc4random() % 256) / 255.0
+        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
     
     //UIColor获取RGB色值

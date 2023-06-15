@@ -40,7 +40,7 @@
     CGContextRetain(context);
     CGContextSaveGState(context);
     
-    [[UIColor colorWithHex:0xededed] set];
+    [[UIColor hexColor:0xededed] set];
     CGContextFillRect(context, rect);//填充背景色，否则为全黑色；
     
     CGContextTranslateCTM(context, 0, rect.size.height);//设置位移，x，y；

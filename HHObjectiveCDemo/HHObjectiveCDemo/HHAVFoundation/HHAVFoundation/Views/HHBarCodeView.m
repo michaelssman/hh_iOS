@@ -178,7 +178,7 @@
         CGFloat boxSize = 300, topHeight = 100;
         
         UIView *maskV = [[UIView alloc]initWithFrame:self.bounds];
-        maskV.backgroundColor = [UIColor colorWithHex:0x0D0D0D alpha:0.6];
+        maskV.backgroundColor = [UIColor hexColor:0x0D0D0D alphaValue:0.6];
         [self addSubview:maskV];
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
         //镂空部分

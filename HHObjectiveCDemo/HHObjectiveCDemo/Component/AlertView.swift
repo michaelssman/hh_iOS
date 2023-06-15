@@ -13,7 +13,7 @@ class AlertView: UIView {
     static let bgHeight: CGFloat = 140
     
     lazy var alertBgView: UIView = {
-        let alertBgView: UIView =  UIView(frame: CGRect(x: (UIScreen.main.bounds.width - Self.bgWidth) * 0.5, y: (SCREEN_HEIGHT - Self.bgHeight) * 0.5 - 50, width: Self.bgWidth, height: 140))
+        let alertBgView: UIView =  UIView(frame: CGRect(x: (UIScreen.main.bounds.width - Self.bgWidth) * 0.5, y: (SCREEN_HEIGHT - Self.bgHeight) * 0.5 - 50, width: Self.bgWidth, height: Self.bgHeight))
         alertBgView.backgroundColor = .white
         alertBgView.layer.masksToBounds = true
         alertBgView.layer.cornerRadius = 6.0
@@ -21,7 +21,7 @@ class AlertView: UIView {
     }()
     
     lazy var titleView: UILabel = {
-        let titleView: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: AlertView.bgWidth, height: 90))
+        let titleView: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: Self.bgWidth, height: 90))
         titleView.textColor = UIColor(0x0D0D0D)
         titleView.font = UIFont.systemFont(ofSize: 14)
         titleView.textAlignment = .center

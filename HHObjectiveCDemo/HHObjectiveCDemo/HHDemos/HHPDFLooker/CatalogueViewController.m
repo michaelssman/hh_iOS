@@ -52,13 +52,13 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headerV = [[UIView alloc]init];
     headerV.tag = section;
-    UILabel *titleLabel = [[UILabel alloc] initWithTextColor:[UIColor colorWithHex:0x404548] fontSize:30];
+    UILabel *titleLabel = [[UILabel alloc] initWithTextColor:[UIColor hexColor:0x404548] fontSize:30];
     [headerV addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.mas_equalTo(0);
         make.width.mas_equalTo(200);
     }];
-    UILabel *numberLabel = [[UILabel alloc] initWithTextColor:[UIColor colorWithHex:0x404548] fontSize:26];
+    UILabel *numberLabel = [[UILabel alloc] initWithTextColor:[UIColor hexColor:0x404548] fontSize:26];
     numberLabel.textAlignment = NSTextAlignmentRight;
     [headerV addSubview:numberLabel];
     [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,10 +94,10 @@
     NSArray *subContents = dictJJJJ[@"SubContents"];
     NSDictionary *dict = subContents[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"     %@",dict[@"Title"]];
-    cell.textLabel.textColor = [UIColor colorWithHex:0x404548];
+    cell.textLabel.textColor = [UIColor hexColor:0x404548];
     cell.textLabel.font = [UIFont systemFontOfSize:30];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", dict[@"Index"]];
-    cell.detailTextLabel.textColor = [UIColor colorWithHex:0x404548];
+    cell.detailTextLabel.textColor = [UIColor hexColor:0x404548];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:26];
     return cell;
 }
