@@ -4,4272 +4,1599 @@
 //
 
 import Foundation
-import Rswift
+import RswiftResources
 import UIKit
 
-/// This `R` struct is generated and contains references to static resources.
-struct R: Rswift.Validatable {
-  fileprivate static let applicationLocale = hostingBundle.preferredLocalizations.first.flatMap { Locale(identifier: $0) } ?? Locale.current
-  fileprivate static let hostingBundle = Bundle(for: R.Class.self)
+private class BundleFinder {}
+let R = _R(bundle: Bundle(for: BundleFinder.self))
 
-  /// Find first language and bundle for which the table exists
-  fileprivate static func localeBundle(tableName: String, preferredLanguages: [String]) -> (Foundation.Locale, Foundation.Bundle)? {
-    // Filter preferredLanguages to localizations, use first locale
-    var languages = preferredLanguages
-      .map { Locale(identifier: $0) }
-      .prefix(1)
-      .flatMap { locale -> [String] in
-        if hostingBundle.localizations.contains(locale.identifier) {
-          if let language = locale.languageCode, hostingBundle.localizations.contains(language) {
-            return [locale.identifier, language]
-          } else {
-            return [locale.identifier]
-          }
-        } else if let language = locale.languageCode, hostingBundle.localizations.contains(language) {
-          return [language]
-        } else {
-          return []
-        }
-      }
+struct _R {
+  let bundle: Foundation.Bundle
+  var color: color { .init(bundle: bundle) }
+  var image: image { .init(bundle: bundle) }
+  var info: info { .init(bundle: bundle) }
+  var file: file { .init(bundle: bundle) }
+  var storyboard: storyboard { .init(bundle: bundle) }
 
-    // If there's no languages, use development language as backstop
-    if languages.isEmpty {
-      if let developmentLocalization = hostingBundle.developmentLocalization {
-        languages = [developmentLocalization]
-      }
-    } else {
-      // Insert Base as second item (between locale identifier and languageCode)
-      languages.insert("Base", at: 1)
-
-      // Add development language as backstop
-      if let developmentLocalization = hostingBundle.developmentLocalization {
-        languages.append(developmentLocalization)
-      }
-    }
-
-    // Find first language for which table exists
-    // Note: key might not exist in chosen language (in that case, key will be shown)
-    for language in languages {
-      if let lproj = hostingBundle.url(forResource: language, withExtension: "lproj"),
-         let lbundle = Bundle(url: lproj)
-      {
-        let strings = lbundle.url(forResource: tableName, withExtension: "strings")
-        let stringsdict = lbundle.url(forResource: tableName, withExtension: "stringsdict")
-
-        if strings != nil || stringsdict != nil {
-          return (Locale(identifier: language), lbundle)
-        }
-      }
-    }
-
-    // If table is available in main bundle, don't look for localized resources
-    let strings = hostingBundle.url(forResource: tableName, withExtension: "strings", subdirectory: nil, localization: nil)
-    let stringsdict = hostingBundle.url(forResource: tableName, withExtension: "stringsdict", subdirectory: nil, localization: nil)
-
-    if strings != nil || stringsdict != nil {
-      return (applicationLocale, hostingBundle)
-    }
-
-    // If table is not found for requested languages, key will be shown
-    return nil
+  func color(bundle: Foundation.Bundle) -> color {
+    .init(bundle: bundle)
+  }
+  func image(bundle: Foundation.Bundle) -> image {
+    .init(bundle: bundle)
+  }
+  func info(bundle: Foundation.Bundle) -> info {
+    .init(bundle: bundle)
+  }
+  func file(bundle: Foundation.Bundle) -> file {
+    .init(bundle: bundle)
+  }
+  func storyboard(bundle: Foundation.Bundle) -> storyboard {
+    .init(bundle: bundle)
+  }
+  func validate() throws {
+    try self.storyboard.validate()
   }
 
-  /// Load string from Info.plist file
-  fileprivate static func infoPlistString(path: [String], key: String) -> String? {
-    var dict = hostingBundle.infoDictionary
-    for step in path {
-      guard let obj = dict?[step] as? [String: Any] else { return nil }
-      dict = obj
-    }
-    return dict?[key] as? String
+  struct project {
+    let developmentRegion = "en"
   }
 
-  static func validate() throws {
-    try intern.validate()
-  }
-
-  #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
-  struct storyboard {
-    /// Storyboard `LaunchScreen`.
-    static let launchScreen = _R.storyboard.launchScreen()
-    /// Storyboard `Main`.
-    static let main = _R.storyboard.main()
-
-    #if os(iOS) || os(tvOS)
-    /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
-    static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.launchScreen)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIStoryboard(name: "Main", bundle: ...)`
-    static func main(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.main)
-    }
-    #endif
-
-    fileprivate init() {}
-  }
-  #endif
-
-  /// This `R.color` struct is generated, and contains static references to 1 colors.
+  /// This `_R.color` struct is generated, and contains static references to 1 colors.
   struct color {
+    let bundle: Foundation.Bundle
+
     /// Color `AccentColor`.
-    static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
-
-    #if os(iOS) || os(tvOS)
-    /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
-    @available(tvOS 11.0, *)
-    @available(iOS 11.0, *)
-    static func accentColor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
-      return UIKit.UIColor(resource: R.color.accentColor, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(watchOS)
-    /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
-    @available(watchOSApplicationExtension 4.0, *)
-    static func accentColor(_: Void = ()) -> UIKit.UIColor? {
-      return UIKit.UIColor(named: R.color.accentColor.name)
-    }
-    #endif
-
-    fileprivate init() {}
+    var accentColor: RswiftResources.ColorResource { .init(name: "AccentColor", path: [], bundle: bundle) }
   }
 
-  /// This `R.file` struct is generated, and contains static references to 325 files.
-  struct file {
-    /// Resource file `Expression__100@2x.png`.
-    static let expression__1002xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__100@2x", pathExtension: "png")
-    /// Resource file `Expression__100@3x.png`.
-    static let expression__1003xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__100@3x", pathExtension: "png")
-    /// Resource file `Expression__10@2x.png`.
-    static let expression__102xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__10@2x", pathExtension: "png")
-    /// Resource file `Expression__10@3x.png`.
-    static let expression__103xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__10@3x", pathExtension: "png")
-    /// Resource file `Expression__11@2x.png`.
-    static let expression__112xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__11@2x", pathExtension: "png")
-    /// Resource file `Expression__11@3x.png`.
-    static let expression__113xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__11@3x", pathExtension: "png")
-    /// Resource file `Expression__12@2x.png`.
-    static let expression__122xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__12@2x", pathExtension: "png")
-    /// Resource file `Expression__12@3x.png`.
-    static let expression__123xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__12@3x", pathExtension: "png")
-    /// Resource file `Expression__13@2x.png`.
-    static let expression__132xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__13@2x", pathExtension: "png")
-    /// Resource file `Expression__13@3x.png`.
-    static let expression__133xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__13@3x", pathExtension: "png")
-    /// Resource file `Expression__14@2x.png`.
-    static let expression__142xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__14@2x", pathExtension: "png")
-    /// Resource file `Expression__14@3x.png`.
-    static let expression__143xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__14@3x", pathExtension: "png")
-    /// Resource file `Expression__15@2x.png`.
-    static let expression__152xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__15@2x", pathExtension: "png")
-    /// Resource file `Expression__15@3x.png`.
-    static let expression__153xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__15@3x", pathExtension: "png")
-    /// Resource file `Expression__16@2x.png`.
-    static let expression__162xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__16@2x", pathExtension: "png")
-    /// Resource file `Expression__16@3x.png`.
-    static let expression__163xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__16@3x", pathExtension: "png")
-    /// Resource file `Expression__17@2x.png`.
-    static let expression__172xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__17@2x", pathExtension: "png")
-    /// Resource file `Expression__17@3x.png`.
-    static let expression__173xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__17@3x", pathExtension: "png")
-    /// Resource file `Expression__18@2x.png`.
-    static let expression__182xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__18@2x", pathExtension: "png")
-    /// Resource file `Expression__18@3x.png`.
-    static let expression__183xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__18@3x", pathExtension: "png")
-    /// Resource file `Expression__19@2x.png`.
-    static let expression__192xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__19@2x", pathExtension: "png")
-    /// Resource file `Expression__19@3x.png`.
-    static let expression__193xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__19@3x", pathExtension: "png")
-    /// Resource file `Expression__1@2x.png`.
-    static let expression__12xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__1@2x", pathExtension: "png")
-    /// Resource file `Expression__1@3x.png`.
-    static let expression__13xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__1@3x", pathExtension: "png")
-    /// Resource file `Expression__20@2x.png`.
-    static let expression__202xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__20@2x", pathExtension: "png")
-    /// Resource file `Expression__20@3x.png`.
-    static let expression__203xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__20@3x", pathExtension: "png")
-    /// Resource file `Expression__21@2x.png`.
-    static let expression__212xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__21@2x", pathExtension: "png")
-    /// Resource file `Expression__21@3x.png`.
-    static let expression__213xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__21@3x", pathExtension: "png")
-    /// Resource file `Expression__22@2x.png`.
-    static let expression__222xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__22@2x", pathExtension: "png")
-    /// Resource file `Expression__22@3x.png`.
-    static let expression__223xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__22@3x", pathExtension: "png")
-    /// Resource file `Expression__23@2x.png`.
-    static let expression__232xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__23@2x", pathExtension: "png")
-    /// Resource file `Expression__23@3x.png`.
-    static let expression__233xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__23@3x", pathExtension: "png")
-    /// Resource file `Expression__24@2x.png`.
-    static let expression__242xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__24@2x", pathExtension: "png")
-    /// Resource file `Expression__24@3x.png`.
-    static let expression__243xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__24@3x", pathExtension: "png")
-    /// Resource file `Expression__25@2x.png`.
-    static let expression__252xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__25@2x", pathExtension: "png")
-    /// Resource file `Expression__25@3x.png`.
-    static let expression__253xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__25@3x", pathExtension: "png")
-    /// Resource file `Expression__26@2x.png`.
-    static let expression__262xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__26@2x", pathExtension: "png")
-    /// Resource file `Expression__26@3x.png`.
-    static let expression__263xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__26@3x", pathExtension: "png")
-    /// Resource file `Expression__27@2x.png`.
-    static let expression__272xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__27@2x", pathExtension: "png")
-    /// Resource file `Expression__27@3x.png`.
-    static let expression__273xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__27@3x", pathExtension: "png")
-    /// Resource file `Expression__28@2x.png`.
-    static let expression__282xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__28@2x", pathExtension: "png")
-    /// Resource file `Expression__28@3x.png`.
-    static let expression__283xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__28@3x", pathExtension: "png")
-    /// Resource file `Expression__29@2x.png`.
-    static let expression__292xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__29@2x", pathExtension: "png")
-    /// Resource file `Expression__29@3x.png`.
-    static let expression__293xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__29@3x", pathExtension: "png")
-    /// Resource file `Expression__2@2x.png`.
-    static let expression__22xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__2@2x", pathExtension: "png")
-    /// Resource file `Expression__2@3x.png`.
-    static let expression__23xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__2@3x", pathExtension: "png")
-    /// Resource file `Expression__30@2x.png`.
-    static let expression__302xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__30@2x", pathExtension: "png")
-    /// Resource file `Expression__30@3x.png`.
-    static let expression__303xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__30@3x", pathExtension: "png")
-    /// Resource file `Expression__31@2x.png`.
-    static let expression__312xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__31@2x", pathExtension: "png")
-    /// Resource file `Expression__31@3x.png`.
-    static let expression__313xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__31@3x", pathExtension: "png")
-    /// Resource file `Expression__32@2x.png`.
-    static let expression__322xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__32@2x", pathExtension: "png")
-    /// Resource file `Expression__32@3x.png`.
-    static let expression__323xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__32@3x", pathExtension: "png")
-    /// Resource file `Expression__33@2x.png`.
-    static let expression__332xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__33@2x", pathExtension: "png")
-    /// Resource file `Expression__33@3x.png`.
-    static let expression__333xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__33@3x", pathExtension: "png")
-    /// Resource file `Expression__34@2x.png`.
-    static let expression__342xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__34@2x", pathExtension: "png")
-    /// Resource file `Expression__34@3x.png`.
-    static let expression__343xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__34@3x", pathExtension: "png")
-    /// Resource file `Expression__35@2x.png`.
-    static let expression__352xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__35@2x", pathExtension: "png")
-    /// Resource file `Expression__35@3x.png`.
-    static let expression__353xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__35@3x", pathExtension: "png")
-    /// Resource file `Expression__36@2x.png`.
-    static let expression__362xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__36@2x", pathExtension: "png")
-    /// Resource file `Expression__36@3x.png`.
-    static let expression__363xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__36@3x", pathExtension: "png")
-    /// Resource file `Expression__37@2x.png`.
-    static let expression__372xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__37@2x", pathExtension: "png")
-    /// Resource file `Expression__37@3x.png`.
-    static let expression__373xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__37@3x", pathExtension: "png")
-    /// Resource file `Expression__38@2x.png`.
-    static let expression__382xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__38@2x", pathExtension: "png")
-    /// Resource file `Expression__38@3x.png`.
-    static let expression__383xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__38@3x", pathExtension: "png")
-    /// Resource file `Expression__39@2x.png`.
-    static let expression__392xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__39@2x", pathExtension: "png")
-    /// Resource file `Expression__39@3x.png`.
-    static let expression__393xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__39@3x", pathExtension: "png")
-    /// Resource file `Expression__3@2x.png`.
-    static let expression__32xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__3@2x", pathExtension: "png")
-    /// Resource file `Expression__3@3x.png`.
-    static let expression__33xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__3@3x", pathExtension: "png")
-    /// Resource file `Expression__40@2x.png`.
-    static let expression__402xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__40@2x", pathExtension: "png")
-    /// Resource file `Expression__40@3x.png`.
-    static let expression__403xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__40@3x", pathExtension: "png")
-    /// Resource file `Expression__41@2x.png`.
-    static let expression__412xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__41@2x", pathExtension: "png")
-    /// Resource file `Expression__41@3x.png`.
-    static let expression__413xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__41@3x", pathExtension: "png")
-    /// Resource file `Expression__42@2x.png`.
-    static let expression__422xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__42@2x", pathExtension: "png")
-    /// Resource file `Expression__42@3x.png`.
-    static let expression__423xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__42@3x", pathExtension: "png")
-    /// Resource file `Expression__43@2x.png`.
-    static let expression__432xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__43@2x", pathExtension: "png")
-    /// Resource file `Expression__43@3x.png`.
-    static let expression__433xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__43@3x", pathExtension: "png")
-    /// Resource file `Expression__44@2x.png`.
-    static let expression__442xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__44@2x", pathExtension: "png")
-    /// Resource file `Expression__44@3x.png`.
-    static let expression__443xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__44@3x", pathExtension: "png")
-    /// Resource file `Expression__45@2x.png`.
-    static let expression__452xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__45@2x", pathExtension: "png")
-    /// Resource file `Expression__45@3x.png`.
-    static let expression__453xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__45@3x", pathExtension: "png")
-    /// Resource file `Expression__46@2x.png`.
-    static let expression__462xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__46@2x", pathExtension: "png")
-    /// Resource file `Expression__46@3x.png`.
-    static let expression__463xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__46@3x", pathExtension: "png")
-    /// Resource file `Expression__47@2x.png`.
-    static let expression__472xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__47@2x", pathExtension: "png")
-    /// Resource file `Expression__47@3x.png`.
-    static let expression__473xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__47@3x", pathExtension: "png")
-    /// Resource file `Expression__48@2x.png`.
-    static let expression__482xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__48@2x", pathExtension: "png")
-    /// Resource file `Expression__48@3x.png`.
-    static let expression__483xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__48@3x", pathExtension: "png")
-    /// Resource file `Expression__49@2x.png`.
-    static let expression__492xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__49@2x", pathExtension: "png")
-    /// Resource file `Expression__49@3x.png`.
-    static let expression__493xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__49@3x", pathExtension: "png")
-    /// Resource file `Expression__4@2x.png`.
-    static let expression__42xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__4@2x", pathExtension: "png")
-    /// Resource file `Expression__4@3x.png`.
-    static let expression__43xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__4@3x", pathExtension: "png")
-    /// Resource file `Expression__50@2x.png`.
-    static let expression__502xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__50@2x", pathExtension: "png")
-    /// Resource file `Expression__50@3x.png`.
-    static let expression__503xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__50@3x", pathExtension: "png")
-    /// Resource file `Expression__51@2x.png`.
-    static let expression__512xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__51@2x", pathExtension: "png")
-    /// Resource file `Expression__51@3x.png`.
-    static let expression__513xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__51@3x", pathExtension: "png")
-    /// Resource file `Expression__52@2x.png`.
-    static let expression__522xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__52@2x", pathExtension: "png")
-    /// Resource file `Expression__52@3x.png`.
-    static let expression__523xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__52@3x", pathExtension: "png")
-    /// Resource file `Expression__53@2x.png`.
-    static let expression__532xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__53@2x", pathExtension: "png")
-    /// Resource file `Expression__53@3x.png`.
-    static let expression__533xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__53@3x", pathExtension: "png")
-    /// Resource file `Expression__54@2x.png`.
-    static let expression__542xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__54@2x", pathExtension: "png")
-    /// Resource file `Expression__54@3x.png`.
-    static let expression__543xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__54@3x", pathExtension: "png")
-    /// Resource file `Expression__55@2x.png`.
-    static let expression__552xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__55@2x", pathExtension: "png")
-    /// Resource file `Expression__55@3x.png`.
-    static let expression__553xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__55@3x", pathExtension: "png")
-    /// Resource file `Expression__56@2x.png`.
-    static let expression__562xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__56@2x", pathExtension: "png")
-    /// Resource file `Expression__56@3x.png`.
-    static let expression__563xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__56@3x", pathExtension: "png")
-    /// Resource file `Expression__57@2x.png`.
-    static let expression__572xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__57@2x", pathExtension: "png")
-    /// Resource file `Expression__57@3x.png`.
-    static let expression__573xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__57@3x", pathExtension: "png")
-    /// Resource file `Expression__58@2x.png`.
-    static let expression__582xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__58@2x", pathExtension: "png")
-    /// Resource file `Expression__58@3x.png`.
-    static let expression__583xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__58@3x", pathExtension: "png")
-    /// Resource file `Expression__59@2x.png`.
-    static let expression__592xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__59@2x", pathExtension: "png")
-    /// Resource file `Expression__59@3x.png`.
-    static let expression__593xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__59@3x", pathExtension: "png")
-    /// Resource file `Expression__5@2x.png`.
-    static let expression__52xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__5@2x", pathExtension: "png")
-    /// Resource file `Expression__5@3x.png`.
-    static let expression__53xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__5@3x", pathExtension: "png")
-    /// Resource file `Expression__60@2x.png`.
-    static let expression__602xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__60@2x", pathExtension: "png")
-    /// Resource file `Expression__60@3x.png`.
-    static let expression__603xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__60@3x", pathExtension: "png")
-    /// Resource file `Expression__61@2x.png`.
-    static let expression__612xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__61@2x", pathExtension: "png")
-    /// Resource file `Expression__61@3x.png`.
-    static let expression__613xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__61@3x", pathExtension: "png")
-    /// Resource file `Expression__62@2x.png`.
-    static let expression__622xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__62@2x", pathExtension: "png")
-    /// Resource file `Expression__62@3x.png`.
-    static let expression__623xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__62@3x", pathExtension: "png")
-    /// Resource file `Expression__63@2x.png`.
-    static let expression__632xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__63@2x", pathExtension: "png")
-    /// Resource file `Expression__63@3x.png`.
-    static let expression__633xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__63@3x", pathExtension: "png")
-    /// Resource file `Expression__64@2x.png`.
-    static let expression__642xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__64@2x", pathExtension: "png")
-    /// Resource file `Expression__64@3x.png`.
-    static let expression__643xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__64@3x", pathExtension: "png")
-    /// Resource file `Expression__65@2x.png`.
-    static let expression__652xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__65@2x", pathExtension: "png")
-    /// Resource file `Expression__65@3x.png`.
-    static let expression__653xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__65@3x", pathExtension: "png")
-    /// Resource file `Expression__66@2x.png`.
-    static let expression__662xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__66@2x", pathExtension: "png")
-    /// Resource file `Expression__66@3x.png`.
-    static let expression__663xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__66@3x", pathExtension: "png")
-    /// Resource file `Expression__67@2x.png`.
-    static let expression__672xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__67@2x", pathExtension: "png")
-    /// Resource file `Expression__67@3x.png`.
-    static let expression__673xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__67@3x", pathExtension: "png")
-    /// Resource file `Expression__68@2x.png`.
-    static let expression__682xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__68@2x", pathExtension: "png")
-    /// Resource file `Expression__68@3x.png`.
-    static let expression__683xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__68@3x", pathExtension: "png")
-    /// Resource file `Expression__69@2x.png`.
-    static let expression__692xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__69@2x", pathExtension: "png")
-    /// Resource file `Expression__69@3x.png`.
-    static let expression__693xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__69@3x", pathExtension: "png")
-    /// Resource file `Expression__6@2x.png`.
-    static let expression__62xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__6@2x", pathExtension: "png")
-    /// Resource file `Expression__6@3x.png`.
-    static let expression__63xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__6@3x", pathExtension: "png")
-    /// Resource file `Expression__70@2x.png`.
-    static let expression__702xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__70@2x", pathExtension: "png")
-    /// Resource file `Expression__70@3x.png`.
-    static let expression__703xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__70@3x", pathExtension: "png")
-    /// Resource file `Expression__71@2x.png`.
-    static let expression__712xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__71@2x", pathExtension: "png")
-    /// Resource file `Expression__71@3x.png`.
-    static let expression__713xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__71@3x", pathExtension: "png")
-    /// Resource file `Expression__72@2x.png`.
-    static let expression__722xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__72@2x", pathExtension: "png")
-    /// Resource file `Expression__72@3x.png`.
-    static let expression__723xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__72@3x", pathExtension: "png")
-    /// Resource file `Expression__73@2x.png`.
-    static let expression__732xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__73@2x", pathExtension: "png")
-    /// Resource file `Expression__73@3x.png`.
-    static let expression__733xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__73@3x", pathExtension: "png")
-    /// Resource file `Expression__74@2x.png`.
-    static let expression__742xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__74@2x", pathExtension: "png")
-    /// Resource file `Expression__74@3x.png`.
-    static let expression__743xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__74@3x", pathExtension: "png")
-    /// Resource file `Expression__75@2x.png`.
-    static let expression__752xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__75@2x", pathExtension: "png")
-    /// Resource file `Expression__75@3x.png`.
-    static let expression__753xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__75@3x", pathExtension: "png")
-    /// Resource file `Expression__76@2x.png`.
-    static let expression__762xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__76@2x", pathExtension: "png")
-    /// Resource file `Expression__76@3x.png`.
-    static let expression__763xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__76@3x", pathExtension: "png")
-    /// Resource file `Expression__77@2x.png`.
-    static let expression__772xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__77@2x", pathExtension: "png")
-    /// Resource file `Expression__77@3x.png`.
-    static let expression__773xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__77@3x", pathExtension: "png")
-    /// Resource file `Expression__78@2x.png`.
-    static let expression__782xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__78@2x", pathExtension: "png")
-    /// Resource file `Expression__78@3x.png`.
-    static let expression__783xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__78@3x", pathExtension: "png")
-    /// Resource file `Expression__79@2x.png`.
-    static let expression__792xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__79@2x", pathExtension: "png")
-    /// Resource file `Expression__79@3x.png`.
-    static let expression__793xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__79@3x", pathExtension: "png")
-    /// Resource file `Expression__7@2x.png`.
-    static let expression__72xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__7@2x", pathExtension: "png")
-    /// Resource file `Expression__7@3x.png`.
-    static let expression__73xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__7@3x", pathExtension: "png")
-    /// Resource file `Expression__80@2x.png`.
-    static let expression__802xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__80@2x", pathExtension: "png")
-    /// Resource file `Expression__80@3x.png`.
-    static let expression__803xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__80@3x", pathExtension: "png")
-    /// Resource file `Expression__81@2x.png`.
-    static let expression__812xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__81@2x", pathExtension: "png")
-    /// Resource file `Expression__81@3x.png`.
-    static let expression__813xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__81@3x", pathExtension: "png")
-    /// Resource file `Expression__82@2x.png`.
-    static let expression__822xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__82@2x", pathExtension: "png")
-    /// Resource file `Expression__82@3x.png`.
-    static let expression__823xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__82@3x", pathExtension: "png")
-    /// Resource file `Expression__83@2x.png`.
-    static let expression__832xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__83@2x", pathExtension: "png")
-    /// Resource file `Expression__83@3x.png`.
-    static let expression__833xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__83@3x", pathExtension: "png")
-    /// Resource file `Expression__84@2x.png`.
-    static let expression__842xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__84@2x", pathExtension: "png")
-    /// Resource file `Expression__84@3x.png`.
-    static let expression__843xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__84@3x", pathExtension: "png")
-    /// Resource file `Expression__85@2x.png`.
-    static let expression__852xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__85@2x", pathExtension: "png")
-    /// Resource file `Expression__85@3x.png`.
-    static let expression__853xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__85@3x", pathExtension: "png")
-    /// Resource file `Expression__86@2x.png`.
-    static let expression__862xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__86@2x", pathExtension: "png")
-    /// Resource file `Expression__86@3x.png`.
-    static let expression__863xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__86@3x", pathExtension: "png")
-    /// Resource file `Expression__87@2x.png`.
-    static let expression__872xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__87@2x", pathExtension: "png")
-    /// Resource file `Expression__87@3x.png`.
-    static let expression__873xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__87@3x", pathExtension: "png")
-    /// Resource file `Expression__88@2x.png`.
-    static let expression__882xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__88@2x", pathExtension: "png")
-    /// Resource file `Expression__88@3x.png`.
-    static let expression__883xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__88@3x", pathExtension: "png")
-    /// Resource file `Expression__89@2x.png`.
-    static let expression__892xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__89@2x", pathExtension: "png")
-    /// Resource file `Expression__89@3x.png`.
-    static let expression__893xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__89@3x", pathExtension: "png")
-    /// Resource file `Expression__8@2x.png`.
-    static let expression__82xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__8@2x", pathExtension: "png")
-    /// Resource file `Expression__8@3x.png`.
-    static let expression__83xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__8@3x", pathExtension: "png")
-    /// Resource file `Expression__90@2x.png`.
-    static let expression__902xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__90@2x", pathExtension: "png")
-    /// Resource file `Expression__90@3x.png`.
-    static let expression__903xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__90@3x", pathExtension: "png")
-    /// Resource file `Expression__91@2x.png`.
-    static let expression__912xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__91@2x", pathExtension: "png")
-    /// Resource file `Expression__91@3x.png`.
-    static let expression__913xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__91@3x", pathExtension: "png")
-    /// Resource file `Expression__92@2x.png`.
-    static let expression__922xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__92@2x", pathExtension: "png")
-    /// Resource file `Expression__92@3x.png`.
-    static let expression__923xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__92@3x", pathExtension: "png")
-    /// Resource file `Expression__93@2x.png`.
-    static let expression__932xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__93@2x", pathExtension: "png")
-    /// Resource file `Expression__93@3x.png`.
-    static let expression__933xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__93@3x", pathExtension: "png")
-    /// Resource file `Expression__94@2x.png`.
-    static let expression__942xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__94@2x", pathExtension: "png")
-    /// Resource file `Expression__94@3x.png`.
-    static let expression__943xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__94@3x", pathExtension: "png")
-    /// Resource file `Expression__95@2x.png`.
-    static let expression__952xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__95@2x", pathExtension: "png")
-    /// Resource file `Expression__95@3x.png`.
-    static let expression__953xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__95@3x", pathExtension: "png")
-    /// Resource file `Expression__96@2x.png`.
-    static let expression__962xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__96@2x", pathExtension: "png")
-    /// Resource file `Expression__96@3x.png`.
-    static let expression__963xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__96@3x", pathExtension: "png")
-    /// Resource file `Expression__97@2x.png`.
-    static let expression__972xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__97@2x", pathExtension: "png")
-    /// Resource file `Expression__97@3x.png`.
-    static let expression__973xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__97@3x", pathExtension: "png")
-    /// Resource file `Expression__98@2x.png`.
-    static let expression__982xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__98@2x", pathExtension: "png")
-    /// Resource file `Expression__98@3x.png`.
-    static let expression__983xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__98@3x", pathExtension: "png")
-    /// Resource file `Expression__99@2x.png`.
-    static let expression__992xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__99@2x", pathExtension: "png")
-    /// Resource file `Expression__99@3x.png`.
-    static let expression__993xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__99@3x", pathExtension: "png")
-    /// Resource file `Expression__9@2x.png`.
-    static let expression__92xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__9@2x", pathExtension: "png")
-    /// Resource file `Expression__9@3x.png`.
-    static let expression__93xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Expression__9@3x", pathExtension: "png")
-    /// Resource file `HHFMDB.md`.
-    static let hhfmdbMd = Rswift.FileResource(bundle: R.hostingBundle, name: "HHFMDB", pathExtension: "md")
-    /// Resource file `HHOCDemo.debug.xcconfig`.
-    static let hhocDemoDebugXcconfig = Rswift.FileResource(bundle: R.hostingBundle, name: "HHOCDemo.debug", pathExtension: "xcconfig")
-    /// Resource file `HHOCDemo.release.xcconfig`.
-    static let hhocDemoReleaseXcconfig = Rswift.FileResource(bundle: R.hostingBundle, name: "HHOCDemo.release", pathExtension: "xcconfig")
-    /// Resource file `HHOCDemo_Base.xcconfig`.
-    static let hhocDemo_BaseXcconfig = Rswift.FileResource(bundle: R.hostingBundle, name: "HHOCDemo_Base", pathExtension: "xcconfig")
-    /// Resource file `HHTabBarController.md`.
-    static let hhTabBarControllerMd = Rswift.FileResource(bundle: R.hostingBundle, name: "HHTabBarController", pathExtension: "md")
-    /// Resource file `LongPress.md`.
-    static let longPressMd = Rswift.FileResource(bundle: R.hostingBundle, name: "LongPress", pathExtension: "md")
-    /// Resource file `alertP.png`.
-    static let alertPPng = Rswift.FileResource(bundle: R.hostingBundle, name: "alertP", pathExtension: "png")
-    /// Resource file `alertP@2x.png`.
-    static let alertP2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "alertP@2x", pathExtension: "png")
-    /// Resource file `alertP@3x.png`.
-    static let alertP3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "alertP@3x", pathExtension: "png")
-    /// Resource file `alertP_r.png`.
-    static let alertP_rPng = Rswift.FileResource(bundle: R.hostingBundle, name: "alertP_r", pathExtension: "png")
-    /// Resource file `alertP_r@2x.png`.
-    static let alertP_r2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "alertP_r@2x", pathExtension: "png")
-    /// Resource file `alertP_r@3x.png`.
-    static let alertP_r3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "alertP_r@3x", pathExtension: "png")
-    /// Resource file `book.pdf`.
-    static let bookPdf = Rswift.FileResource(bundle: R.hostingBundle, name: "book", pathExtension: "pdf")
-    /// Resource file `book@2x.png`.
-    static let book2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "book@2x", pathExtension: "png")
-    /// Resource file `boss_emoji.plist`.
-    static let boss_emojiPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "boss_emoji", pathExtension: "plist")
-    /// Resource file `chapterDataSource.json`.
-    static let chapterDataSourceJson = Rswift.FileResource(bundle: R.hostingBundle, name: "chapterDataSource", pathExtension: "json")
-    /// Resource file `composition_20161227165016_98521_12.yyt`.
-    static let composition_20161227165016_98521_12Yyt = Rswift.FileResource(bundle: R.hostingBundle, name: "composition_20161227165016_98521_12", pathExtension: "yyt")
-    /// Resource file `dataSource.json`.
-    static let dataSourceJson = Rswift.FileResource(bundle: R.hostingBundle, name: "dataSource", pathExtension: "json")
-    /// Resource file `defaultAvatar@2x.jpg`.
-    static let defaultAvatar2xJpg = Rswift.FileResource(bundle: R.hostingBundle, name: "defaultAvatar@2x", pathExtension: "jpg")
-    /// Resource file `detailBg@2x.png`.
-    static let detailBg2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "detailBg@2x", pathExtension: "png")
-    /// Resource file `expression_bg@2x.png`.
-    static let expression_bg2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "expression_bg@2x", pathExtension: "png")
-    /// Resource file `expression_bg@3x.png`.
-    static let expression_bg3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "expression_bg@3x", pathExtension: "png")
-    /// Resource file `headerimg.png`.
-    static let headerimgPng = Rswift.FileResource(bundle: R.hostingBundle, name: "headerimg", pathExtension: "png")
-    /// Resource file `hh.order`.
-    static let hhOrder = Rswift.FileResource(bundle: R.hostingBundle, name: "hh", pathExtension: "order")
-    /// Resource file `home@2x.png`.
-    static let home2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "home@2x", pathExtension: "png")
-    /// Resource file `home_selected@2x.png`.
-    static let home_selected2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "home_selected@2x", pathExtension: "png")
-    /// Resource file `icon_Lock.png`.
-    static let icon_LockPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Lock", pathExtension: "png")
-    /// Resource file `icon_Lock@2x.png`.
-    static let icon_Lock2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Lock@2x", pathExtension: "png")
-    /// Resource file `icon_Lock@3x.png`.
-    static let icon_Lock3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Lock@3x", pathExtension: "png")
-    /// Resource file `icon_Open.png`.
-    static let icon_OpenPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Open", pathExtension: "png")
-    /// Resource file `icon_Open@2x.png`.
-    static let icon_Open2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Open@2x", pathExtension: "png")
-    /// Resource file `icon_Open@3x.png`.
-    static let icon_Open3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Open@3x", pathExtension: "png")
-    /// Resource file `icon_Pause_Button.png`.
-    static let icon_Pause_ButtonPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Pause_Button", pathExtension: "png")
-    /// Resource file `icon_Pause_Button@2x.png`.
-    static let icon_Pause_Button2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Pause_Button@2x", pathExtension: "png")
-    /// Resource file `icon_Pause_Button@3x.png`.
-    static let icon_Pause_Button3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Pause_Button@3x", pathExtension: "png")
-    /// Resource file `icon_Play_Button.png`.
-    static let icon_Play_ButtonPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Play_Button", pathExtension: "png")
-    /// Resource file `icon_Play_Button@2x.png`.
-    static let icon_Play_Button2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Play_Button@2x", pathExtension: "png")
-    /// Resource file `icon_Play_Button@3x.png`.
-    static let icon_Play_Button3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_Play_Button@3x", pathExtension: "png")
-    /// Resource file `icon_between@2x.png`.
-    static let icon_between2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_between@2x", pathExtension: "png")
-    /// Resource file `icon_cal@2x.png`.
-    static let icon_cal2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_cal@2x", pathExtension: "png")
-    /// Resource file `icon_cell_delete.png`.
-    static let icon_cell_deletePng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_cell_delete", pathExtension: "png")
-    /// Resource file `icon_cell_delete@2x.png`.
-    static let icon_cell_delete2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_cell_delete@2x", pathExtension: "png")
-    /// Resource file `icon_cell_delete@3x.png`.
-    static let icon_cell_delete3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_cell_delete@3x", pathExtension: "png")
-    /// Resource file `icon_column@2x.png`.
-    static let icon_column2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_column@2x", pathExtension: "png")
-    /// Resource file `icon_comment.png`.
-    static let icon_commentPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_comment", pathExtension: "png")
-    /// Resource file `icon_comment@2x.png`.
-    static let icon_comment2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_comment@2x", pathExtension: "png")
-    /// Resource file `icon_comment@3x.png`.
-    static let icon_comment3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_comment@3x", pathExtension: "png")
-    /// Resource file `icon_comment_sel.png`.
-    static let icon_comment_selPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_comment_sel", pathExtension: "png")
-    /// Resource file `icon_comment_sel@2x.png`.
-    static let icon_comment_sel2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_comment_sel@2x", pathExtension: "png")
-    /// Resource file `icon_comment_sel@3x.png`.
-    static let icon_comment_sel3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_comment_sel@3x", pathExtension: "png")
-    /// Resource file `icon_correct.png`.
-    static let icon_correctPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_correct", pathExtension: "png")
-    /// Resource file `icon_correct@2x.png`.
-    static let icon_correct2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_correct@2x", pathExtension: "png")
-    /// Resource file `icon_correct@3x.png`.
-    static let icon_correct3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_correct@3x", pathExtension: "png")
-    /// Resource file `icon_course@2x.png`.
-    static let icon_course2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_course@2x", pathExtension: "png")
-    /// Resource file `icon_document@2x.png`.
-    static let icon_document2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_document@2x", pathExtension: "png")
-    /// Resource file `icon_left_arrow.png`.
-    static let icon_left_arrowPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_left_arrow", pathExtension: "png")
-    /// Resource file `icon_left_arrow@2x.png`.
-    static let icon_left_arrow2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_left_arrow@2x", pathExtension: "png")
-    /// Resource file `icon_left_arrow@3x.png`.
-    static let icon_left_arrow3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_left_arrow@3x", pathExtension: "png")
-    /// Resource file `icon_life@2x.png`.
-    static let icon_life2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_life@2x", pathExtension: "png")
-    /// Resource file `icon_list.png`.
-    static let icon_listPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_list", pathExtension: "png")
-    /// Resource file `icon_list@2x.png`.
-    static let icon_list2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_list@2x", pathExtension: "png")
-    /// Resource file `icon_list@3x.png`.
-    static let icon_list3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_list@3x", pathExtension: "png")
-    /// Resource file `icon_list_sel.png`.
-    static let icon_list_selPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_list_sel", pathExtension: "png")
-    /// Resource file `icon_list_sel@2x.png`.
-    static let icon_list_sel2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_list_sel@2x", pathExtension: "png")
-    /// Resource file `icon_list_sel@3x.png`.
-    static let icon_list_sel3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_list_sel@3x", pathExtension: "png")
-    /// Resource file `icon_live@2x.png`.
-    static let icon_live2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_live@2x", pathExtension: "png")
-    /// Resource file `icon_page_turn.png`.
-    static let icon_page_turnPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_page_turn", pathExtension: "png")
-    /// Resource file `icon_page_turn@2x.png`.
-    static let icon_page_turn2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_page_turn@2x", pathExtension: "png")
-    /// Resource file `icon_page_turn@3x.png`.
-    static let icon_page_turn3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_page_turn@3x", pathExtension: "png")
-    /// Resource file `icon_page_turn_sel.png`.
-    static let icon_page_turn_selPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_page_turn_sel", pathExtension: "png")
-    /// Resource file `icon_page_turn_sel@2x.png`.
-    static let icon_page_turn_sel2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_page_turn_sel@2x", pathExtension: "png")
-    /// Resource file `icon_page_turn_sel@3x.png`.
-    static let icon_page_turn_sel3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_page_turn_sel@3x", pathExtension: "png")
-    /// Resource file `icon_phone@2x.png`.
-    static let icon_phone2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_phone@2x", pathExtension: "png")
-    /// Resource file `icon_plus_rect.png`.
-    static let icon_plus_rectPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_plus_rect", pathExtension: "png")
-    /// Resource file `icon_plus_rect@2x.png`.
-    static let icon_plus_rect2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_plus_rect@2x", pathExtension: "png")
-    /// Resource file `icon_plus_rect@3x.png`.
-    static let icon_plus_rect3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_plus_rect@3x", pathExtension: "png")
-    /// Resource file `icon_preview.png`.
-    static let icon_previewPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_preview", pathExtension: "png")
-    /// Resource file `icon_preview@2x.png`.
-    static let icon_preview2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_preview@2x", pathExtension: "png")
-    /// Resource file `icon_preview@3x.png`.
-    static let icon_preview3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_preview@3x", pathExtension: "png")
-    /// Resource file `icon_pwd@2x.png`.
-    static let icon_pwd2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_pwd@2x", pathExtension: "png")
-    /// Resource file `icon_return.png`.
-    static let icon_returnPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_return", pathExtension: "png")
-    /// Resource file `icon_return@2x.png`.
-    static let icon_return2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_return@2x", pathExtension: "png")
-    /// Resource file `icon_return@3x.png`.
-    static let icon_return3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_return@3x", pathExtension: "png")
-    /// Resource file `icon_right_arrow.png`.
-    static let icon_right_arrowPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_right_arrow", pathExtension: "png")
-    /// Resource file `icon_right_arrow@2x.png`.
-    static let icon_right_arrow2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_right_arrow@2x", pathExtension: "png")
-    /// Resource file `icon_shouqi.png`.
-    static let icon_shouqiPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_shouqi", pathExtension: "png")
-    /// Resource file `icon_shouqi@2x.png`.
-    static let icon_shouqi2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_shouqi@2x", pathExtension: "png")
-    /// Resource file `icon_shouqi@3x.png`.
-    static let icon_shouqi3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_shouqi@3x", pathExtension: "png")
-    /// Resource file `icon_timeline.png`.
-    static let icon_timelinePng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_timeline", pathExtension: "png")
-    /// Resource file `icon_timeline@2x.png`.
-    static let icon_timeline2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_timeline@2x", pathExtension: "png")
-    /// Resource file `icon_timeline@3x.png`.
-    static let icon_timeline3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_timeline@3x", pathExtension: "png")
-    /// Resource file `icon_zhankai.png`.
-    static let icon_zhankaiPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_zhankai", pathExtension: "png")
-    /// Resource file `icon_zhankai@2x.png`.
-    static let icon_zhankai2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_zhankai@2x", pathExtension: "png")
-    /// Resource file `icon_zhankai@3x.png`.
-    static let icon_zhankai3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "icon_zhankai@3x", pathExtension: "png")
-    /// Resource file `imgSelecte_NO.png`.
-    static let imgSelecte_NOPng = Rswift.FileResource(bundle: R.hostingBundle, name: "imgSelecte_NO", pathExtension: "png")
-    /// Resource file `imgSelecte_NO@2x.png`.
-    static let imgSelecte_NO2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "imgSelecte_NO@2x", pathExtension: "png")
-    /// Resource file `imgSelecte_NO@3x.png`.
-    static let imgSelecte_NO3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "imgSelecte_NO@3x", pathExtension: "png")
-    /// Resource file `imgSelecte_YES.png`.
-    static let imgSelecte_YESPng = Rswift.FileResource(bundle: R.hostingBundle, name: "imgSelecte_YES", pathExtension: "png")
-    /// Resource file `imgSelecte_YES@2x.png`.
-    static let imgSelecte_YES2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "imgSelecte_YES@2x", pathExtension: "png")
-    /// Resource file `imgSelecte_YES@3x.png`.
-    static let imgSelecte_YES3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "imgSelecte_YES@3x", pathExtension: "png")
-    /// Resource file `logic.png`.
-    static let logicPng = Rswift.FileResource(bundle: R.hostingBundle, name: "logic", pathExtension: "png")
-    /// Resource file `logo@2x.png`.
-    static let logo2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "logo@2x", pathExtension: "png")
-    /// Resource file `mew_baseline.png`.
-    static let mew_baselinePng = Rswift.FileResource(bundle: R.hostingBundle, name: "mew_baseline", pathExtension: "png")
-    /// Resource file `mine@2x.png`.
-    static let mine2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "mine@2x", pathExtension: "png")
-    /// Resource file `mine_selected@2x.png`.
-    static let mine_selected2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "mine_selected@2x", pathExtension: "png")
-    /// Resource file `opern.jpeg`.
-    static let opernJpeg = Rswift.FileResource(bundle: R.hostingBundle, name: "opern", pathExtension: "jpeg")
-    /// Resource file `pdf_icon_left_arrow.png`.
-    static let pdf_icon_left_arrowPng = Rswift.FileResource(bundle: R.hostingBundle, name: "pdf_icon_left_arrow", pathExtension: "png")
-    /// Resource file `pdf_icon_left_arrow@2x.png`.
-    static let pdf_icon_left_arrow2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "pdf_icon_left_arrow@2x", pathExtension: "png")
-    /// Resource file `pdf_icon_left_arrow@3x.png`.
-    static let pdf_icon_left_arrow3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "pdf_icon_left_arrow@3x", pathExtension: "png")
-    /// Resource file `pdf_icon_right_arrow.png`.
-    static let pdf_icon_right_arrowPng = Rswift.FileResource(bundle: R.hostingBundle, name: "pdf_icon_right_arrow", pathExtension: "png")
-    /// Resource file `pdf_icon_right_arrow@2x.png`.
-    static let pdf_icon_right_arrow2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "pdf_icon_right_arrow@2x", pathExtension: "png")
-    /// Resource file `pdf_icon_right_arrow@3x.png`.
-    static let pdf_icon_right_arrow3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "pdf_icon_right_arrow@3x", pathExtension: "png")
-    /// Resource file `record_ico_rec@2x.png`.
-    static let record_ico_rec2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "record_ico_rec@2x", pathExtension: "png")
-    /// Resource file `spaceship.png`.
-    static let spaceshipPng = Rswift.FileResource(bundle: R.hostingBundle, name: "spaceship", pathExtension: "png")
-    /// Resource file `student@2x.png`.
-    static let student2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "student@2x", pathExtension: "png")
-    /// Resource file `test@2x.gif`.
-    static let test2xGif = Rswift.FileResource(bundle: R.hostingBundle, name: "test@2x", pathExtension: "gif")
-    /// Resource file `toolbar-emoji@2x.png`.
-    static let toolbarEmoji2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "toolbar-emoji@2x", pathExtension: "png")
-    /// Resource file `toolbar-emoji@3x.png`.
-    static let toolbarEmoji3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "toolbar-emoji@3x", pathExtension: "png")
-    /// Resource file `triangle@2x.png`.
-    static let triangle2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "triangle@2x", pathExtension: "png")
-    /// Resource file `triangle@3x.png`.
-    static let triangle3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "triangle@3x", pathExtension: "png")
-    /// Resource file `triangle_sel@2x.png`.
-    static let triangle_sel2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "triangle_sel@2x", pathExtension: "png")
-    /// Resource file `triangle_sel@3x.png`.
-    static let triangle_sel3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "triangle_sel@3x", pathExtension: "png")
-    /// Resource file `w1.jpg`.
-    static let w1Jpg = Rswift.FileResource(bundle: R.hostingBundle, name: "w1", pathExtension: "jpg")
-    /// Resource file `w2.png`.
-    static let w2Png = Rswift.FileResource(bundle: R.hostingBundle, name: "w2", pathExtension: "png")
-    /// Resource file `w3.jpg`.
-    static let w3Jpg = Rswift.FileResource(bundle: R.hostingBundle, name: "w3", pathExtension: "jpg")
-
-    /// `bundle.url(forResource: "Expression__100@2x", withExtension: "png")`
-    static func expression__1002xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__1002xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__100@3x", withExtension: "png")`
-    static func expression__1003xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__1003xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__10@2x", withExtension: "png")`
-    static func expression__102xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__102xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__10@3x", withExtension: "png")`
-    static func expression__103xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__103xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__11@2x", withExtension: "png")`
-    static func expression__112xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__112xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__11@3x", withExtension: "png")`
-    static func expression__113xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__113xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__12@2x", withExtension: "png")`
-    static func expression__122xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__122xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__12@3x", withExtension: "png")`
-    static func expression__123xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__123xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__13@2x", withExtension: "png")`
-    static func expression__132xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__132xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__13@3x", withExtension: "png")`
-    static func expression__133xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__133xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__14@2x", withExtension: "png")`
-    static func expression__142xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__142xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__14@3x", withExtension: "png")`
-    static func expression__143xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__143xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__15@2x", withExtension: "png")`
-    static func expression__152xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__152xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__15@3x", withExtension: "png")`
-    static func expression__153xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__153xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__16@2x", withExtension: "png")`
-    static func expression__162xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__162xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__16@3x", withExtension: "png")`
-    static func expression__163xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__163xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__17@2x", withExtension: "png")`
-    static func expression__172xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__172xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__17@3x", withExtension: "png")`
-    static func expression__173xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__173xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__18@2x", withExtension: "png")`
-    static func expression__182xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__182xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__18@3x", withExtension: "png")`
-    static func expression__183xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__183xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__19@2x", withExtension: "png")`
-    static func expression__192xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__192xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__19@3x", withExtension: "png")`
-    static func expression__193xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__193xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__1@2x", withExtension: "png")`
-    static func expression__12xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__12xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__1@3x", withExtension: "png")`
-    static func expression__13xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__13xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__20@2x", withExtension: "png")`
-    static func expression__202xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__202xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__20@3x", withExtension: "png")`
-    static func expression__203xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__203xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__21@2x", withExtension: "png")`
-    static func expression__212xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__212xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__21@3x", withExtension: "png")`
-    static func expression__213xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__213xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__22@2x", withExtension: "png")`
-    static func expression__222xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__222xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__22@3x", withExtension: "png")`
-    static func expression__223xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__223xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__23@2x", withExtension: "png")`
-    static func expression__232xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__232xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__23@3x", withExtension: "png")`
-    static func expression__233xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__233xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__24@2x", withExtension: "png")`
-    static func expression__242xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__242xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__24@3x", withExtension: "png")`
-    static func expression__243xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__243xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__25@2x", withExtension: "png")`
-    static func expression__252xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__252xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__25@3x", withExtension: "png")`
-    static func expression__253xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__253xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__26@2x", withExtension: "png")`
-    static func expression__262xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__262xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__26@3x", withExtension: "png")`
-    static func expression__263xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__263xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__27@2x", withExtension: "png")`
-    static func expression__272xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__272xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__27@3x", withExtension: "png")`
-    static func expression__273xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__273xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__28@2x", withExtension: "png")`
-    static func expression__282xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__282xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__28@3x", withExtension: "png")`
-    static func expression__283xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__283xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__29@2x", withExtension: "png")`
-    static func expression__292xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__292xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__29@3x", withExtension: "png")`
-    static func expression__293xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__293xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__2@2x", withExtension: "png")`
-    static func expression__22xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__22xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__2@3x", withExtension: "png")`
-    static func expression__23xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__23xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__30@2x", withExtension: "png")`
-    static func expression__302xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__302xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__30@3x", withExtension: "png")`
-    static func expression__303xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__303xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__31@2x", withExtension: "png")`
-    static func expression__312xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__312xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__31@3x", withExtension: "png")`
-    static func expression__313xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__313xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__32@2x", withExtension: "png")`
-    static func expression__322xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__322xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__32@3x", withExtension: "png")`
-    static func expression__323xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__323xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__33@2x", withExtension: "png")`
-    static func expression__332xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__332xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__33@3x", withExtension: "png")`
-    static func expression__333xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__333xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__34@2x", withExtension: "png")`
-    static func expression__342xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__342xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__34@3x", withExtension: "png")`
-    static func expression__343xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__343xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__35@2x", withExtension: "png")`
-    static func expression__352xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__352xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__35@3x", withExtension: "png")`
-    static func expression__353xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__353xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__36@2x", withExtension: "png")`
-    static func expression__362xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__362xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__36@3x", withExtension: "png")`
-    static func expression__363xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__363xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__37@2x", withExtension: "png")`
-    static func expression__372xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__372xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__37@3x", withExtension: "png")`
-    static func expression__373xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__373xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__38@2x", withExtension: "png")`
-    static func expression__382xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__382xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__38@3x", withExtension: "png")`
-    static func expression__383xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__383xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__39@2x", withExtension: "png")`
-    static func expression__392xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__392xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__39@3x", withExtension: "png")`
-    static func expression__393xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__393xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__3@2x", withExtension: "png")`
-    static func expression__32xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__32xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__3@3x", withExtension: "png")`
-    static func expression__33xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__33xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__40@2x", withExtension: "png")`
-    static func expression__402xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__402xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__40@3x", withExtension: "png")`
-    static func expression__403xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__403xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__41@2x", withExtension: "png")`
-    static func expression__412xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__412xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__41@3x", withExtension: "png")`
-    static func expression__413xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__413xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__42@2x", withExtension: "png")`
-    static func expression__422xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__422xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__42@3x", withExtension: "png")`
-    static func expression__423xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__423xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__43@2x", withExtension: "png")`
-    static func expression__432xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__432xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__43@3x", withExtension: "png")`
-    static func expression__433xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__433xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__44@2x", withExtension: "png")`
-    static func expression__442xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__442xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__44@3x", withExtension: "png")`
-    static func expression__443xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__443xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__45@2x", withExtension: "png")`
-    static func expression__452xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__452xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__45@3x", withExtension: "png")`
-    static func expression__453xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__453xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__46@2x", withExtension: "png")`
-    static func expression__462xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__462xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__46@3x", withExtension: "png")`
-    static func expression__463xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__463xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__47@2x", withExtension: "png")`
-    static func expression__472xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__472xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__47@3x", withExtension: "png")`
-    static func expression__473xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__473xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__48@2x", withExtension: "png")`
-    static func expression__482xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__482xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__48@3x", withExtension: "png")`
-    static func expression__483xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__483xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__49@2x", withExtension: "png")`
-    static func expression__492xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__492xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__49@3x", withExtension: "png")`
-    static func expression__493xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__493xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__4@2x", withExtension: "png")`
-    static func expression__42xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__42xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__4@3x", withExtension: "png")`
-    static func expression__43xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__43xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__50@2x", withExtension: "png")`
-    static func expression__502xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__502xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__50@3x", withExtension: "png")`
-    static func expression__503xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__503xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__51@2x", withExtension: "png")`
-    static func expression__512xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__512xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__51@3x", withExtension: "png")`
-    static func expression__513xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__513xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__52@2x", withExtension: "png")`
-    static func expression__522xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__522xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__52@3x", withExtension: "png")`
-    static func expression__523xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__523xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__53@2x", withExtension: "png")`
-    static func expression__532xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__532xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__53@3x", withExtension: "png")`
-    static func expression__533xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__533xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__54@2x", withExtension: "png")`
-    static func expression__542xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__542xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__54@3x", withExtension: "png")`
-    static func expression__543xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__543xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__55@2x", withExtension: "png")`
-    static func expression__552xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__552xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__55@3x", withExtension: "png")`
-    static func expression__553xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__553xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__56@2x", withExtension: "png")`
-    static func expression__562xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__562xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__56@3x", withExtension: "png")`
-    static func expression__563xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__563xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__57@2x", withExtension: "png")`
-    static func expression__572xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__572xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__57@3x", withExtension: "png")`
-    static func expression__573xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__573xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__58@2x", withExtension: "png")`
-    static func expression__582xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__582xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__58@3x", withExtension: "png")`
-    static func expression__583xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__583xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__59@2x", withExtension: "png")`
-    static func expression__592xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__592xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__59@3x", withExtension: "png")`
-    static func expression__593xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__593xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__5@2x", withExtension: "png")`
-    static func expression__52xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__52xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__5@3x", withExtension: "png")`
-    static func expression__53xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__53xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__60@2x", withExtension: "png")`
-    static func expression__602xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__602xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__60@3x", withExtension: "png")`
-    static func expression__603xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__603xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__61@2x", withExtension: "png")`
-    static func expression__612xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__612xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__61@3x", withExtension: "png")`
-    static func expression__613xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__613xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__62@2x", withExtension: "png")`
-    static func expression__622xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__622xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__62@3x", withExtension: "png")`
-    static func expression__623xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__623xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__63@2x", withExtension: "png")`
-    static func expression__632xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__632xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__63@3x", withExtension: "png")`
-    static func expression__633xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__633xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__64@2x", withExtension: "png")`
-    static func expression__642xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__642xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__64@3x", withExtension: "png")`
-    static func expression__643xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__643xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__65@2x", withExtension: "png")`
-    static func expression__652xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__652xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__65@3x", withExtension: "png")`
-    static func expression__653xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__653xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__66@2x", withExtension: "png")`
-    static func expression__662xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__662xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__66@3x", withExtension: "png")`
-    static func expression__663xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__663xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__67@2x", withExtension: "png")`
-    static func expression__672xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__672xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__67@3x", withExtension: "png")`
-    static func expression__673xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__673xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__68@2x", withExtension: "png")`
-    static func expression__682xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__682xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__68@3x", withExtension: "png")`
-    static func expression__683xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__683xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__69@2x", withExtension: "png")`
-    static func expression__692xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__692xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__69@3x", withExtension: "png")`
-    static func expression__693xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__693xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__6@2x", withExtension: "png")`
-    static func expression__62xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__62xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__6@3x", withExtension: "png")`
-    static func expression__63xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__63xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__70@2x", withExtension: "png")`
-    static func expression__702xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__702xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__70@3x", withExtension: "png")`
-    static func expression__703xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__703xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__71@2x", withExtension: "png")`
-    static func expression__712xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__712xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__71@3x", withExtension: "png")`
-    static func expression__713xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__713xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__72@2x", withExtension: "png")`
-    static func expression__722xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__722xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__72@3x", withExtension: "png")`
-    static func expression__723xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__723xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__73@2x", withExtension: "png")`
-    static func expression__732xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__732xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__73@3x", withExtension: "png")`
-    static func expression__733xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__733xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__74@2x", withExtension: "png")`
-    static func expression__742xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__742xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__74@3x", withExtension: "png")`
-    static func expression__743xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__743xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__75@2x", withExtension: "png")`
-    static func expression__752xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__752xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__75@3x", withExtension: "png")`
-    static func expression__753xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__753xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__76@2x", withExtension: "png")`
-    static func expression__762xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__762xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__76@3x", withExtension: "png")`
-    static func expression__763xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__763xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__77@2x", withExtension: "png")`
-    static func expression__772xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__772xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__77@3x", withExtension: "png")`
-    static func expression__773xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__773xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__78@2x", withExtension: "png")`
-    static func expression__782xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__782xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__78@3x", withExtension: "png")`
-    static func expression__783xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__783xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__79@2x", withExtension: "png")`
-    static func expression__792xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__792xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__79@3x", withExtension: "png")`
-    static func expression__793xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__793xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__7@2x", withExtension: "png")`
-    static func expression__72xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__72xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__7@3x", withExtension: "png")`
-    static func expression__73xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__73xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__80@2x", withExtension: "png")`
-    static func expression__802xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__802xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__80@3x", withExtension: "png")`
-    static func expression__803xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__803xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__81@2x", withExtension: "png")`
-    static func expression__812xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__812xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__81@3x", withExtension: "png")`
-    static func expression__813xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__813xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__82@2x", withExtension: "png")`
-    static func expression__822xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__822xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__82@3x", withExtension: "png")`
-    static func expression__823xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__823xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__83@2x", withExtension: "png")`
-    static func expression__832xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__832xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__83@3x", withExtension: "png")`
-    static func expression__833xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__833xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__84@2x", withExtension: "png")`
-    static func expression__842xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__842xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__84@3x", withExtension: "png")`
-    static func expression__843xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__843xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__85@2x", withExtension: "png")`
-    static func expression__852xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__852xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__85@3x", withExtension: "png")`
-    static func expression__853xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__853xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__86@2x", withExtension: "png")`
-    static func expression__862xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__862xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__86@3x", withExtension: "png")`
-    static func expression__863xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__863xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__87@2x", withExtension: "png")`
-    static func expression__872xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__872xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__87@3x", withExtension: "png")`
-    static func expression__873xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__873xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__88@2x", withExtension: "png")`
-    static func expression__882xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__882xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__88@3x", withExtension: "png")`
-    static func expression__883xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__883xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__89@2x", withExtension: "png")`
-    static func expression__892xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__892xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__89@3x", withExtension: "png")`
-    static func expression__893xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__893xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__8@2x", withExtension: "png")`
-    static func expression__82xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__82xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__8@3x", withExtension: "png")`
-    static func expression__83xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__83xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__90@2x", withExtension: "png")`
-    static func expression__902xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__902xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__90@3x", withExtension: "png")`
-    static func expression__903xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__903xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__91@2x", withExtension: "png")`
-    static func expression__912xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__912xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__91@3x", withExtension: "png")`
-    static func expression__913xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__913xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__92@2x", withExtension: "png")`
-    static func expression__922xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__922xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__92@3x", withExtension: "png")`
-    static func expression__923xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__923xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__93@2x", withExtension: "png")`
-    static func expression__932xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__932xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__93@3x", withExtension: "png")`
-    static func expression__933xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__933xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__94@2x", withExtension: "png")`
-    static func expression__942xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__942xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__94@3x", withExtension: "png")`
-    static func expression__943xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__943xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__95@2x", withExtension: "png")`
-    static func expression__952xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__952xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__95@3x", withExtension: "png")`
-    static func expression__953xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__953xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__96@2x", withExtension: "png")`
-    static func expression__962xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__962xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__96@3x", withExtension: "png")`
-    static func expression__963xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__963xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__97@2x", withExtension: "png")`
-    static func expression__972xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__972xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__97@3x", withExtension: "png")`
-    static func expression__973xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__973xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__98@2x", withExtension: "png")`
-    static func expression__982xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__982xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__98@3x", withExtension: "png")`
-    static func expression__983xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__983xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__99@2x", withExtension: "png")`
-    static func expression__992xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__992xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__99@3x", withExtension: "png")`
-    static func expression__993xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__993xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__9@2x", withExtension: "png")`
-    static func expression__92xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__92xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Expression__9@3x", withExtension: "png")`
-    static func expression__93xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression__93xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "HHFMDB", withExtension: "md")`
-    static func hhfmdbMd(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.hhfmdbMd
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "HHOCDemo.debug", withExtension: "xcconfig")`
-    static func hhocDemoDebugXcconfig(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.hhocDemoDebugXcconfig
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "HHOCDemo.release", withExtension: "xcconfig")`
-    static func hhocDemoReleaseXcconfig(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.hhocDemoReleaseXcconfig
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "HHOCDemo_Base", withExtension: "xcconfig")`
-    static func hhocDemo_BaseXcconfig(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.hhocDemo_BaseXcconfig
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "HHTabBarController", withExtension: "md")`
-    static func hhTabBarControllerMd(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.hhTabBarControllerMd
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "LongPress", withExtension: "md")`
-    static func longPressMd(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.longPressMd
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "alertP", withExtension: "png")`
-    static func alertPPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alertPPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "alertP@2x", withExtension: "png")`
-    static func alertP2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alertP2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "alertP@3x", withExtension: "png")`
-    static func alertP3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alertP3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "alertP_r", withExtension: "png")`
-    static func alertP_rPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alertP_rPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "alertP_r@2x", withExtension: "png")`
-    static func alertP_r2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alertP_r2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "alertP_r@3x", withExtension: "png")`
-    static func alertP_r3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alertP_r3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "book", withExtension: "pdf")`
-    static func bookPdf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.bookPdf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "book@2x", withExtension: "png")`
-    static func book2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.book2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "boss_emoji", withExtension: "plist")`
-    static func boss_emojiPlist(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.boss_emojiPlist
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "chapterDataSource", withExtension: "json")`
-    static func chapterDataSourceJson(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.chapterDataSourceJson
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "composition_20161227165016_98521_12", withExtension: "yyt")`
-    static func composition_20161227165016_98521_12Yyt(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.composition_20161227165016_98521_12Yyt
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "dataSource", withExtension: "json")`
-    static func dataSourceJson(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.dataSourceJson
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "defaultAvatar@2x", withExtension: "jpg")`
-    static func defaultAvatar2xJpg(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.defaultAvatar2xJpg
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "detailBg@2x", withExtension: "png")`
-    static func detailBg2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.detailBg2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "expression_bg@2x", withExtension: "png")`
-    static func expression_bg2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression_bg2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "expression_bg@3x", withExtension: "png")`
-    static func expression_bg3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.expression_bg3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "headerimg", withExtension: "png")`
-    static func headerimgPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.headerimgPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "hh", withExtension: "order")`
-    static func hhOrder(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.hhOrder
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "home@2x", withExtension: "png")`
-    static func home2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.home2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "home_selected@2x", withExtension: "png")`
-    static func home_selected2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.home_selected2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Lock", withExtension: "png")`
-    static func icon_LockPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_LockPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Lock@2x", withExtension: "png")`
-    static func icon_Lock2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Lock2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Lock@3x", withExtension: "png")`
-    static func icon_Lock3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Lock3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Open", withExtension: "png")`
-    static func icon_OpenPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_OpenPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Open@2x", withExtension: "png")`
-    static func icon_Open2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Open2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Open@3x", withExtension: "png")`
-    static func icon_Open3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Open3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Pause_Button", withExtension: "png")`
-    static func icon_Pause_ButtonPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Pause_ButtonPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Pause_Button@2x", withExtension: "png")`
-    static func icon_Pause_Button2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Pause_Button2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Pause_Button@3x", withExtension: "png")`
-    static func icon_Pause_Button3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Pause_Button3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Play_Button", withExtension: "png")`
-    static func icon_Play_ButtonPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Play_ButtonPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Play_Button@2x", withExtension: "png")`
-    static func icon_Play_Button2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Play_Button2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_Play_Button@3x", withExtension: "png")`
-    static func icon_Play_Button3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_Play_Button3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_between@2x", withExtension: "png")`
-    static func icon_between2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_between2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_cal@2x", withExtension: "png")`
-    static func icon_cal2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_cal2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_cell_delete", withExtension: "png")`
-    static func icon_cell_deletePng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_cell_deletePng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_cell_delete@2x", withExtension: "png")`
-    static func icon_cell_delete2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_cell_delete2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_cell_delete@3x", withExtension: "png")`
-    static func icon_cell_delete3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_cell_delete3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_column@2x", withExtension: "png")`
-    static func icon_column2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_column2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_comment", withExtension: "png")`
-    static func icon_commentPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_commentPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_comment@2x", withExtension: "png")`
-    static func icon_comment2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_comment2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_comment@3x", withExtension: "png")`
-    static func icon_comment3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_comment3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_comment_sel", withExtension: "png")`
-    static func icon_comment_selPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_comment_selPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_comment_sel@2x", withExtension: "png")`
-    static func icon_comment_sel2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_comment_sel2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_comment_sel@3x", withExtension: "png")`
-    static func icon_comment_sel3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_comment_sel3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_correct", withExtension: "png")`
-    static func icon_correctPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_correctPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_correct@2x", withExtension: "png")`
-    static func icon_correct2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_correct2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_correct@3x", withExtension: "png")`
-    static func icon_correct3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_correct3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_course@2x", withExtension: "png")`
-    static func icon_course2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_course2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_document@2x", withExtension: "png")`
-    static func icon_document2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_document2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_left_arrow", withExtension: "png")`
-    static func icon_left_arrowPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_left_arrowPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_left_arrow@2x", withExtension: "png")`
-    static func icon_left_arrow2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_left_arrow2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_left_arrow@3x", withExtension: "png")`
-    static func icon_left_arrow3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_left_arrow3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_life@2x", withExtension: "png")`
-    static func icon_life2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_life2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_list", withExtension: "png")`
-    static func icon_listPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_listPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_list@2x", withExtension: "png")`
-    static func icon_list2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_list2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_list@3x", withExtension: "png")`
-    static func icon_list3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_list3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_list_sel", withExtension: "png")`
-    static func icon_list_selPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_list_selPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_list_sel@2x", withExtension: "png")`
-    static func icon_list_sel2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_list_sel2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_list_sel@3x", withExtension: "png")`
-    static func icon_list_sel3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_list_sel3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_live@2x", withExtension: "png")`
-    static func icon_live2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_live2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_page_turn", withExtension: "png")`
-    static func icon_page_turnPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_page_turnPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_page_turn@2x", withExtension: "png")`
-    static func icon_page_turn2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_page_turn2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_page_turn@3x", withExtension: "png")`
-    static func icon_page_turn3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_page_turn3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_page_turn_sel", withExtension: "png")`
-    static func icon_page_turn_selPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_page_turn_selPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_page_turn_sel@2x", withExtension: "png")`
-    static func icon_page_turn_sel2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_page_turn_sel2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_page_turn_sel@3x", withExtension: "png")`
-    static func icon_page_turn_sel3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_page_turn_sel3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_phone@2x", withExtension: "png")`
-    static func icon_phone2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_phone2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_plus_rect", withExtension: "png")`
-    static func icon_plus_rectPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_plus_rectPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_plus_rect@2x", withExtension: "png")`
-    static func icon_plus_rect2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_plus_rect2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_plus_rect@3x", withExtension: "png")`
-    static func icon_plus_rect3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_plus_rect3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_preview", withExtension: "png")`
-    static func icon_previewPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_previewPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_preview@2x", withExtension: "png")`
-    static func icon_preview2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_preview2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_preview@3x", withExtension: "png")`
-    static func icon_preview3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_preview3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_pwd@2x", withExtension: "png")`
-    static func icon_pwd2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_pwd2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_return", withExtension: "png")`
-    static func icon_returnPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_returnPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_return@2x", withExtension: "png")`
-    static func icon_return2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_return2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_return@3x", withExtension: "png")`
-    static func icon_return3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_return3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_right_arrow", withExtension: "png")`
-    static func icon_right_arrowPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_right_arrowPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_right_arrow@2x", withExtension: "png")`
-    static func icon_right_arrow2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_right_arrow2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_shouqi", withExtension: "png")`
-    static func icon_shouqiPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_shouqiPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_shouqi@2x", withExtension: "png")`
-    static func icon_shouqi2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_shouqi2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_shouqi@3x", withExtension: "png")`
-    static func icon_shouqi3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_shouqi3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_timeline", withExtension: "png")`
-    static func icon_timelinePng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_timelinePng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_timeline@2x", withExtension: "png")`
-    static func icon_timeline2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_timeline2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_timeline@3x", withExtension: "png")`
-    static func icon_timeline3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_timeline3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_zhankai", withExtension: "png")`
-    static func icon_zhankaiPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_zhankaiPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_zhankai@2x", withExtension: "png")`
-    static func icon_zhankai2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_zhankai2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "icon_zhankai@3x", withExtension: "png")`
-    static func icon_zhankai3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.icon_zhankai3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "imgSelecte_NO", withExtension: "png")`
-    static func imgSelecte_NOPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.imgSelecte_NOPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "imgSelecte_NO@2x", withExtension: "png")`
-    static func imgSelecte_NO2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.imgSelecte_NO2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "imgSelecte_NO@3x", withExtension: "png")`
-    static func imgSelecte_NO3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.imgSelecte_NO3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "imgSelecte_YES", withExtension: "png")`
-    static func imgSelecte_YESPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.imgSelecte_YESPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "imgSelecte_YES@2x", withExtension: "png")`
-    static func imgSelecte_YES2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.imgSelecte_YES2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "imgSelecte_YES@3x", withExtension: "png")`
-    static func imgSelecte_YES3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.imgSelecte_YES3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "logic", withExtension: "png")`
-    static func logicPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.logicPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "logo@2x", withExtension: "png")`
-    static func logo2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.logo2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "mew_baseline", withExtension: "png")`
-    static func mew_baselinePng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.mew_baselinePng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "mine@2x", withExtension: "png")`
-    static func mine2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.mine2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "mine_selected@2x", withExtension: "png")`
-    static func mine_selected2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.mine_selected2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "opern", withExtension: "jpeg")`
-    static func opernJpeg(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.opernJpeg
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "pdf_icon_left_arrow", withExtension: "png")`
-    static func pdf_icon_left_arrowPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.pdf_icon_left_arrowPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "pdf_icon_left_arrow@2x", withExtension: "png")`
-    static func pdf_icon_left_arrow2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.pdf_icon_left_arrow2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "pdf_icon_left_arrow@3x", withExtension: "png")`
-    static func pdf_icon_left_arrow3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.pdf_icon_left_arrow3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "pdf_icon_right_arrow", withExtension: "png")`
-    static func pdf_icon_right_arrowPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.pdf_icon_right_arrowPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "pdf_icon_right_arrow@2x", withExtension: "png")`
-    static func pdf_icon_right_arrow2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.pdf_icon_right_arrow2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "pdf_icon_right_arrow@3x", withExtension: "png")`
-    static func pdf_icon_right_arrow3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.pdf_icon_right_arrow3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "record_ico_rec@2x", withExtension: "png")`
-    static func record_ico_rec2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.record_ico_rec2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "spaceship", withExtension: "png")`
-    static func spaceshipPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.spaceshipPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "student@2x", withExtension: "png")`
-    static func student2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.student2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "test@2x", withExtension: "gif")`
-    static func test2xGif(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.test2xGif
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "toolbar-emoji@2x", withExtension: "png")`
-    static func toolbarEmoji2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.toolbarEmoji2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "toolbar-emoji@3x", withExtension: "png")`
-    static func toolbarEmoji3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.toolbarEmoji3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "triangle@2x", withExtension: "png")`
-    static func triangle2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.triangle2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "triangle@3x", withExtension: "png")`
-    static func triangle3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.triangle3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "triangle_sel@2x", withExtension: "png")`
-    static func triangle_sel2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.triangle_sel2xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "triangle_sel@3x", withExtension: "png")`
-    static func triangle_sel3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.triangle_sel3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "w1", withExtension: "jpg")`
-    static func w1Jpg(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.w1Jpg
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "w2", withExtension: "png")`
-    static func w2Png(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.w2Png
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "w3", withExtension: "jpg")`
-    static func w3Jpg(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.w3Jpg
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    fileprivate init() {}
-  }
-
-  /// This `R.image` struct is generated, and contains static references to 158 images.
+  /// This `_R.image` struct is generated, and contains static references to 158 images.
   struct image {
-    /// Image `Expression__100`.
-    static let expression__100 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__100")
-    /// Image `Expression__10`.
-    static let expression__10 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__10")
-    /// Image `Expression__11`.
-    static let expression__11 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__11")
-    /// Image `Expression__12`.
-    static let expression__12 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__12")
-    /// Image `Expression__13`.
-    static let expression__13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__13")
-    /// Image `Expression__14`.
-    static let expression__14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__14")
-    /// Image `Expression__15`.
-    static let expression__15 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__15")
-    /// Image `Expression__16`.
-    static let expression__16 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__16")
-    /// Image `Expression__17`.
-    static let expression__17 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__17")
-    /// Image `Expression__18`.
-    static let expression__18 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__18")
-    /// Image `Expression__19`.
-    static let expression__19 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__19")
+    let bundle: Foundation.Bundle
+
     /// Image `Expression__1`.
-    static let expression__1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__1")
-    /// Image `Expression__20`.
-    static let expression__20 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__20")
-    /// Image `Expression__21`.
-    static let expression__21 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__21")
-    /// Image `Expression__22`.
-    static let expression__22 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__22")
-    /// Image `Expression__23`.
-    static let expression__23 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__23")
-    /// Image `Expression__24`.
-    static let expression__24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__24")
-    /// Image `Expression__25`.
-    static let expression__25 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__25")
-    /// Image `Expression__26`.
-    static let expression__26 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__26")
-    /// Image `Expression__27`.
-    static let expression__27 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__27")
-    /// Image `Expression__28`.
-    static let expression__28 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__28")
-    /// Image `Expression__29`.
-    static let expression__29 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__29")
+    var expression__1: RswiftResources.ImageResource { .init(name: "Expression__1", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__10`.
+    var expression__10: RswiftResources.ImageResource { .init(name: "Expression__10", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__100`.
+    var expression__100: RswiftResources.ImageResource { .init(name: "Expression__100", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__11`.
+    var expression__11: RswiftResources.ImageResource { .init(name: "Expression__11", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__12`.
+    var expression__12: RswiftResources.ImageResource { .init(name: "Expression__12", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__13`.
+    var expression__13: RswiftResources.ImageResource { .init(name: "Expression__13", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__14`.
+    var expression__14: RswiftResources.ImageResource { .init(name: "Expression__14", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__15`.
+    var expression__15: RswiftResources.ImageResource { .init(name: "Expression__15", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__16`.
+    var expression__16: RswiftResources.ImageResource { .init(name: "Expression__16", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__17`.
+    var expression__17: RswiftResources.ImageResource { .init(name: "Expression__17", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__18`.
+    var expression__18: RswiftResources.ImageResource { .init(name: "Expression__18", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__19`.
+    var expression__19: RswiftResources.ImageResource { .init(name: "Expression__19", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `Expression__2`.
-    static let expression__2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__2")
-    /// Image `Expression__30`.
-    static let expression__30 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__30")
-    /// Image `Expression__31`.
-    static let expression__31 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__31")
-    /// Image `Expression__32`.
-    static let expression__32 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__32")
-    /// Image `Expression__33`.
-    static let expression__33 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__33")
-    /// Image `Expression__34`.
-    static let expression__34 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__34")
-    /// Image `Expression__35`.
-    static let expression__35 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__35")
-    /// Image `Expression__36`.
-    static let expression__36 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__36")
-    /// Image `Expression__37`.
-    static let expression__37 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__37")
-    /// Image `Expression__38`.
-    static let expression__38 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__38")
-    /// Image `Expression__39`.
-    static let expression__39 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__39")
+    var expression__2: RswiftResources.ImageResource { .init(name: "Expression__2", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__20`.
+    var expression__20: RswiftResources.ImageResource { .init(name: "Expression__20", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__21`.
+    var expression__21: RswiftResources.ImageResource { .init(name: "Expression__21", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__22`.
+    var expression__22: RswiftResources.ImageResource { .init(name: "Expression__22", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__23`.
+    var expression__23: RswiftResources.ImageResource { .init(name: "Expression__23", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__24`.
+    var expression__24: RswiftResources.ImageResource { .init(name: "Expression__24", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__25`.
+    var expression__25: RswiftResources.ImageResource { .init(name: "Expression__25", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__26`.
+    var expression__26: RswiftResources.ImageResource { .init(name: "Expression__26", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__27`.
+    var expression__27: RswiftResources.ImageResource { .init(name: "Expression__27", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__28`.
+    var expression__28: RswiftResources.ImageResource { .init(name: "Expression__28", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__29`.
+    var expression__29: RswiftResources.ImageResource { .init(name: "Expression__29", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `Expression__3`.
-    static let expression__3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__3")
-    /// Image `Expression__40`.
-    static let expression__40 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__40")
-    /// Image `Expression__41`.
-    static let expression__41 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__41")
-    /// Image `Expression__42`.
-    static let expression__42 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__42")
-    /// Image `Expression__43`.
-    static let expression__43 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__43")
-    /// Image `Expression__44`.
-    static let expression__44 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__44")
-    /// Image `Expression__45`.
-    static let expression__45 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__45")
-    /// Image `Expression__46`.
-    static let expression__46 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__46")
-    /// Image `Expression__47`.
-    static let expression__47 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__47")
-    /// Image `Expression__48`.
-    static let expression__48 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__48")
-    /// Image `Expression__49`.
-    static let expression__49 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__49")
+    var expression__3: RswiftResources.ImageResource { .init(name: "Expression__3", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__30`.
+    var expression__30: RswiftResources.ImageResource { .init(name: "Expression__30", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__31`.
+    var expression__31: RswiftResources.ImageResource { .init(name: "Expression__31", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__32`.
+    var expression__32: RswiftResources.ImageResource { .init(name: "Expression__32", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__33`.
+    var expression__33: RswiftResources.ImageResource { .init(name: "Expression__33", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__34`.
+    var expression__34: RswiftResources.ImageResource { .init(name: "Expression__34", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__35`.
+    var expression__35: RswiftResources.ImageResource { .init(name: "Expression__35", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__36`.
+    var expression__36: RswiftResources.ImageResource { .init(name: "Expression__36", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__37`.
+    var expression__37: RswiftResources.ImageResource { .init(name: "Expression__37", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__38`.
+    var expression__38: RswiftResources.ImageResource { .init(name: "Expression__38", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__39`.
+    var expression__39: RswiftResources.ImageResource { .init(name: "Expression__39", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `Expression__4`.
-    static let expression__4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__4")
-    /// Image `Expression__50`.
-    static let expression__50 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__50")
-    /// Image `Expression__51`.
-    static let expression__51 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__51")
-    /// Image `Expression__52`.
-    static let expression__52 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__52")
-    /// Image `Expression__53`.
-    static let expression__53 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__53")
-    /// Image `Expression__54`.
-    static let expression__54 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__54")
-    /// Image `Expression__55`.
-    static let expression__55 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__55")
-    /// Image `Expression__56`.
-    static let expression__56 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__56")
-    /// Image `Expression__57`.
-    static let expression__57 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__57")
-    /// Image `Expression__58`.
-    static let expression__58 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__58")
-    /// Image `Expression__59`.
-    static let expression__59 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__59")
+    var expression__4: RswiftResources.ImageResource { .init(name: "Expression__4", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__40`.
+    var expression__40: RswiftResources.ImageResource { .init(name: "Expression__40", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__41`.
+    var expression__41: RswiftResources.ImageResource { .init(name: "Expression__41", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__42`.
+    var expression__42: RswiftResources.ImageResource { .init(name: "Expression__42", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__43`.
+    var expression__43: RswiftResources.ImageResource { .init(name: "Expression__43", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__44`.
+    var expression__44: RswiftResources.ImageResource { .init(name: "Expression__44", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__45`.
+    var expression__45: RswiftResources.ImageResource { .init(name: "Expression__45", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__46`.
+    var expression__46: RswiftResources.ImageResource { .init(name: "Expression__46", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__47`.
+    var expression__47: RswiftResources.ImageResource { .init(name: "Expression__47", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__48`.
+    var expression__48: RswiftResources.ImageResource { .init(name: "Expression__48", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__49`.
+    var expression__49: RswiftResources.ImageResource { .init(name: "Expression__49", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `Expression__5`.
-    static let expression__5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__5")
-    /// Image `Expression__60`.
-    static let expression__60 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__60")
-    /// Image `Expression__61`.
-    static let expression__61 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__61")
-    /// Image `Expression__62`.
-    static let expression__62 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__62")
-    /// Image `Expression__63`.
-    static let expression__63 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__63")
-    /// Image `Expression__64`.
-    static let expression__64 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__64")
-    /// Image `Expression__65`.
-    static let expression__65 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__65")
-    /// Image `Expression__66`.
-    static let expression__66 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__66")
-    /// Image `Expression__67`.
-    static let expression__67 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__67")
-    /// Image `Expression__68`.
-    static let expression__68 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__68")
-    /// Image `Expression__69`.
-    static let expression__69 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__69")
+    var expression__5: RswiftResources.ImageResource { .init(name: "Expression__5", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__50`.
+    var expression__50: RswiftResources.ImageResource { .init(name: "Expression__50", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__51`.
+    var expression__51: RswiftResources.ImageResource { .init(name: "Expression__51", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__52`.
+    var expression__52: RswiftResources.ImageResource { .init(name: "Expression__52", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__53`.
+    var expression__53: RswiftResources.ImageResource { .init(name: "Expression__53", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__54`.
+    var expression__54: RswiftResources.ImageResource { .init(name: "Expression__54", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__55`.
+    var expression__55: RswiftResources.ImageResource { .init(name: "Expression__55", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__56`.
+    var expression__56: RswiftResources.ImageResource { .init(name: "Expression__56", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__57`.
+    var expression__57: RswiftResources.ImageResource { .init(name: "Expression__57", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__58`.
+    var expression__58: RswiftResources.ImageResource { .init(name: "Expression__58", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__59`.
+    var expression__59: RswiftResources.ImageResource { .init(name: "Expression__59", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `Expression__6`.
-    static let expression__6 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__6")
-    /// Image `Expression__70`.
-    static let expression__70 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__70")
-    /// Image `Expression__71`.
-    static let expression__71 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__71")
-    /// Image `Expression__72`.
-    static let expression__72 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__72")
-    /// Image `Expression__73`.
-    static let expression__73 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__73")
-    /// Image `Expression__74`.
-    static let expression__74 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__74")
-    /// Image `Expression__75`.
-    static let expression__75 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__75")
-    /// Image `Expression__76`.
-    static let expression__76 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__76")
-    /// Image `Expression__77`.
-    static let expression__77 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__77")
-    /// Image `Expression__78`.
-    static let expression__78 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__78")
-    /// Image `Expression__79`.
-    static let expression__79 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__79")
+    var expression__6: RswiftResources.ImageResource { .init(name: "Expression__6", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__60`.
+    var expression__60: RswiftResources.ImageResource { .init(name: "Expression__60", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__61`.
+    var expression__61: RswiftResources.ImageResource { .init(name: "Expression__61", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__62`.
+    var expression__62: RswiftResources.ImageResource { .init(name: "Expression__62", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__63`.
+    var expression__63: RswiftResources.ImageResource { .init(name: "Expression__63", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__64`.
+    var expression__64: RswiftResources.ImageResource { .init(name: "Expression__64", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__65`.
+    var expression__65: RswiftResources.ImageResource { .init(name: "Expression__65", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__66`.
+    var expression__66: RswiftResources.ImageResource { .init(name: "Expression__66", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__67`.
+    var expression__67: RswiftResources.ImageResource { .init(name: "Expression__67", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__68`.
+    var expression__68: RswiftResources.ImageResource { .init(name: "Expression__68", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__69`.
+    var expression__69: RswiftResources.ImageResource { .init(name: "Expression__69", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `Expression__7`.
-    static let expression__7 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__7")
-    /// Image `Expression__80`.
-    static let expression__80 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__80")
-    /// Image `Expression__81`.
-    static let expression__81 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__81")
-    /// Image `Expression__82`.
-    static let expression__82 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__82")
-    /// Image `Expression__83`.
-    static let expression__83 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__83")
-    /// Image `Expression__84`.
-    static let expression__84 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__84")
-    /// Image `Expression__85`.
-    static let expression__85 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__85")
-    /// Image `Expression__86`.
-    static let expression__86 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__86")
-    /// Image `Expression__87`.
-    static let expression__87 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__87")
-    /// Image `Expression__88`.
-    static let expression__88 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__88")
-    /// Image `Expression__89`.
-    static let expression__89 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__89")
+    var expression__7: RswiftResources.ImageResource { .init(name: "Expression__7", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__70`.
+    var expression__70: RswiftResources.ImageResource { .init(name: "Expression__70", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__71`.
+    var expression__71: RswiftResources.ImageResource { .init(name: "Expression__71", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__72`.
+    var expression__72: RswiftResources.ImageResource { .init(name: "Expression__72", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__73`.
+    var expression__73: RswiftResources.ImageResource { .init(name: "Expression__73", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__74`.
+    var expression__74: RswiftResources.ImageResource { .init(name: "Expression__74", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__75`.
+    var expression__75: RswiftResources.ImageResource { .init(name: "Expression__75", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__76`.
+    var expression__76: RswiftResources.ImageResource { .init(name: "Expression__76", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__77`.
+    var expression__77: RswiftResources.ImageResource { .init(name: "Expression__77", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__78`.
+    var expression__78: RswiftResources.ImageResource { .init(name: "Expression__78", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__79`.
+    var expression__79: RswiftResources.ImageResource { .init(name: "Expression__79", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `Expression__8`.
-    static let expression__8 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__8")
-    /// Image `Expression__90`.
-    static let expression__90 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__90")
-    /// Image `Expression__91`.
-    static let expression__91 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__91")
-    /// Image `Expression__92`.
-    static let expression__92 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__92")
-    /// Image `Expression__93`.
-    static let expression__93 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__93")
-    /// Image `Expression__94`.
-    static let expression__94 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__94")
-    /// Image `Expression__95`.
-    static let expression__95 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__95")
-    /// Image `Expression__96`.
-    static let expression__96 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__96")
-    /// Image `Expression__97`.
-    static let expression__97 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__97")
-    /// Image `Expression__98`.
-    static let expression__98 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__98")
-    /// Image `Expression__99`.
-    static let expression__99 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__99")
+    var expression__8: RswiftResources.ImageResource { .init(name: "Expression__8", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__80`.
+    var expression__80: RswiftResources.ImageResource { .init(name: "Expression__80", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__81`.
+    var expression__81: RswiftResources.ImageResource { .init(name: "Expression__81", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__82`.
+    var expression__82: RswiftResources.ImageResource { .init(name: "Expression__82", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__83`.
+    var expression__83: RswiftResources.ImageResource { .init(name: "Expression__83", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__84`.
+    var expression__84: RswiftResources.ImageResource { .init(name: "Expression__84", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__85`.
+    var expression__85: RswiftResources.ImageResource { .init(name: "Expression__85", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__86`.
+    var expression__86: RswiftResources.ImageResource { .init(name: "Expression__86", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__87`.
+    var expression__87: RswiftResources.ImageResource { .init(name: "Expression__87", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__88`.
+    var expression__88: RswiftResources.ImageResource { .init(name: "Expression__88", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__89`.
+    var expression__89: RswiftResources.ImageResource { .init(name: "Expression__89", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `Expression__9`.
-    static let expression__9 = Rswift.ImageResource(bundle: R.hostingBundle, name: "Expression__9")
-    /// Image `alertP_r`.
-    static let alertP_r = Rswift.ImageResource(bundle: R.hostingBundle, name: "alertP_r")
+    var expression__9: RswiftResources.ImageResource { .init(name: "Expression__9", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__90`.
+    var expression__90: RswiftResources.ImageResource { .init(name: "Expression__90", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__91`.
+    var expression__91: RswiftResources.ImageResource { .init(name: "Expression__91", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__92`.
+    var expression__92: RswiftResources.ImageResource { .init(name: "Expression__92", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__93`.
+    var expression__93: RswiftResources.ImageResource { .init(name: "Expression__93", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__94`.
+    var expression__94: RswiftResources.ImageResource { .init(name: "Expression__94", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__95`.
+    var expression__95: RswiftResources.ImageResource { .init(name: "Expression__95", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__96`.
+    var expression__96: RswiftResources.ImageResource { .init(name: "Expression__96", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__97`.
+    var expression__97: RswiftResources.ImageResource { .init(name: "Expression__97", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__98`.
+    var expression__98: RswiftResources.ImageResource { .init(name: "Expression__98", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `Expression__99`.
+    var expression__99: RswiftResources.ImageResource { .init(name: "Expression__99", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `alertP`.
-    static let alertP = Rswift.ImageResource(bundle: R.hostingBundle, name: "alertP")
+    var alertP: RswiftResources.ImageResource { .init(name: "alertP", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `alertP_r`.
+    var alertP_r: RswiftResources.ImageResource { .init(name: "alertP_r", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `book`.
-    static let book = Rswift.ImageResource(bundle: R.hostingBundle, name: "book")
+    var book: RswiftResources.ImageResource { .init(name: "book", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `defaultAvatar.jpg`.
-    static let defaultAvatarJpg = Rswift.ImageResource(bundle: R.hostingBundle, name: "defaultAvatar.jpg")
+    var defaultAvatarJpg: RswiftResources.ImageResource { .init(name: "defaultAvatar.jpg", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `detailBg`.
-    static let detailBg = Rswift.ImageResource(bundle: R.hostingBundle, name: "detailBg")
+    var detailBg: RswiftResources.ImageResource { .init(name: "detailBg", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `expression_bg`.
-    static let expression_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "expression_bg")
+    var expression_bg: RswiftResources.ImageResource { .init(name: "expression_bg", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `headerimg`.
-    static let headerimg = Rswift.ImageResource(bundle: R.hostingBundle, name: "headerimg")
-    /// Image `home_selected`.
-    static let home_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_selected")
+    var headerimg: RswiftResources.ImageResource { .init(name: "headerimg", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `home`.
-    static let home = Rswift.ImageResource(bundle: R.hostingBundle, name: "home")
+    var home: RswiftResources.ImageResource { .init(name: "home", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `home_selected`.
+    var home_selected: RswiftResources.ImageResource { .init(name: "home_selected", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_Lock`.
-    static let icon_Lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_Lock")
+    var icon_Lock: RswiftResources.ImageResource { .init(name: "icon_Lock", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_Open`.
-    static let icon_Open = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_Open")
+    var icon_Open: RswiftResources.ImageResource { .init(name: "icon_Open", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_Pause_Button`.
-    static let icon_Pause_Button = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_Pause_Button")
+    var icon_Pause_Button: RswiftResources.ImageResource { .init(name: "icon_Pause_Button", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_Play_Button`.
-    static let icon_Play_Button = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_Play_Button")
+    var icon_Play_Button: RswiftResources.ImageResource { .init(name: "icon_Play_Button", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_between`.
-    static let icon_between = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_between")
+    var icon_between: RswiftResources.ImageResource { .init(name: "icon_between", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_cal`.
-    static let icon_cal = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_cal")
+    var icon_cal: RswiftResources.ImageResource { .init(name: "icon_cal", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_cell_delete`.
-    static let icon_cell_delete = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_cell_delete")
+    var icon_cell_delete: RswiftResources.ImageResource { .init(name: "icon_cell_delete", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_column`.
-    static let icon_column = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_column")
-    /// Image `icon_comment_sel`.
-    static let icon_comment_sel = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_comment_sel")
+    var icon_column: RswiftResources.ImageResource { .init(name: "icon_column", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_comment`.
-    static let icon_comment = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_comment")
+    var icon_comment: RswiftResources.ImageResource { .init(name: "icon_comment", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `icon_comment_sel`.
+    var icon_comment_sel: RswiftResources.ImageResource { .init(name: "icon_comment_sel", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_correct`.
-    static let icon_correct = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_correct")
+    var icon_correct: RswiftResources.ImageResource { .init(name: "icon_correct", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_course`.
-    static let icon_course = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_course")
+    var icon_course: RswiftResources.ImageResource { .init(name: "icon_course", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_document`.
-    static let icon_document = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_document")
+    var icon_document: RswiftResources.ImageResource { .init(name: "icon_document", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_left_arrow`.
-    static let icon_left_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_left_arrow")
+    var icon_left_arrow: RswiftResources.ImageResource { .init(name: "icon_left_arrow", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_life`.
-    static let icon_life = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_life")
-    /// Image `icon_list_sel`.
-    static let icon_list_sel = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_list_sel")
+    var icon_life: RswiftResources.ImageResource { .init(name: "icon_life", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_list`.
-    static let icon_list = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_list")
+    var icon_list: RswiftResources.ImageResource { .init(name: "icon_list", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `icon_list_sel`.
+    var icon_list_sel: RswiftResources.ImageResource { .init(name: "icon_list_sel", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_live`.
-    static let icon_live = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_live")
-    /// Image `icon_page_turn_sel`.
-    static let icon_page_turn_sel = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_page_turn_sel")
+    var icon_live: RswiftResources.ImageResource { .init(name: "icon_live", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_page_turn`.
-    static let icon_page_turn = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_page_turn")
+    var icon_page_turn: RswiftResources.ImageResource { .init(name: "icon_page_turn", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `icon_page_turn_sel`.
+    var icon_page_turn_sel: RswiftResources.ImageResource { .init(name: "icon_page_turn_sel", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_phone`.
-    static let icon_phone = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_phone")
+    var icon_phone: RswiftResources.ImageResource { .init(name: "icon_phone", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_plus_rect`.
-    static let icon_plus_rect = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_plus_rect")
+    var icon_plus_rect: RswiftResources.ImageResource { .init(name: "icon_plus_rect", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_preview`.
-    static let icon_preview = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_preview")
+    var icon_preview: RswiftResources.ImageResource { .init(name: "icon_preview", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_pwd`.
-    static let icon_pwd = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pwd")
+    var icon_pwd: RswiftResources.ImageResource { .init(name: "icon_pwd", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_return`.
-    static let icon_return = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_return")
+    var icon_return: RswiftResources.ImageResource { .init(name: "icon_return", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_right_arrow`.
-    static let icon_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_right_arrow")
+    var icon_right_arrow: RswiftResources.ImageResource { .init(name: "icon_right_arrow", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_shouqi`.
-    static let icon_shouqi = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_shouqi")
+    var icon_shouqi: RswiftResources.ImageResource { .init(name: "icon_shouqi", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_timeline`.
-    static let icon_timeline = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_timeline")
+    var icon_timeline: RswiftResources.ImageResource { .init(name: "icon_timeline", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `icon_zhankai`.
-    static let icon_zhankai = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_zhankai")
+    var icon_zhankai: RswiftResources.ImageResource { .init(name: "icon_zhankai", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `imgSelecte_NO`.
-    static let imgSelecte_NO = Rswift.ImageResource(bundle: R.hostingBundle, name: "imgSelecte_NO")
+    var imgSelecte_NO: RswiftResources.ImageResource { .init(name: "imgSelecte_NO", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `imgSelecte_YES`.
-    static let imgSelecte_YES = Rswift.ImageResource(bundle: R.hostingBundle, name: "imgSelecte_YES")
+    var imgSelecte_YES: RswiftResources.ImageResource { .init(name: "imgSelecte_YES", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `logic`.
-    static let logic = Rswift.ImageResource(bundle: R.hostingBundle, name: "logic")
+    var logic: RswiftResources.ImageResource { .init(name: "logic", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `logo`.
-    static let logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo")
+    var logo: RswiftResources.ImageResource { .init(name: "logo", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `mew_baseline`.
-    static let mew_baseline = Rswift.ImageResource(bundle: R.hostingBundle, name: "mew_baseline")
-    /// Image `mine_selected`.
-    static let mine_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "mine_selected")
+    var mew_baseline: RswiftResources.ImageResource { .init(name: "mew_baseline", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `mine`.
-    static let mine = Rswift.ImageResource(bundle: R.hostingBundle, name: "mine")
+    var mine: RswiftResources.ImageResource { .init(name: "mine", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `mine_selected`.
+    var mine_selected: RswiftResources.ImageResource { .init(name: "mine_selected", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `opern.jpeg`.
-    static let opernJpeg = Rswift.ImageResource(bundle: R.hostingBundle, name: "opern.jpeg")
+    var opernJpeg: RswiftResources.ImageResource { .init(name: "opern.jpeg", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `pdf_icon_left_arrow`.
-    static let pdf_icon_left_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "pdf_icon_left_arrow")
+    var pdf_icon_left_arrow: RswiftResources.ImageResource { .init(name: "pdf_icon_left_arrow", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `pdf_icon_right_arrow`.
-    static let pdf_icon_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "pdf_icon_right_arrow")
+    var pdf_icon_right_arrow: RswiftResources.ImageResource { .init(name: "pdf_icon_right_arrow", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `record_ico_rec`.
-    static let record_ico_rec = Rswift.ImageResource(bundle: R.hostingBundle, name: "record_ico_rec")
+    var record_ico_rec: RswiftResources.ImageResource { .init(name: "record_ico_rec", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `spaceship`.
-    static let spaceship = Rswift.ImageResource(bundle: R.hostingBundle, name: "spaceship")
+    var spaceship: RswiftResources.ImageResource { .init(name: "spaceship", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `student`.
-    static let student = Rswift.ImageResource(bundle: R.hostingBundle, name: "student")
+    var student: RswiftResources.ImageResource { .init(name: "student", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `test.gif`.
-    static let testGif = Rswift.ImageResource(bundle: R.hostingBundle, name: "test.gif")
+    var testGif: RswiftResources.ImageResource { .init(name: "test.gif", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `toolbar-emoji`.
-    static let toolbarEmoji = Rswift.ImageResource(bundle: R.hostingBundle, name: "toolbar-emoji")
-    /// Image `triangle_sel`.
-    static let triangle_sel = Rswift.ImageResource(bundle: R.hostingBundle, name: "triangle_sel")
+    var toolbarEmoji: RswiftResources.ImageResource { .init(name: "toolbar-emoji", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `triangle`.
-    static let triangle = Rswift.ImageResource(bundle: R.hostingBundle, name: "triangle")
+    var triangle: RswiftResources.ImageResource { .init(name: "triangle", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
+    /// Image `triangle_sel`.
+    var triangle_sel: RswiftResources.ImageResource { .init(name: "triangle_sel", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `w1.jpg`.
-    static let w1Jpg = Rswift.ImageResource(bundle: R.hostingBundle, name: "w1.jpg")
+    var w1Jpg: RswiftResources.ImageResource { .init(name: "w1.jpg", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `w2`.
-    static let w2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "w2")
+    var w2: RswiftResources.ImageResource { .init(name: "w2", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
+
     /// Image `w3.jpg`.
-    static let w3Jpg = Rswift.ImageResource(bundle: R.hostingBundle, name: "w3.jpg")
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__1", bundle: ..., traitCollection: ...)`
-    static func expression__1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__1, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__10", bundle: ..., traitCollection: ...)`
-    static func expression__10(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__10, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__100", bundle: ..., traitCollection: ...)`
-    static func expression__100(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__100, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__11", bundle: ..., traitCollection: ...)`
-    static func expression__11(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__11, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__12", bundle: ..., traitCollection: ...)`
-    static func expression__12(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__12, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__13", bundle: ..., traitCollection: ...)`
-    static func expression__13(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__13, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__14", bundle: ..., traitCollection: ...)`
-    static func expression__14(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__14, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__15", bundle: ..., traitCollection: ...)`
-    static func expression__15(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__15, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__16", bundle: ..., traitCollection: ...)`
-    static func expression__16(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__16, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__17", bundle: ..., traitCollection: ...)`
-    static func expression__17(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__17, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__18", bundle: ..., traitCollection: ...)`
-    static func expression__18(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__18, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__19", bundle: ..., traitCollection: ...)`
-    static func expression__19(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__19, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__2", bundle: ..., traitCollection: ...)`
-    static func expression__2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__2, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__20", bundle: ..., traitCollection: ...)`
-    static func expression__20(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__20, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__21", bundle: ..., traitCollection: ...)`
-    static func expression__21(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__21, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__22", bundle: ..., traitCollection: ...)`
-    static func expression__22(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__22, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__23", bundle: ..., traitCollection: ...)`
-    static func expression__23(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__23, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__24", bundle: ..., traitCollection: ...)`
-    static func expression__24(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__24, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__25", bundle: ..., traitCollection: ...)`
-    static func expression__25(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__25, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__26", bundle: ..., traitCollection: ...)`
-    static func expression__26(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__26, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__27", bundle: ..., traitCollection: ...)`
-    static func expression__27(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__27, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__28", bundle: ..., traitCollection: ...)`
-    static func expression__28(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__28, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__29", bundle: ..., traitCollection: ...)`
-    static func expression__29(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__29, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__3", bundle: ..., traitCollection: ...)`
-    static func expression__3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__3, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__30", bundle: ..., traitCollection: ...)`
-    static func expression__30(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__30, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__31", bundle: ..., traitCollection: ...)`
-    static func expression__31(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__31, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__32", bundle: ..., traitCollection: ...)`
-    static func expression__32(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__32, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__33", bundle: ..., traitCollection: ...)`
-    static func expression__33(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__33, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__34", bundle: ..., traitCollection: ...)`
-    static func expression__34(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__34, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__35", bundle: ..., traitCollection: ...)`
-    static func expression__35(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__35, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__36", bundle: ..., traitCollection: ...)`
-    static func expression__36(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__36, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__37", bundle: ..., traitCollection: ...)`
-    static func expression__37(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__37, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__38", bundle: ..., traitCollection: ...)`
-    static func expression__38(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__38, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__39", bundle: ..., traitCollection: ...)`
-    static func expression__39(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__39, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__4", bundle: ..., traitCollection: ...)`
-    static func expression__4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__4, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__40", bundle: ..., traitCollection: ...)`
-    static func expression__40(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__40, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__41", bundle: ..., traitCollection: ...)`
-    static func expression__41(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__41, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__42", bundle: ..., traitCollection: ...)`
-    static func expression__42(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__42, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__43", bundle: ..., traitCollection: ...)`
-    static func expression__43(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__43, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__44", bundle: ..., traitCollection: ...)`
-    static func expression__44(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__44, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__45", bundle: ..., traitCollection: ...)`
-    static func expression__45(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__45, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__46", bundle: ..., traitCollection: ...)`
-    static func expression__46(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__46, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__47", bundle: ..., traitCollection: ...)`
-    static func expression__47(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__47, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__48", bundle: ..., traitCollection: ...)`
-    static func expression__48(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__48, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__49", bundle: ..., traitCollection: ...)`
-    static func expression__49(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__49, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__5", bundle: ..., traitCollection: ...)`
-    static func expression__5(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__5, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__50", bundle: ..., traitCollection: ...)`
-    static func expression__50(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__50, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__51", bundle: ..., traitCollection: ...)`
-    static func expression__51(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__51, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__52", bundle: ..., traitCollection: ...)`
-    static func expression__52(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__52, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__53", bundle: ..., traitCollection: ...)`
-    static func expression__53(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__53, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__54", bundle: ..., traitCollection: ...)`
-    static func expression__54(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__54, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__55", bundle: ..., traitCollection: ...)`
-    static func expression__55(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__55, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__56", bundle: ..., traitCollection: ...)`
-    static func expression__56(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__56, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__57", bundle: ..., traitCollection: ...)`
-    static func expression__57(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__57, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__58", bundle: ..., traitCollection: ...)`
-    static func expression__58(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__58, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__59", bundle: ..., traitCollection: ...)`
-    static func expression__59(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__59, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__6", bundle: ..., traitCollection: ...)`
-    static func expression__6(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__6, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__60", bundle: ..., traitCollection: ...)`
-    static func expression__60(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__60, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__61", bundle: ..., traitCollection: ...)`
-    static func expression__61(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__61, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__62", bundle: ..., traitCollection: ...)`
-    static func expression__62(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__62, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__63", bundle: ..., traitCollection: ...)`
-    static func expression__63(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__63, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__64", bundle: ..., traitCollection: ...)`
-    static func expression__64(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__64, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__65", bundle: ..., traitCollection: ...)`
-    static func expression__65(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__65, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__66", bundle: ..., traitCollection: ...)`
-    static func expression__66(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__66, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__67", bundle: ..., traitCollection: ...)`
-    static func expression__67(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__67, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__68", bundle: ..., traitCollection: ...)`
-    static func expression__68(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__68, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__69", bundle: ..., traitCollection: ...)`
-    static func expression__69(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__69, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__7", bundle: ..., traitCollection: ...)`
-    static func expression__7(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__7, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__70", bundle: ..., traitCollection: ...)`
-    static func expression__70(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__70, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__71", bundle: ..., traitCollection: ...)`
-    static func expression__71(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__71, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__72", bundle: ..., traitCollection: ...)`
-    static func expression__72(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__72, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__73", bundle: ..., traitCollection: ...)`
-    static func expression__73(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__73, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__74", bundle: ..., traitCollection: ...)`
-    static func expression__74(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__74, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__75", bundle: ..., traitCollection: ...)`
-    static func expression__75(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__75, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__76", bundle: ..., traitCollection: ...)`
-    static func expression__76(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__76, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__77", bundle: ..., traitCollection: ...)`
-    static func expression__77(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__77, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__78", bundle: ..., traitCollection: ...)`
-    static func expression__78(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__78, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__79", bundle: ..., traitCollection: ...)`
-    static func expression__79(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__79, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__8", bundle: ..., traitCollection: ...)`
-    static func expression__8(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__8, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__80", bundle: ..., traitCollection: ...)`
-    static func expression__80(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__80, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__81", bundle: ..., traitCollection: ...)`
-    static func expression__81(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__81, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__82", bundle: ..., traitCollection: ...)`
-    static func expression__82(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__82, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__83", bundle: ..., traitCollection: ...)`
-    static func expression__83(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__83, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__84", bundle: ..., traitCollection: ...)`
-    static func expression__84(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__84, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__85", bundle: ..., traitCollection: ...)`
-    static func expression__85(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__85, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__86", bundle: ..., traitCollection: ...)`
-    static func expression__86(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__86, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__87", bundle: ..., traitCollection: ...)`
-    static func expression__87(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__87, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__88", bundle: ..., traitCollection: ...)`
-    static func expression__88(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__88, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__89", bundle: ..., traitCollection: ...)`
-    static func expression__89(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__89, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__9", bundle: ..., traitCollection: ...)`
-    static func expression__9(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__9, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__90", bundle: ..., traitCollection: ...)`
-    static func expression__90(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__90, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__91", bundle: ..., traitCollection: ...)`
-    static func expression__91(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__91, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__92", bundle: ..., traitCollection: ...)`
-    static func expression__92(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__92, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__93", bundle: ..., traitCollection: ...)`
-    static func expression__93(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__93, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__94", bundle: ..., traitCollection: ...)`
-    static func expression__94(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__94, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__95", bundle: ..., traitCollection: ...)`
-    static func expression__95(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__95, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__96", bundle: ..., traitCollection: ...)`
-    static func expression__96(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__96, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__97", bundle: ..., traitCollection: ...)`
-    static func expression__97(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__97, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__98", bundle: ..., traitCollection: ...)`
-    static func expression__98(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__98, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Expression__99", bundle: ..., traitCollection: ...)`
-    static func expression__99(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression__99, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "alertP", bundle: ..., traitCollection: ...)`
-    static func alertP(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.alertP, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "alertP_r", bundle: ..., traitCollection: ...)`
-    static func alertP_r(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.alertP_r, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "book", bundle: ..., traitCollection: ...)`
-    static func book(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.book, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "defaultAvatar.jpg", bundle: ..., traitCollection: ...)`
-    static func defaultAvatarJpg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.defaultAvatarJpg, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "detailBg", bundle: ..., traitCollection: ...)`
-    static func detailBg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.detailBg, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "expression_bg", bundle: ..., traitCollection: ...)`
-    static func expression_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.expression_bg, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "headerimg", bundle: ..., traitCollection: ...)`
-    static func headerimg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.headerimg, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "home", bundle: ..., traitCollection: ...)`
-    static func home(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.home, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "home_selected", bundle: ..., traitCollection: ...)`
-    static func home_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.home_selected, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_Lock", bundle: ..., traitCollection: ...)`
-    static func icon_Lock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_Lock, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_Open", bundle: ..., traitCollection: ...)`
-    static func icon_Open(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_Open, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_Pause_Button", bundle: ..., traitCollection: ...)`
-    static func icon_Pause_Button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_Pause_Button, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_Play_Button", bundle: ..., traitCollection: ...)`
-    static func icon_Play_Button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_Play_Button, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_between", bundle: ..., traitCollection: ...)`
-    static func icon_between(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_between, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_cal", bundle: ..., traitCollection: ...)`
-    static func icon_cal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_cal, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_cell_delete", bundle: ..., traitCollection: ...)`
-    static func icon_cell_delete(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_cell_delete, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_column", bundle: ..., traitCollection: ...)`
-    static func icon_column(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_column, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_comment", bundle: ..., traitCollection: ...)`
-    static func icon_comment(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_comment, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_comment_sel", bundle: ..., traitCollection: ...)`
-    static func icon_comment_sel(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_comment_sel, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_correct", bundle: ..., traitCollection: ...)`
-    static func icon_correct(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_correct, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_course", bundle: ..., traitCollection: ...)`
-    static func icon_course(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_course, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_document", bundle: ..., traitCollection: ...)`
-    static func icon_document(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_document, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_left_arrow", bundle: ..., traitCollection: ...)`
-    static func icon_left_arrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_left_arrow, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_life", bundle: ..., traitCollection: ...)`
-    static func icon_life(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_life, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_list", bundle: ..., traitCollection: ...)`
-    static func icon_list(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_list, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_list_sel", bundle: ..., traitCollection: ...)`
-    static func icon_list_sel(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_list_sel, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_live", bundle: ..., traitCollection: ...)`
-    static func icon_live(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_live, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_page_turn", bundle: ..., traitCollection: ...)`
-    static func icon_page_turn(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_page_turn, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_page_turn_sel", bundle: ..., traitCollection: ...)`
-    static func icon_page_turn_sel(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_page_turn_sel, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_phone", bundle: ..., traitCollection: ...)`
-    static func icon_phone(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_phone, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_plus_rect", bundle: ..., traitCollection: ...)`
-    static func icon_plus_rect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_plus_rect, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_preview", bundle: ..., traitCollection: ...)`
-    static func icon_preview(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_preview, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_pwd", bundle: ..., traitCollection: ...)`
-    static func icon_pwd(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pwd, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_return", bundle: ..., traitCollection: ...)`
-    static func icon_return(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_return, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_right_arrow", bundle: ..., traitCollection: ...)`
-    static func icon_right_arrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_right_arrow, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_shouqi", bundle: ..., traitCollection: ...)`
-    static func icon_shouqi(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_shouqi, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_timeline", bundle: ..., traitCollection: ...)`
-    static func icon_timeline(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_timeline, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "icon_zhankai", bundle: ..., traitCollection: ...)`
-    static func icon_zhankai(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_zhankai, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "imgSelecte_NO", bundle: ..., traitCollection: ...)`
-    static func imgSelecte_NO(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.imgSelecte_NO, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "imgSelecte_YES", bundle: ..., traitCollection: ...)`
-    static func imgSelecte_YES(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.imgSelecte_YES, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "logic", bundle: ..., traitCollection: ...)`
-    static func logic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.logic, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "logo", bundle: ..., traitCollection: ...)`
-    static func logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.logo, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "mew_baseline", bundle: ..., traitCollection: ...)`
-    static func mew_baseline(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.mew_baseline, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "mine", bundle: ..., traitCollection: ...)`
-    static func mine(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.mine, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "mine_selected", bundle: ..., traitCollection: ...)`
-    static func mine_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.mine_selected, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "opern.jpeg", bundle: ..., traitCollection: ...)`
-    static func opernJpeg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.opernJpeg, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "pdf_icon_left_arrow", bundle: ..., traitCollection: ...)`
-    static func pdf_icon_left_arrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.pdf_icon_left_arrow, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "pdf_icon_right_arrow", bundle: ..., traitCollection: ...)`
-    static func pdf_icon_right_arrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.pdf_icon_right_arrow, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "record_ico_rec", bundle: ..., traitCollection: ...)`
-    static func record_ico_rec(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.record_ico_rec, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "spaceship", bundle: ..., traitCollection: ...)`
-    static func spaceship(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.spaceship, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "student", bundle: ..., traitCollection: ...)`
-    static func student(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.student, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "test.gif", bundle: ..., traitCollection: ...)`
-    static func testGif(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.testGif, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "toolbar-emoji", bundle: ..., traitCollection: ...)`
-    static func toolbarEmoji(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.toolbarEmoji, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "triangle", bundle: ..., traitCollection: ...)`
-    static func triangle(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.triangle, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "triangle_sel", bundle: ..., traitCollection: ...)`
-    static func triangle_sel(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.triangle_sel, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "w1.jpg", bundle: ..., traitCollection: ...)`
-    static func w1Jpg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.w1Jpg, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "w2", bundle: ..., traitCollection: ...)`
-    static func w2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.w2, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "w3.jpg", bundle: ..., traitCollection: ...)`
-    static func w3Jpg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.w3Jpg, compatibleWith: traitCollection)
-    }
-    #endif
-
-    fileprivate init() {}
+    var w3Jpg: RswiftResources.ImageResource { .init(name: "w3.jpg", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
   }
 
-  /// This `R.info` struct is generated, and contains static references to 1 properties.
+  /// This `_R.info` struct is generated, and contains static references to 1 properties.
   struct info {
+    let bundle: Foundation.Bundle
+    var uiApplicationSceneManifest: uiApplicationSceneManifest { .init(bundle: bundle) }
+
+    func uiApplicationSceneManifest(bundle: Foundation.Bundle) -> uiApplicationSceneManifest {
+      .init(bundle: bundle)
+    }
+
     struct uiApplicationSceneManifest {
-      static let _key = "UIApplicationSceneManifest"
-      static let uiApplicationSupportsMultipleScenes = false
+      let bundle: Foundation.Bundle
+
+      let uiApplicationSupportsMultipleScenes: Bool = false
+
+      var _key: String { bundle.infoDictionaryString(path: ["UIApplicationSceneManifest"], key: "_key") ?? "UIApplicationSceneManifest" }
+      var uiSceneConfigurations: uiSceneConfigurations { .init(bundle: bundle) }
+
+      func uiSceneConfigurations(bundle: Foundation.Bundle) -> uiSceneConfigurations {
+        .init(bundle: bundle)
+      }
 
       struct uiSceneConfigurations {
-        static let _key = "UISceneConfigurations"
+        let bundle: Foundation.Bundle
+        var _key: String { bundle.infoDictionaryString(path: ["UIApplicationSceneManifest", "UISceneConfigurations"], key: "_key") ?? "UISceneConfigurations" }
+        var uiWindowSceneSessionRoleApplication: uiWindowSceneSessionRoleApplication { .init(bundle: bundle) }
+
+        func uiWindowSceneSessionRoleApplication(bundle: Foundation.Bundle) -> uiWindowSceneSessionRoleApplication {
+          .init(bundle: bundle)
+        }
 
         struct uiWindowSceneSessionRoleApplication {
-          struct defaultConfiguration {
-            static let _key = "Default Configuration"
-            static let uiSceneConfigurationName = infoPlistString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication", "Default Configuration"], key: "UISceneConfigurationName") ?? "Default Configuration"
-            static let uiSceneDelegateClassName = infoPlistString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication", "Default Configuration"], key: "UISceneDelegateClassName") ?? "SceneDelegate"
-            static let uiSceneStoryboardFile = infoPlistString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication", "Default Configuration"], key: "UISceneStoryboardFile") ?? "Main"
+          let bundle: Foundation.Bundle
+          var defaultConfiguration: defaultConfiguration { .init(bundle: bundle) }
 
-            fileprivate init() {}
+          func defaultConfiguration(bundle: Foundation.Bundle) -> defaultConfiguration {
+            .init(bundle: bundle)
           }
 
-          fileprivate init() {}
+          struct defaultConfiguration {
+            let bundle: Foundation.Bundle
+            var uiSceneConfigurationName: String { bundle.infoDictionaryString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication"], key: "UISceneConfigurationName") ?? "Default Configuration" }
+            var uiSceneDelegateClassName: String { bundle.infoDictionaryString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication"], key: "UISceneDelegateClassName") ?? "SceneDelegate" }
+            var uiSceneStoryboardFile: String { bundle.infoDictionaryString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication"], key: "UISceneStoryboardFile") ?? "Main" }
+          }
         }
-
-        fileprivate init() {}
       }
-
-      fileprivate init() {}
     }
-
-    fileprivate init() {}
   }
 
-  fileprivate struct intern: Rswift.Validatable {
-    fileprivate static func validate() throws {
-      try _R.validate()
-    }
+  /// This `_R.file` struct is generated, and contains static references to 325 resource files.
+  struct file {
+    let bundle: Foundation.Bundle
 
-    fileprivate init() {}
+    /// Resource file `Expression__100@2x.png`.
+    var expression__1002xPng: RswiftResources.FileResource { .init(name: "Expression__100@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__100@3x.png`.
+    var expression__1003xPng: RswiftResources.FileResource { .init(name: "Expression__100@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__10@2x.png`.
+    var expression__102xPng: RswiftResources.FileResource { .init(name: "Expression__10@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__10@3x.png`.
+    var expression__103xPng: RswiftResources.FileResource { .init(name: "Expression__10@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__11@2x.png`.
+    var expression__112xPng: RswiftResources.FileResource { .init(name: "Expression__11@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__11@3x.png`.
+    var expression__113xPng: RswiftResources.FileResource { .init(name: "Expression__11@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__12@2x.png`.
+    var expression__122xPng: RswiftResources.FileResource { .init(name: "Expression__12@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__12@3x.png`.
+    var expression__123xPng: RswiftResources.FileResource { .init(name: "Expression__12@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__13@2x.png`.
+    var expression__132xPng: RswiftResources.FileResource { .init(name: "Expression__13@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__13@3x.png`.
+    var expression__133xPng: RswiftResources.FileResource { .init(name: "Expression__13@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__14@2x.png`.
+    var expression__142xPng: RswiftResources.FileResource { .init(name: "Expression__14@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__14@3x.png`.
+    var expression__143xPng: RswiftResources.FileResource { .init(name: "Expression__14@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__15@2x.png`.
+    var expression__152xPng: RswiftResources.FileResource { .init(name: "Expression__15@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__15@3x.png`.
+    var expression__153xPng: RswiftResources.FileResource { .init(name: "Expression__15@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__16@2x.png`.
+    var expression__162xPng: RswiftResources.FileResource { .init(name: "Expression__16@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__16@3x.png`.
+    var expression__163xPng: RswiftResources.FileResource { .init(name: "Expression__16@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__17@2x.png`.
+    var expression__172xPng: RswiftResources.FileResource { .init(name: "Expression__17@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__17@3x.png`.
+    var expression__173xPng: RswiftResources.FileResource { .init(name: "Expression__17@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__18@2x.png`.
+    var expression__182xPng: RswiftResources.FileResource { .init(name: "Expression__18@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__18@3x.png`.
+    var expression__183xPng: RswiftResources.FileResource { .init(name: "Expression__18@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__19@2x.png`.
+    var expression__192xPng: RswiftResources.FileResource { .init(name: "Expression__19@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__19@3x.png`.
+    var expression__193xPng: RswiftResources.FileResource { .init(name: "Expression__19@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__1@2x.png`.
+    var expression__12xPng: RswiftResources.FileResource { .init(name: "Expression__1@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__1@3x.png`.
+    var expression__13xPng: RswiftResources.FileResource { .init(name: "Expression__1@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__20@2x.png`.
+    var expression__202xPng: RswiftResources.FileResource { .init(name: "Expression__20@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__20@3x.png`.
+    var expression__203xPng: RswiftResources.FileResource { .init(name: "Expression__20@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__21@2x.png`.
+    var expression__212xPng: RswiftResources.FileResource { .init(name: "Expression__21@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__21@3x.png`.
+    var expression__213xPng: RswiftResources.FileResource { .init(name: "Expression__21@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__22@2x.png`.
+    var expression__222xPng: RswiftResources.FileResource { .init(name: "Expression__22@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__22@3x.png`.
+    var expression__223xPng: RswiftResources.FileResource { .init(name: "Expression__22@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__23@2x.png`.
+    var expression__232xPng: RswiftResources.FileResource { .init(name: "Expression__23@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__23@3x.png`.
+    var expression__233xPng: RswiftResources.FileResource { .init(name: "Expression__23@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__24@2x.png`.
+    var expression__242xPng: RswiftResources.FileResource { .init(name: "Expression__24@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__24@3x.png`.
+    var expression__243xPng: RswiftResources.FileResource { .init(name: "Expression__24@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__25@2x.png`.
+    var expression__252xPng: RswiftResources.FileResource { .init(name: "Expression__25@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__25@3x.png`.
+    var expression__253xPng: RswiftResources.FileResource { .init(name: "Expression__25@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__26@2x.png`.
+    var expression__262xPng: RswiftResources.FileResource { .init(name: "Expression__26@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__26@3x.png`.
+    var expression__263xPng: RswiftResources.FileResource { .init(name: "Expression__26@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__27@2x.png`.
+    var expression__272xPng: RswiftResources.FileResource { .init(name: "Expression__27@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__27@3x.png`.
+    var expression__273xPng: RswiftResources.FileResource { .init(name: "Expression__27@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__28@2x.png`.
+    var expression__282xPng: RswiftResources.FileResource { .init(name: "Expression__28@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__28@3x.png`.
+    var expression__283xPng: RswiftResources.FileResource { .init(name: "Expression__28@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__29@2x.png`.
+    var expression__292xPng: RswiftResources.FileResource { .init(name: "Expression__29@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__29@3x.png`.
+    var expression__293xPng: RswiftResources.FileResource { .init(name: "Expression__29@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__2@2x.png`.
+    var expression__22xPng: RswiftResources.FileResource { .init(name: "Expression__2@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__2@3x.png`.
+    var expression__23xPng: RswiftResources.FileResource { .init(name: "Expression__2@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__30@2x.png`.
+    var expression__302xPng: RswiftResources.FileResource { .init(name: "Expression__30@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__30@3x.png`.
+    var expression__303xPng: RswiftResources.FileResource { .init(name: "Expression__30@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__31@2x.png`.
+    var expression__312xPng: RswiftResources.FileResource { .init(name: "Expression__31@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__31@3x.png`.
+    var expression__313xPng: RswiftResources.FileResource { .init(name: "Expression__31@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__32@2x.png`.
+    var expression__322xPng: RswiftResources.FileResource { .init(name: "Expression__32@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__32@3x.png`.
+    var expression__323xPng: RswiftResources.FileResource { .init(name: "Expression__32@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__33@2x.png`.
+    var expression__332xPng: RswiftResources.FileResource { .init(name: "Expression__33@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__33@3x.png`.
+    var expression__333xPng: RswiftResources.FileResource { .init(name: "Expression__33@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__34@2x.png`.
+    var expression__342xPng: RswiftResources.FileResource { .init(name: "Expression__34@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__34@3x.png`.
+    var expression__343xPng: RswiftResources.FileResource { .init(name: "Expression__34@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__35@2x.png`.
+    var expression__352xPng: RswiftResources.FileResource { .init(name: "Expression__35@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__35@3x.png`.
+    var expression__353xPng: RswiftResources.FileResource { .init(name: "Expression__35@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__36@2x.png`.
+    var expression__362xPng: RswiftResources.FileResource { .init(name: "Expression__36@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__36@3x.png`.
+    var expression__363xPng: RswiftResources.FileResource { .init(name: "Expression__36@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__37@2x.png`.
+    var expression__372xPng: RswiftResources.FileResource { .init(name: "Expression__37@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__37@3x.png`.
+    var expression__373xPng: RswiftResources.FileResource { .init(name: "Expression__37@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__38@2x.png`.
+    var expression__382xPng: RswiftResources.FileResource { .init(name: "Expression__38@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__38@3x.png`.
+    var expression__383xPng: RswiftResources.FileResource { .init(name: "Expression__38@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__39@2x.png`.
+    var expression__392xPng: RswiftResources.FileResource { .init(name: "Expression__39@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__39@3x.png`.
+    var expression__393xPng: RswiftResources.FileResource { .init(name: "Expression__39@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__3@2x.png`.
+    var expression__32xPng: RswiftResources.FileResource { .init(name: "Expression__3@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__3@3x.png`.
+    var expression__33xPng: RswiftResources.FileResource { .init(name: "Expression__3@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__40@2x.png`.
+    var expression__402xPng: RswiftResources.FileResource { .init(name: "Expression__40@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__40@3x.png`.
+    var expression__403xPng: RswiftResources.FileResource { .init(name: "Expression__40@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__41@2x.png`.
+    var expression__412xPng: RswiftResources.FileResource { .init(name: "Expression__41@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__41@3x.png`.
+    var expression__413xPng: RswiftResources.FileResource { .init(name: "Expression__41@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__42@2x.png`.
+    var expression__422xPng: RswiftResources.FileResource { .init(name: "Expression__42@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__42@3x.png`.
+    var expression__423xPng: RswiftResources.FileResource { .init(name: "Expression__42@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__43@2x.png`.
+    var expression__432xPng: RswiftResources.FileResource { .init(name: "Expression__43@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__43@3x.png`.
+    var expression__433xPng: RswiftResources.FileResource { .init(name: "Expression__43@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__44@2x.png`.
+    var expression__442xPng: RswiftResources.FileResource { .init(name: "Expression__44@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__44@3x.png`.
+    var expression__443xPng: RswiftResources.FileResource { .init(name: "Expression__44@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__45@2x.png`.
+    var expression__452xPng: RswiftResources.FileResource { .init(name: "Expression__45@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__45@3x.png`.
+    var expression__453xPng: RswiftResources.FileResource { .init(name: "Expression__45@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__46@2x.png`.
+    var expression__462xPng: RswiftResources.FileResource { .init(name: "Expression__46@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__46@3x.png`.
+    var expression__463xPng: RswiftResources.FileResource { .init(name: "Expression__46@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__47@2x.png`.
+    var expression__472xPng: RswiftResources.FileResource { .init(name: "Expression__47@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__47@3x.png`.
+    var expression__473xPng: RswiftResources.FileResource { .init(name: "Expression__47@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__48@2x.png`.
+    var expression__482xPng: RswiftResources.FileResource { .init(name: "Expression__48@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__48@3x.png`.
+    var expression__483xPng: RswiftResources.FileResource { .init(name: "Expression__48@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__49@2x.png`.
+    var expression__492xPng: RswiftResources.FileResource { .init(name: "Expression__49@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__49@3x.png`.
+    var expression__493xPng: RswiftResources.FileResource { .init(name: "Expression__49@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__4@2x.png`.
+    var expression__42xPng: RswiftResources.FileResource { .init(name: "Expression__4@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__4@3x.png`.
+    var expression__43xPng: RswiftResources.FileResource { .init(name: "Expression__4@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__50@2x.png`.
+    var expression__502xPng: RswiftResources.FileResource { .init(name: "Expression__50@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__50@3x.png`.
+    var expression__503xPng: RswiftResources.FileResource { .init(name: "Expression__50@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__51@2x.png`.
+    var expression__512xPng: RswiftResources.FileResource { .init(name: "Expression__51@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__51@3x.png`.
+    var expression__513xPng: RswiftResources.FileResource { .init(name: "Expression__51@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__52@2x.png`.
+    var expression__522xPng: RswiftResources.FileResource { .init(name: "Expression__52@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__52@3x.png`.
+    var expression__523xPng: RswiftResources.FileResource { .init(name: "Expression__52@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__53@2x.png`.
+    var expression__532xPng: RswiftResources.FileResource { .init(name: "Expression__53@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__53@3x.png`.
+    var expression__533xPng: RswiftResources.FileResource { .init(name: "Expression__53@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__54@2x.png`.
+    var expression__542xPng: RswiftResources.FileResource { .init(name: "Expression__54@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__54@3x.png`.
+    var expression__543xPng: RswiftResources.FileResource { .init(name: "Expression__54@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__55@2x.png`.
+    var expression__552xPng: RswiftResources.FileResource { .init(name: "Expression__55@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__55@3x.png`.
+    var expression__553xPng: RswiftResources.FileResource { .init(name: "Expression__55@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__56@2x.png`.
+    var expression__562xPng: RswiftResources.FileResource { .init(name: "Expression__56@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__56@3x.png`.
+    var expression__563xPng: RswiftResources.FileResource { .init(name: "Expression__56@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__57@2x.png`.
+    var expression__572xPng: RswiftResources.FileResource { .init(name: "Expression__57@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__57@3x.png`.
+    var expression__573xPng: RswiftResources.FileResource { .init(name: "Expression__57@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__58@2x.png`.
+    var expression__582xPng: RswiftResources.FileResource { .init(name: "Expression__58@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__58@3x.png`.
+    var expression__583xPng: RswiftResources.FileResource { .init(name: "Expression__58@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__59@2x.png`.
+    var expression__592xPng: RswiftResources.FileResource { .init(name: "Expression__59@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__59@3x.png`.
+    var expression__593xPng: RswiftResources.FileResource { .init(name: "Expression__59@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__5@2x.png`.
+    var expression__52xPng: RswiftResources.FileResource { .init(name: "Expression__5@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__5@3x.png`.
+    var expression__53xPng: RswiftResources.FileResource { .init(name: "Expression__5@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__60@2x.png`.
+    var expression__602xPng: RswiftResources.FileResource { .init(name: "Expression__60@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__60@3x.png`.
+    var expression__603xPng: RswiftResources.FileResource { .init(name: "Expression__60@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__61@2x.png`.
+    var expression__612xPng: RswiftResources.FileResource { .init(name: "Expression__61@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__61@3x.png`.
+    var expression__613xPng: RswiftResources.FileResource { .init(name: "Expression__61@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__62@2x.png`.
+    var expression__622xPng: RswiftResources.FileResource { .init(name: "Expression__62@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__62@3x.png`.
+    var expression__623xPng: RswiftResources.FileResource { .init(name: "Expression__62@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__63@2x.png`.
+    var expression__632xPng: RswiftResources.FileResource { .init(name: "Expression__63@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__63@3x.png`.
+    var expression__633xPng: RswiftResources.FileResource { .init(name: "Expression__63@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__64@2x.png`.
+    var expression__642xPng: RswiftResources.FileResource { .init(name: "Expression__64@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__64@3x.png`.
+    var expression__643xPng: RswiftResources.FileResource { .init(name: "Expression__64@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__65@2x.png`.
+    var expression__652xPng: RswiftResources.FileResource { .init(name: "Expression__65@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__65@3x.png`.
+    var expression__653xPng: RswiftResources.FileResource { .init(name: "Expression__65@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__66@2x.png`.
+    var expression__662xPng: RswiftResources.FileResource { .init(name: "Expression__66@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__66@3x.png`.
+    var expression__663xPng: RswiftResources.FileResource { .init(name: "Expression__66@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__67@2x.png`.
+    var expression__672xPng: RswiftResources.FileResource { .init(name: "Expression__67@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__67@3x.png`.
+    var expression__673xPng: RswiftResources.FileResource { .init(name: "Expression__67@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__68@2x.png`.
+    var expression__682xPng: RswiftResources.FileResource { .init(name: "Expression__68@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__68@3x.png`.
+    var expression__683xPng: RswiftResources.FileResource { .init(name: "Expression__68@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__69@2x.png`.
+    var expression__692xPng: RswiftResources.FileResource { .init(name: "Expression__69@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__69@3x.png`.
+    var expression__693xPng: RswiftResources.FileResource { .init(name: "Expression__69@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__6@2x.png`.
+    var expression__62xPng: RswiftResources.FileResource { .init(name: "Expression__6@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__6@3x.png`.
+    var expression__63xPng: RswiftResources.FileResource { .init(name: "Expression__6@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__70@2x.png`.
+    var expression__702xPng: RswiftResources.FileResource { .init(name: "Expression__70@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__70@3x.png`.
+    var expression__703xPng: RswiftResources.FileResource { .init(name: "Expression__70@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__71@2x.png`.
+    var expression__712xPng: RswiftResources.FileResource { .init(name: "Expression__71@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__71@3x.png`.
+    var expression__713xPng: RswiftResources.FileResource { .init(name: "Expression__71@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__72@2x.png`.
+    var expression__722xPng: RswiftResources.FileResource { .init(name: "Expression__72@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__72@3x.png`.
+    var expression__723xPng: RswiftResources.FileResource { .init(name: "Expression__72@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__73@2x.png`.
+    var expression__732xPng: RswiftResources.FileResource { .init(name: "Expression__73@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__73@3x.png`.
+    var expression__733xPng: RswiftResources.FileResource { .init(name: "Expression__73@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__74@2x.png`.
+    var expression__742xPng: RswiftResources.FileResource { .init(name: "Expression__74@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__74@3x.png`.
+    var expression__743xPng: RswiftResources.FileResource { .init(name: "Expression__74@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__75@2x.png`.
+    var expression__752xPng: RswiftResources.FileResource { .init(name: "Expression__75@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__75@3x.png`.
+    var expression__753xPng: RswiftResources.FileResource { .init(name: "Expression__75@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__76@2x.png`.
+    var expression__762xPng: RswiftResources.FileResource { .init(name: "Expression__76@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__76@3x.png`.
+    var expression__763xPng: RswiftResources.FileResource { .init(name: "Expression__76@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__77@2x.png`.
+    var expression__772xPng: RswiftResources.FileResource { .init(name: "Expression__77@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__77@3x.png`.
+    var expression__773xPng: RswiftResources.FileResource { .init(name: "Expression__77@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__78@2x.png`.
+    var expression__782xPng: RswiftResources.FileResource { .init(name: "Expression__78@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__78@3x.png`.
+    var expression__783xPng: RswiftResources.FileResource { .init(name: "Expression__78@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__79@2x.png`.
+    var expression__792xPng: RswiftResources.FileResource { .init(name: "Expression__79@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__79@3x.png`.
+    var expression__793xPng: RswiftResources.FileResource { .init(name: "Expression__79@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__7@2x.png`.
+    var expression__72xPng: RswiftResources.FileResource { .init(name: "Expression__7@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__7@3x.png`.
+    var expression__73xPng: RswiftResources.FileResource { .init(name: "Expression__7@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__80@2x.png`.
+    var expression__802xPng: RswiftResources.FileResource { .init(name: "Expression__80@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__80@3x.png`.
+    var expression__803xPng: RswiftResources.FileResource { .init(name: "Expression__80@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__81@2x.png`.
+    var expression__812xPng: RswiftResources.FileResource { .init(name: "Expression__81@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__81@3x.png`.
+    var expression__813xPng: RswiftResources.FileResource { .init(name: "Expression__81@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__82@2x.png`.
+    var expression__822xPng: RswiftResources.FileResource { .init(name: "Expression__82@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__82@3x.png`.
+    var expression__823xPng: RswiftResources.FileResource { .init(name: "Expression__82@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__83@2x.png`.
+    var expression__832xPng: RswiftResources.FileResource { .init(name: "Expression__83@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__83@3x.png`.
+    var expression__833xPng: RswiftResources.FileResource { .init(name: "Expression__83@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__84@2x.png`.
+    var expression__842xPng: RswiftResources.FileResource { .init(name: "Expression__84@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__84@3x.png`.
+    var expression__843xPng: RswiftResources.FileResource { .init(name: "Expression__84@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__85@2x.png`.
+    var expression__852xPng: RswiftResources.FileResource { .init(name: "Expression__85@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__85@3x.png`.
+    var expression__853xPng: RswiftResources.FileResource { .init(name: "Expression__85@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__86@2x.png`.
+    var expression__862xPng: RswiftResources.FileResource { .init(name: "Expression__86@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__86@3x.png`.
+    var expression__863xPng: RswiftResources.FileResource { .init(name: "Expression__86@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__87@2x.png`.
+    var expression__872xPng: RswiftResources.FileResource { .init(name: "Expression__87@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__87@3x.png`.
+    var expression__873xPng: RswiftResources.FileResource { .init(name: "Expression__87@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__88@2x.png`.
+    var expression__882xPng: RswiftResources.FileResource { .init(name: "Expression__88@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__88@3x.png`.
+    var expression__883xPng: RswiftResources.FileResource { .init(name: "Expression__88@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__89@2x.png`.
+    var expression__892xPng: RswiftResources.FileResource { .init(name: "Expression__89@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__89@3x.png`.
+    var expression__893xPng: RswiftResources.FileResource { .init(name: "Expression__89@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__8@2x.png`.
+    var expression__82xPng: RswiftResources.FileResource { .init(name: "Expression__8@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__8@3x.png`.
+    var expression__83xPng: RswiftResources.FileResource { .init(name: "Expression__8@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__90@2x.png`.
+    var expression__902xPng: RswiftResources.FileResource { .init(name: "Expression__90@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__90@3x.png`.
+    var expression__903xPng: RswiftResources.FileResource { .init(name: "Expression__90@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__91@2x.png`.
+    var expression__912xPng: RswiftResources.FileResource { .init(name: "Expression__91@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__91@3x.png`.
+    var expression__913xPng: RswiftResources.FileResource { .init(name: "Expression__91@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__92@2x.png`.
+    var expression__922xPng: RswiftResources.FileResource { .init(name: "Expression__92@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__92@3x.png`.
+    var expression__923xPng: RswiftResources.FileResource { .init(name: "Expression__92@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__93@2x.png`.
+    var expression__932xPng: RswiftResources.FileResource { .init(name: "Expression__93@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__93@3x.png`.
+    var expression__933xPng: RswiftResources.FileResource { .init(name: "Expression__93@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__94@2x.png`.
+    var expression__942xPng: RswiftResources.FileResource { .init(name: "Expression__94@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__94@3x.png`.
+    var expression__943xPng: RswiftResources.FileResource { .init(name: "Expression__94@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__95@2x.png`.
+    var expression__952xPng: RswiftResources.FileResource { .init(name: "Expression__95@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__95@3x.png`.
+    var expression__953xPng: RswiftResources.FileResource { .init(name: "Expression__95@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__96@2x.png`.
+    var expression__962xPng: RswiftResources.FileResource { .init(name: "Expression__96@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__96@3x.png`.
+    var expression__963xPng: RswiftResources.FileResource { .init(name: "Expression__96@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__97@2x.png`.
+    var expression__972xPng: RswiftResources.FileResource { .init(name: "Expression__97@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__97@3x.png`.
+    var expression__973xPng: RswiftResources.FileResource { .init(name: "Expression__97@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__98@2x.png`.
+    var expression__982xPng: RswiftResources.FileResource { .init(name: "Expression__98@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__98@3x.png`.
+    var expression__983xPng: RswiftResources.FileResource { .init(name: "Expression__98@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__99@2x.png`.
+    var expression__992xPng: RswiftResources.FileResource { .init(name: "Expression__99@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__99@3x.png`.
+    var expression__993xPng: RswiftResources.FileResource { .init(name: "Expression__99@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__9@2x.png`.
+    var expression__92xPng: RswiftResources.FileResource { .init(name: "Expression__9@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Expression__9@3x.png`.
+    var expression__93xPng: RswiftResources.FileResource { .init(name: "Expression__9@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `HHFMDB.md`.
+    var hhfmdbMd: RswiftResources.FileResource { .init(name: "HHFMDB", pathExtension: "md", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `HHOCDemo.debug.xcconfig`.
+    var hhocDemoDebugXcconfig: RswiftResources.FileResource { .init(name: "HHOCDemo.debug", pathExtension: "xcconfig", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `HHOCDemo.release.xcconfig`.
+    var hhocDemoReleaseXcconfig: RswiftResources.FileResource { .init(name: "HHOCDemo.release", pathExtension: "xcconfig", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `HHOCDemo_Base.xcconfig`.
+    var hhocDemo_BaseXcconfig: RswiftResources.FileResource { .init(name: "HHOCDemo_Base", pathExtension: "xcconfig", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `HHTabBarController.md`.
+    var hhTabBarControllerMd: RswiftResources.FileResource { .init(name: "HHTabBarController", pathExtension: "md", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `LongPress.md`.
+    var longPressMd: RswiftResources.FileResource { .init(name: "LongPress", pathExtension: "md", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `alertP.png`.
+    var alertPPng: RswiftResources.FileResource { .init(name: "alertP", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `alertP@2x.png`.
+    var alertP2xPng: RswiftResources.FileResource { .init(name: "alertP@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `alertP@3x.png`.
+    var alertP3xPng: RswiftResources.FileResource { .init(name: "alertP@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `alertP_r.png`.
+    var alertP_rPng: RswiftResources.FileResource { .init(name: "alertP_r", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `alertP_r@2x.png`.
+    var alertP_r2xPng: RswiftResources.FileResource { .init(name: "alertP_r@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `alertP_r@3x.png`.
+    var alertP_r3xPng: RswiftResources.FileResource { .init(name: "alertP_r@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `book.pdf`.
+    var bookPdf: RswiftResources.FileResource { .init(name: "book", pathExtension: "pdf", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `book@2x.png`.
+    var book2xPng: RswiftResources.FileResource { .init(name: "book@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `boss_emoji.plist`.
+    var boss_emojiPlist: RswiftResources.FileResource { .init(name: "boss_emoji", pathExtension: "plist", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `chapterDataSource.json`.
+    var chapterDataSourceJson: RswiftResources.FileResource { .init(name: "chapterDataSource", pathExtension: "json", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `composition_20161227165016_98521_12.yyt`.
+    var composition_20161227165016_98521_12Yyt: RswiftResources.FileResource { .init(name: "composition_20161227165016_98521_12", pathExtension: "yyt", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `dataSource.json`.
+    var dataSourceJson: RswiftResources.FileResource { .init(name: "dataSource", pathExtension: "json", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `defaultAvatar@2x.jpg`.
+    var defaultAvatar2xJpg: RswiftResources.FileResource { .init(name: "defaultAvatar@2x", pathExtension: "jpg", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `detailBg@2x.png`.
+    var detailBg2xPng: RswiftResources.FileResource { .init(name: "detailBg@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `expression_bg@2x.png`.
+    var expression_bg2xPng: RswiftResources.FileResource { .init(name: "expression_bg@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `expression_bg@3x.png`.
+    var expression_bg3xPng: RswiftResources.FileResource { .init(name: "expression_bg@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `headerimg.png`.
+    var headerimgPng: RswiftResources.FileResource { .init(name: "headerimg", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `hh.order`.
+    var hhOrder: RswiftResources.FileResource { .init(name: "hh", pathExtension: "order", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `home@2x.png`.
+    var home2xPng: RswiftResources.FileResource { .init(name: "home@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `home_selected@2x.png`.
+    var home_selected2xPng: RswiftResources.FileResource { .init(name: "home_selected@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Lock.png`.
+    var icon_LockPng: RswiftResources.FileResource { .init(name: "icon_Lock", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Lock@2x.png`.
+    var icon_Lock2xPng: RswiftResources.FileResource { .init(name: "icon_Lock@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Lock@3x.png`.
+    var icon_Lock3xPng: RswiftResources.FileResource { .init(name: "icon_Lock@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Open.png`.
+    var icon_OpenPng: RswiftResources.FileResource { .init(name: "icon_Open", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Open@2x.png`.
+    var icon_Open2xPng: RswiftResources.FileResource { .init(name: "icon_Open@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Open@3x.png`.
+    var icon_Open3xPng: RswiftResources.FileResource { .init(name: "icon_Open@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Pause_Button.png`.
+    var icon_Pause_ButtonPng: RswiftResources.FileResource { .init(name: "icon_Pause_Button", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Pause_Button@2x.png`.
+    var icon_Pause_Button2xPng: RswiftResources.FileResource { .init(name: "icon_Pause_Button@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Pause_Button@3x.png`.
+    var icon_Pause_Button3xPng: RswiftResources.FileResource { .init(name: "icon_Pause_Button@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Play_Button.png`.
+    var icon_Play_ButtonPng: RswiftResources.FileResource { .init(name: "icon_Play_Button", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Play_Button@2x.png`.
+    var icon_Play_Button2xPng: RswiftResources.FileResource { .init(name: "icon_Play_Button@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_Play_Button@3x.png`.
+    var icon_Play_Button3xPng: RswiftResources.FileResource { .init(name: "icon_Play_Button@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_between@2x.png`.
+    var icon_between2xPng: RswiftResources.FileResource { .init(name: "icon_between@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_cal@2x.png`.
+    var icon_cal2xPng: RswiftResources.FileResource { .init(name: "icon_cal@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_cell_delete.png`.
+    var icon_cell_deletePng: RswiftResources.FileResource { .init(name: "icon_cell_delete", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_cell_delete@2x.png`.
+    var icon_cell_delete2xPng: RswiftResources.FileResource { .init(name: "icon_cell_delete@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_cell_delete@3x.png`.
+    var icon_cell_delete3xPng: RswiftResources.FileResource { .init(name: "icon_cell_delete@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_column@2x.png`.
+    var icon_column2xPng: RswiftResources.FileResource { .init(name: "icon_column@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_comment.png`.
+    var icon_commentPng: RswiftResources.FileResource { .init(name: "icon_comment", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_comment@2x.png`.
+    var icon_comment2xPng: RswiftResources.FileResource { .init(name: "icon_comment@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_comment@3x.png`.
+    var icon_comment3xPng: RswiftResources.FileResource { .init(name: "icon_comment@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_comment_sel.png`.
+    var icon_comment_selPng: RswiftResources.FileResource { .init(name: "icon_comment_sel", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_comment_sel@2x.png`.
+    var icon_comment_sel2xPng: RswiftResources.FileResource { .init(name: "icon_comment_sel@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_comment_sel@3x.png`.
+    var icon_comment_sel3xPng: RswiftResources.FileResource { .init(name: "icon_comment_sel@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_correct.png`.
+    var icon_correctPng: RswiftResources.FileResource { .init(name: "icon_correct", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_correct@2x.png`.
+    var icon_correct2xPng: RswiftResources.FileResource { .init(name: "icon_correct@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_correct@3x.png`.
+    var icon_correct3xPng: RswiftResources.FileResource { .init(name: "icon_correct@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_course@2x.png`.
+    var icon_course2xPng: RswiftResources.FileResource { .init(name: "icon_course@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_document@2x.png`.
+    var icon_document2xPng: RswiftResources.FileResource { .init(name: "icon_document@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_left_arrow.png`.
+    var icon_left_arrowPng: RswiftResources.FileResource { .init(name: "icon_left_arrow", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_left_arrow@2x.png`.
+    var icon_left_arrow2xPng: RswiftResources.FileResource { .init(name: "icon_left_arrow@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_left_arrow@3x.png`.
+    var icon_left_arrow3xPng: RswiftResources.FileResource { .init(name: "icon_left_arrow@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_life@2x.png`.
+    var icon_life2xPng: RswiftResources.FileResource { .init(name: "icon_life@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_list.png`.
+    var icon_listPng: RswiftResources.FileResource { .init(name: "icon_list", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_list@2x.png`.
+    var icon_list2xPng: RswiftResources.FileResource { .init(name: "icon_list@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_list@3x.png`.
+    var icon_list3xPng: RswiftResources.FileResource { .init(name: "icon_list@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_list_sel.png`.
+    var icon_list_selPng: RswiftResources.FileResource { .init(name: "icon_list_sel", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_list_sel@2x.png`.
+    var icon_list_sel2xPng: RswiftResources.FileResource { .init(name: "icon_list_sel@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_list_sel@3x.png`.
+    var icon_list_sel3xPng: RswiftResources.FileResource { .init(name: "icon_list_sel@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_live@2x.png`.
+    var icon_live2xPng: RswiftResources.FileResource { .init(name: "icon_live@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_page_turn.png`.
+    var icon_page_turnPng: RswiftResources.FileResource { .init(name: "icon_page_turn", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_page_turn@2x.png`.
+    var icon_page_turn2xPng: RswiftResources.FileResource { .init(name: "icon_page_turn@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_page_turn@3x.png`.
+    var icon_page_turn3xPng: RswiftResources.FileResource { .init(name: "icon_page_turn@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_page_turn_sel.png`.
+    var icon_page_turn_selPng: RswiftResources.FileResource { .init(name: "icon_page_turn_sel", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_page_turn_sel@2x.png`.
+    var icon_page_turn_sel2xPng: RswiftResources.FileResource { .init(name: "icon_page_turn_sel@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_page_turn_sel@3x.png`.
+    var icon_page_turn_sel3xPng: RswiftResources.FileResource { .init(name: "icon_page_turn_sel@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_phone@2x.png`.
+    var icon_phone2xPng: RswiftResources.FileResource { .init(name: "icon_phone@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_plus_rect.png`.
+    var icon_plus_rectPng: RswiftResources.FileResource { .init(name: "icon_plus_rect", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_plus_rect@2x.png`.
+    var icon_plus_rect2xPng: RswiftResources.FileResource { .init(name: "icon_plus_rect@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_plus_rect@3x.png`.
+    var icon_plus_rect3xPng: RswiftResources.FileResource { .init(name: "icon_plus_rect@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_preview.png`.
+    var icon_previewPng: RswiftResources.FileResource { .init(name: "icon_preview", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_preview@2x.png`.
+    var icon_preview2xPng: RswiftResources.FileResource { .init(name: "icon_preview@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_preview@3x.png`.
+    var icon_preview3xPng: RswiftResources.FileResource { .init(name: "icon_preview@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_pwd@2x.png`.
+    var icon_pwd2xPng: RswiftResources.FileResource { .init(name: "icon_pwd@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_return.png`.
+    var icon_returnPng: RswiftResources.FileResource { .init(name: "icon_return", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_return@2x.png`.
+    var icon_return2xPng: RswiftResources.FileResource { .init(name: "icon_return@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_return@3x.png`.
+    var icon_return3xPng: RswiftResources.FileResource { .init(name: "icon_return@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_right_arrow.png`.
+    var icon_right_arrowPng: RswiftResources.FileResource { .init(name: "icon_right_arrow", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_right_arrow@2x.png`.
+    var icon_right_arrow2xPng: RswiftResources.FileResource { .init(name: "icon_right_arrow@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_shouqi.png`.
+    var icon_shouqiPng: RswiftResources.FileResource { .init(name: "icon_shouqi", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_shouqi@2x.png`.
+    var icon_shouqi2xPng: RswiftResources.FileResource { .init(name: "icon_shouqi@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_shouqi@3x.png`.
+    var icon_shouqi3xPng: RswiftResources.FileResource { .init(name: "icon_shouqi@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_timeline.png`.
+    var icon_timelinePng: RswiftResources.FileResource { .init(name: "icon_timeline", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_timeline@2x.png`.
+    var icon_timeline2xPng: RswiftResources.FileResource { .init(name: "icon_timeline@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_timeline@3x.png`.
+    var icon_timeline3xPng: RswiftResources.FileResource { .init(name: "icon_timeline@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_zhankai.png`.
+    var icon_zhankaiPng: RswiftResources.FileResource { .init(name: "icon_zhankai", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_zhankai@2x.png`.
+    var icon_zhankai2xPng: RswiftResources.FileResource { .init(name: "icon_zhankai@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `icon_zhankai@3x.png`.
+    var icon_zhankai3xPng: RswiftResources.FileResource { .init(name: "icon_zhankai@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `imgSelecte_NO.png`.
+    var imgSelecte_NOPng: RswiftResources.FileResource { .init(name: "imgSelecte_NO", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `imgSelecte_NO@2x.png`.
+    var imgSelecte_NO2xPng: RswiftResources.FileResource { .init(name: "imgSelecte_NO@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `imgSelecte_NO@3x.png`.
+    var imgSelecte_NO3xPng: RswiftResources.FileResource { .init(name: "imgSelecte_NO@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `imgSelecte_YES.png`.
+    var imgSelecte_YESPng: RswiftResources.FileResource { .init(name: "imgSelecte_YES", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `imgSelecte_YES@2x.png`.
+    var imgSelecte_YES2xPng: RswiftResources.FileResource { .init(name: "imgSelecte_YES@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `imgSelecte_YES@3x.png`.
+    var imgSelecte_YES3xPng: RswiftResources.FileResource { .init(name: "imgSelecte_YES@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `logic.png`.
+    var logicPng: RswiftResources.FileResource { .init(name: "logic", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `logo@2x.png`.
+    var logo2xPng: RswiftResources.FileResource { .init(name: "logo@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `mew_baseline.png`.
+    var mew_baselinePng: RswiftResources.FileResource { .init(name: "mew_baseline", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `mine@2x.png`.
+    var mine2xPng: RswiftResources.FileResource { .init(name: "mine@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `mine_selected@2x.png`.
+    var mine_selected2xPng: RswiftResources.FileResource { .init(name: "mine_selected@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `opern.jpeg`.
+    var opernJpeg: RswiftResources.FileResource { .init(name: "opern", pathExtension: "jpeg", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `pdf_icon_left_arrow.png`.
+    var pdf_icon_left_arrowPng: RswiftResources.FileResource { .init(name: "pdf_icon_left_arrow", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `pdf_icon_left_arrow@2x.png`.
+    var pdf_icon_left_arrow2xPng: RswiftResources.FileResource { .init(name: "pdf_icon_left_arrow@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `pdf_icon_left_arrow@3x.png`.
+    var pdf_icon_left_arrow3xPng: RswiftResources.FileResource { .init(name: "pdf_icon_left_arrow@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `pdf_icon_right_arrow.png`.
+    var pdf_icon_right_arrowPng: RswiftResources.FileResource { .init(name: "pdf_icon_right_arrow", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `pdf_icon_right_arrow@2x.png`.
+    var pdf_icon_right_arrow2xPng: RswiftResources.FileResource { .init(name: "pdf_icon_right_arrow@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `pdf_icon_right_arrow@3x.png`.
+    var pdf_icon_right_arrow3xPng: RswiftResources.FileResource { .init(name: "pdf_icon_right_arrow@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `record_ico_rec@2x.png`.
+    var record_ico_rec2xPng: RswiftResources.FileResource { .init(name: "record_ico_rec@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `spaceship.png`.
+    var spaceshipPng: RswiftResources.FileResource { .init(name: "spaceship", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `student@2x.png`.
+    var student2xPng: RswiftResources.FileResource { .init(name: "student@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `test@2x.gif`.
+    var test2xGif: RswiftResources.FileResource { .init(name: "test@2x", pathExtension: "gif", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `toolbar-emoji@2x.png`.
+    var toolbarEmoji2xPng: RswiftResources.FileResource { .init(name: "toolbar-emoji@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `toolbar-emoji@3x.png`.
+    var toolbarEmoji3xPng: RswiftResources.FileResource { .init(name: "toolbar-emoji@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `triangle@2x.png`.
+    var triangle2xPng: RswiftResources.FileResource { .init(name: "triangle@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `triangle@3x.png`.
+    var triangle3xPng: RswiftResources.FileResource { .init(name: "triangle@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `triangle_sel@2x.png`.
+    var triangle_sel2xPng: RswiftResources.FileResource { .init(name: "triangle_sel@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `triangle_sel@3x.png`.
+    var triangle_sel3xPng: RswiftResources.FileResource { .init(name: "triangle_sel@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `w1.jpg`.
+    var w1Jpg: RswiftResources.FileResource { .init(name: "w1", pathExtension: "jpg", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `w2.png`.
+    var w2Png: RswiftResources.FileResource { .init(name: "w2", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `w3.jpg`.
+    var w3Jpg: RswiftResources.FileResource { .init(name: "w3", pathExtension: "jpg", bundle: bundle, locale: LocaleReference.none) }
   }
 
-  fileprivate class Class {}
+  /// This `_R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  struct storyboard {
+    let bundle: Foundation.Bundle
+    var launchScreen: launchScreen { .init(bundle: bundle) }
+    var main: main { .init(bundle: bundle) }
 
-  fileprivate init() {}
-}
-
-struct _R: Rswift.Validatable {
-  static func validate() throws {
-    #if os(iOS) || os(tvOS)
-    try storyboard.validate()
-    #endif
-  }
-
-  #if os(iOS) || os(tvOS)
-  struct storyboard: Rswift.Validatable {
-    static func validate() throws {
-      #if os(iOS) || os(tvOS)
-      try launchScreen.validate()
-      #endif
-      #if os(iOS) || os(tvOS)
-      try main.validate()
-      #endif
+    func launchScreen(bundle: Foundation.Bundle) -> launchScreen {
+      .init(bundle: bundle)
+    }
+    func main(bundle: Foundation.Bundle) -> main {
+      .init(bundle: bundle)
+    }
+    func validate() throws {
+      try self.launchScreen.validate()
+      try self.main.validate()
     }
 
-    #if os(iOS) || os(tvOS)
-    struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+
+    /// Storyboard `LaunchScreen`.
+    struct launchScreen: RswiftResources.StoryboardReference, RswiftResources.InitialControllerContainer {
       typealias InitialController = UIKit.UIViewController
 
-      let bundle = R.hostingBundle
+      let bundle: Foundation.Bundle
+
       let name = "LaunchScreen"
+      func validate() throws {
 
-      static func validate() throws {
-        if #available(iOS 11.0, tvOS 11.0, *) {
-        }
       }
-
-      fileprivate init() {}
     }
-    #endif
 
-    #if os(iOS) || os(tvOS)
-    struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+    /// Storyboard `Main`.
+    struct main: RswiftResources.StoryboardReference, RswiftResources.InitialControllerContainer {
       typealias InitialController = HHTabBarViewController
 
-      let bundle = R.hostingBundle
+      let bundle: Foundation.Bundle
+
       let name = "Main"
+      func validate() throws {
 
-      static func validate() throws {
-        if #available(iOS 11.0, tvOS 11.0, *) {
-        }
       }
-
-      fileprivate init() {}
     }
-    #endif
-
-    fileprivate init() {}
   }
-  #endif
-
-  fileprivate init() {}
 }
