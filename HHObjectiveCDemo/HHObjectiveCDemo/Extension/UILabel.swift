@@ -42,8 +42,10 @@ extension UILabel {
           
           if let range = self.text?.range(of: text) {
               //将Range<String.Index>转换为NSRange
-              let nsRange = NSRange(range, in: text)
-              setSpecialTextWithRange(nsRange, color: color, font: font)
+              let nsRange = self.text?.nsRange(from: range)
+              if let nsRange = nsRange {
+                  setSpecialTextWithRange(nsRange, color: color, font: font)
+              }
           }
       }
       
