@@ -1,8 +1,8 @@
 //
-//  HHNetworkingViewController.swift
+//  HHMomentsDetailsVM.swift
 //  HHObjectiveCDemo
 //
-//  Created by Michael on 2023/6/7.
+//  Created by Michael on 2023/6/19.
 //
 
 import UIKit
@@ -57,16 +57,12 @@ struct Response: Codable {
     }
 }
 
-class HHNetworkingViewController: UIViewController, APISession {
-    
+class HHMomentsDetailsVM: NSObject, APISession {
     typealias ReponseType = Response
     
     let disposeBag = DisposeBag()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+    func requestTest() {
         self.post("api/Tools/UserDefinedAppReminder", headers: [], parameters: [
             "sss" : "",
             "ddd" : "",
@@ -96,16 +92,5 @@ class HHNetworkingViewController: UIViewController, APISession {
             //
         }.disposed(by: self.disposeBag)
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

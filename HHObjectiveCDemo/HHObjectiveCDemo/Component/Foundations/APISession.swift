@@ -29,7 +29,7 @@ extension APISession {
             "x-os-version": UIDevice.current.systemVersion,
             "AsId": "100133941",
             "User-Agent": "HHiOSUser-Agent",
-            "Authorization": "Bearer F3btLVz0GAtKm4qB80lHz0LdKf3TqfCdsRy78g_dKJTzkS46mW6XLCDhO2QkLddMLCjmhy-wGRCrtidJ6Pg3GFyU9CE1N3ij0Tc0XVVKaNVf7wzjx8vP-vh-azxveIyekS3F3KomMRgkFWvVcv5Maep9e6vaNX9Wm-nwjImoaTZd5-1AJmO5-UUXgWormFOd8a-4iP7i1xhoEEGijLJexgVOVZ2h4BPglvoaL2yErngrSfJ9yrdaArQDnDyiJAFV2G9GIw9N0dzQuQeKyVHaBGvgXAuFQvJl08pz77sZ597UzgzVevU5IxoKlJ5iODycaHN7PAsHwMwvc94E9ZK_kMgh87-_cZRM7swGaw4a8vg0-uJl9n8oBjEjW_740uKPNcUOUCDTaLD2DJQ3oA8X7oLtbX2amMY6IQCBsIe2RdnxDTBjK4oMfV26LtytiuFDve1_VNh0wm1afvig1vDmUNCgtIn1Z-d4eeJuBtqI3c-D_jqecqU1VhkPDXJ3tnw0",
+            "Authorization": "Bearer \(UserDefaults.standard.value(forKey: "access_token") ?? "")",
             "Content-Type": "application/json",
         ]
         return headers

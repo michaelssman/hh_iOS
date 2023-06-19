@@ -6,7 +6,7 @@
 //
 
 #import "HHImageViewController.h"
-
+#import <SCM-Swift.h>
 @interface HHImageViewController ()
 
 @end
@@ -28,7 +28,7 @@
      1、图片的大小和什么有关系？  width * height * 4bytes (ARGB)
      Data Buffert
      */
-    UIImage *image = [UIImage imageNamed:@"logic"];
+    UIImage *image = [UIImage imageNamed:@"mew_baseline"];
     /**
      image Buffer
      */
@@ -40,7 +40,7 @@
 
 - (void)testImageLoad{
     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //        UIImage *image = [UIImage imageNamed:@"logic"];
+    //        UIImage *image = [UIImage imageNamed:@"mew_baseline"];
     //        _imageView.image = image;
     //    });
     //    CFDataRef rawData = CGDataProviderCopyData(CGImageGetDataProvider(_imageView.image.CGImage));
@@ -48,7 +48,7 @@
 }
 
 - (void)testProgerss{
-    NSData *data = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"logic" ofType:@"png"]];
+    NSData *data = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"mew_baseline" ofType:@"png"]];
     //    bool finished = (data.len
     //    CGImageSourceRef source;
     //    // 更新数据
@@ -64,7 +64,7 @@
 #pragma mark - Image/IO解码
 #pragma mark - 解码
 - (UIImage *)testJPEGPNG{
-    NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"logic" ofType:@"png"]];
+    NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"mew_baseline" ofType:@"png"]];
     //输入源！！！
     CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
     
@@ -136,6 +136,7 @@ UIImageOrientation LG_YYUIImageOrientationFromEXIFValue(NSInteger value) {
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.navigationController pushViewController:[[NSClassFromString(@"HHOffScreenRenderedVC") alloc]init] animated:YES];
+    HHOffScreenRenderedVC *vc = [[HHOffScreenRenderedVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end
