@@ -57,12 +57,12 @@ struct Response: Codable {
     }
 }
 
-class HHMomentsDetailsVM: NSObject, APISession {
+struct Session1: APISession {
     typealias ReponseType = Response
     
     let disposeBag = DisposeBag()
     
-    func requestTest() {
+    init() {
         self.post("api/Tools/UserDefinedAppReminder", headers: [], parameters: [
             "sss" : "",
             "ddd" : "",
@@ -93,4 +93,11 @@ class HHMomentsDetailsVM: NSObject, APISession {
         }.disposed(by: self.disposeBag)
     }
     
+}
+
+class HHMomentsDetailsVM: NSObject {
+    var session1: Session1?
+    func request1() {
+        session1 = Session1()
+    }
 }

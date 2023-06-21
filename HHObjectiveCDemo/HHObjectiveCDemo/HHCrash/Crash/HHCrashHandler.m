@@ -22,7 +22,7 @@ static NSUncaughtExceptionHandler *oldhandler;
 - (void)saveLive {
     NSLog(@"崩溃了");
     /**
-     所有的都是items，通知，回调，timer。
+     所有的都是items：通知，回调，timer。
      items依赖mode在runloop执行。
      */
     CFRunLoopRef runloop = CFRunLoopGetCurrent();
@@ -83,7 +83,7 @@ void custom_exceptionHandler(NSException *exception)
     
     NSLog(@"%@", exceptionInfo);
     
-    [HHCrashHandler saveCrash:exceptionInfo crashType:OCCrash];
+    [HHCrashHandler saveCrash:exceptionInfo];
     [[[HHCrashHandler alloc]init] performSelectorOnMainThread:@selector(saveLive) withObject:nil waitUntilDone:YES];
     // 注册回之前的handler
     Uninstall();
@@ -101,7 +101,7 @@ void SignalExceptionHandler(int signal)
         [mstr appendFormat:@"%s\n",strs[i]];
     }
     //保存
-    [HHCrashHandler saveCrash:mstr crashType:SigCrash];
+    [HHCrashHandler saveCrash:mstr];
     [[[HHCrashHandler alloc]init] performSelectorOnMainThread:@selector(saveLive) withObject:nil waitUntilDone:YES];
 }
 //注册SIGABRT, SIGBUS, SIGSEGV等信号发生时的处理函数
@@ -152,14 +152,10 @@ void InstallSignalHandler(void){
 }
 
 #pragma mark - 保存crash信息到本地
-+ (void)saveCrash:(NSString *)exceptionInfo crashType:(CrashType)crashType
++ (void)saveCrash:(NSString *)exceptionInfo
 {
     NSString *_libPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    if (crashType == OCCrash) {
-        [_libPath stringByAppendingPathComponent:@"OCCrash"];
-    } else {
-        [_libPath stringByAppendingPathComponent:@"SigCrash"];
-    }
+    [_libPath stringByAppendingPathComponent:@"HHCrash"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:_libPath]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:_libPath withIntermediateDirectories:YES attributes:nil error:nil];
     }

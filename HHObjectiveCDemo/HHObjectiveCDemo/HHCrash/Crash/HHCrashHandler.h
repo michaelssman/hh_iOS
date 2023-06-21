@@ -10,11 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, CrashType) {
-    OCCrash = 0,
-    SigCrash = 1,
-};
-
 @interface HHCrashHandler : NSObject
 
 @end
