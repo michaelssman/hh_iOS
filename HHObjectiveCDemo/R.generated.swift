@@ -49,7 +49,7 @@ struct _R {
     var accentColor: RswiftResources.ColorResource { .init(name: "AccentColor", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 158 images.
+  /// This `_R.image` struct is generated, and contains static references to 157 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -473,9 +473,6 @@ struct _R {
     /// Image `imgSelecte_YES`.
     var imgSelecte_YES: RswiftResources.ImageResource { .init(name: "imgSelecte_YES", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
 
-    /// Image `logic`.
-    var logic: RswiftResources.ImageResource { .init(name: "logic", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
-
     /// Image `logo`.
     var logo: RswiftResources.ImageResource { .init(name: "logo", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
 
@@ -577,7 +574,7 @@ struct _R {
     }
   }
 
-  /// This `_R.file` struct is generated, and contains static references to 325 resource files.
+  /// This `_R.file` struct is generated, and contains static references to 324 resource files.
   struct file {
     let bundle: Foundation.Bundle
 
@@ -1480,9 +1477,6 @@ struct _R {
 
     /// Resource file `imgSelecte_YES@3x.png`.
     var imgSelecte_YES3xPng: RswiftResources.FileResource { .init(name: "imgSelecte_YES@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
-
-    /// Resource file `logic.png`.
-    var logicPng: RswiftResources.FileResource { .init(name: "logic", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
 
     /// Resource file `logo@2x.png`.
     var logo2xPng: RswiftResources.FileResource { .init(name: "logo@2x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }

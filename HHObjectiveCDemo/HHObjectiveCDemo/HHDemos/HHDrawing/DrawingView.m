@@ -332,16 +332,4 @@ typedef NS_ENUM(NSUInteger, TouchType)
     return jsonArray;
 }
 
-/**
- 根据json集合设置批注数据
- */
-- (void)setMarkDataWithArray:(NSArray *) dataArray {
-    for (NSDictionary *objData in dataArray) {
-        DrawingTool *tool = [DrawingTool new];
-        tool.lineWidth = kDefaultLineWidth;
-        tool.lineColor = kDefaultLineColor;
-        tool.lineAlpha = kDefaultLineAlpha;
-        [tool MarkNodeWithData:objData width:self.bounds.size.width height:self.bounds.size.height];
-    }
-}
 @end

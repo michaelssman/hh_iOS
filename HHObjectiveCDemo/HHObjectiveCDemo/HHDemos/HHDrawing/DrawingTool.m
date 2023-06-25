@@ -73,7 +73,5 @@
                               @"voice" : self.voice};
     return objData;
 }
-- (void)MarkNodeWithData:(NSDictionary *)objData width:(CGFloat)width height:(CGFloat)height {
-    
-}
+
 @end

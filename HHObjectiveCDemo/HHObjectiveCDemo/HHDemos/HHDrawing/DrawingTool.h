@@ -29,8 +29,4 @@
 //上传的数据
 - (NSDictionary *)getJsonWithWidth:(CGFloat) width
                             height:(CGFloat) height;
-//请求到的数据处理
-- (void)MarkNodeWithData:(NSDictionary *) objData
-                   width:(CGFloat) width
-                  height:(CGFloat) height;
 @end

@@ -36,6 +36,7 @@ class StudySwiftViewController: BaseViewController {
                 [key:"TargetClassMetadataViewController包",valueStr:"TargetClassMetadataViewController"],
                 [key:"Collection集合",valueStr:"HH_CollectionVC"],
                 [key:"指针和内存",valueStr:"HHPointerMemoryVC"],
+                [key:"网络请求",valueStr:"HHMomentsDetailsVM"],
             ]
         } else {
             return [
@@ -112,9 +113,14 @@ extension StudySwiftViewController: UITableViewDelegate, UITableViewDataSource {
             }).disposed(by: disposeBag)
             bgV.addSubview(pv)
             keyWindow().addSubview(bgV)
-            return;
         }
-        navigationController?.pushViewController(classFromString(array[indexPath.row][valueStr]!), animated: true)
+        else if array[indexPath.row][valueStr] == "HHMomentsDetailsVM" {
+            let mvm = HHMomentsDetailsVM()
+            mvm.request1()
+        }
+        else {
+            navigationController?.pushViewController(classFromString(array[indexPath.row][valueStr]!), animated: true)
+        }
     }
 }
 
