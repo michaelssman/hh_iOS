@@ -35,7 +35,7 @@ target 'HHObjectiveCDemo' do
   pod 'UMDevice'
   # 集成微信(完整版14.4M)
   pod 'UMShare/Social/WeChat' # 微信分享(完整版)
-  
+  pod 'PLCrashReporter', '1.11.1' #crash日志收集
   #pod 'WechatOpenSDK'#微信开放平台
 
 end
