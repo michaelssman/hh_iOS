@@ -11,23 +11,21 @@
 @end
 @implementation HHAppleLogin
 #pragma mark - appleLogin
-- (void)appleLogin {
-    if (@available(iOS 13.0, *)) {
-        //基于用户的Apple ID授权用户，生成用户授权请求的一种机制
-        ASAuthorizationAppleIDProvider *provide = [[ASAuthorizationAppleIDProvider alloc] init];
-        //创建新的AppleID 授权请求
-        ASAuthorizationAppleIDRequest *request = provide.createRequest;
-        //在用户授权期间请求的联系信息
-        request.requestedScopes = @[ASAuthorizationScopeFullName, ASAuthorizationScopeEmail];
-        //由ASAuthorizationAppleIDProvider创建的授权请求 管理授权请求的控制器
-        ASAuthorizationController *controller = [[ASAuthorizationController alloc] initWithAuthorizationRequests:@[request]];
-        //设置授权控制器通知授权请求的成功与失败的代理
-        controller.delegate = self;
-        //设置提供 展示上下文的代理，在这个上下文中 系统可以展示授权界面给用户
-        controller.presentationContextProvider = self;
-        //在控制器初始化期间启动授权流
-        [controller performRequests];
-    }
+- (void)appleLogin API_AVAILABLE(ios(13.0)) {
+    //基于用户的Apple ID授权用户，生成用户授权请求的一种机制
+    ASAuthorizationAppleIDProvider *provide = [[ASAuthorizationAppleIDProvider alloc] init];
+    //创建新的AppleID 授权请求
+    ASAuthorizationAppleIDRequest *request = provide.createRequest;
+    //在用户授权期间请求的联系信息
+    request.requestedScopes = @[ASAuthorizationScopeFullName, ASAuthorizationScopeEmail];
+    //由ASAuthorizationAppleIDProvider创建的授权请求 管理授权请求的控制器
+    ASAuthorizationController *controller = [[ASAuthorizationController alloc] initWithAuthorizationRequests:@[request]];
+    //设置授权控制器通知授权请求的成功与失败的代理
+    controller.delegate = self;
+    //设置提供 展示上下文的代理，在这个上下文中 系统可以展示授权界面给用户
+    controller.presentationContextProvider = self;
+    //在控制器初始化期间启动授权流
+    [controller performRequests];
 }
 
 #pragma mark Apple登录

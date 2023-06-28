@@ -123,12 +123,10 @@
 		4CCE002C2951BB9B00439F99 /* THViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCE00162951BB9B00439F99 /* THViewController.m */; };
 		4CCE002D2951BB9B00439F99 /* THPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCE00192951BB9B00439F99 /* THPreviewView.m */; };
 		4CCE002E2951BB9B00439F99 /* NSFileManager+THAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCE001C2951BB9B00439F99 /* NSFileManager+THAdditions.m */; };
+		4CD3D6012A4C094000B9F5B0 /* HHAppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD3D6002A4C094000B9F5B0 /* HHAppInfo.swift */; };
 		4CD3F3F227D5043A00BA0B02 /* HHAliyunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD3F3E927D5043A00BA0B02 /* HHAliyunViewController.m */; };
 		4CD3F3F327D5043A00BA0B02 /* AliyunOSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD3F3EB27D5043A00BA0B02 /* AliyunOSS.m */; };
-		4CD3F3F427D5043A00BA0B02 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD3F3ED27D5043A00BA0B02 /* 2.png */; };
 		4CD3F3F527D5043A00BA0B02 /* HHAliyunLogObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD3F3EE27D5043A00BA0B02 /* HHAliyunLogObjc.m */; };
-		4CD3F3F627D5043A00BA0B02 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD3F3EF27D5043A00BA0B02 /* 1.png */; };
-		4CD3F3F727D5043A00BA0B02 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD3F3F027D5043A00BA0B02 /* 0.png */; };
 		4CD8748D2A172A30009843F4 /* HHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8748C2A172A30009843F4 /* HHButton.swift */; };
 		4CD8FE1C29252D8000304741 /* HHOCDemo_Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4CD8FE1B29252D8000304741 /* HHOCDemo_Base.xcconfig */; };
 		4CD8FE1E29252D8000304741 /* HHOCDemo_Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4CD8FE1B29252D8000304741 /* HHOCDemo_Base.xcconfig */; };
@@ -913,16 +911,14 @@
 		4CCEFFFD2951BB9B00439F99 /* CCAudioDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAudioDecoder.m; sourceTree = "<group>"; };
 		4CCEFFFE2951BB9B00439F99 /* CCAudioDataQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAudioDataQueue.h; sourceTree = "<group>"; };
 		4CCEFFFF2951BB9B00439F99 /* CCAudioPCMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAudioPCMPlayer.h; sourceTree = "<group>"; };
+		4CD3D6002A4C094000B9F5B0 /* HHAppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHAppInfo.swift; sourceTree = "<group>"; };
 		4CD3F3E727D5043A00BA0B02 /* README_Aliyun.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README_Aliyun.md; sourceTree = "<group>"; };
 		4CD3F3E827D5043A00BA0B02 /* AliyunOSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunOSS.h; sourceTree = "<group>"; };
 		4CD3F3E927D5043A00BA0B02 /* HHAliyunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHAliyunViewController.m; sourceTree = "<group>"; };
 		4CD3F3EA27D5043A00BA0B02 /* HHAliyunLogObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHAliyunLogObjc.h; sourceTree = "<group>"; };
 		4CD3F3EB27D5043A00BA0B02 /* AliyunOSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunOSS.m; sourceTree = "<group>"; };
 		4CD3F3EC27D5043A00BA0B02 /* HHAliyunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHAliyunViewController.h; sourceTree = "<group>"; };
-		4CD3F3ED27D5043A00BA0B02 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		4CD3F3EE27D5043A00BA0B02 /* HHAliyunLogObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHAliyunLogObjc.m; sourceTree = "<group>"; };
-		4CD3F3EF27D5043A00BA0B02 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
-		4CD3F3F027D5043A00BA0B02 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		4CD8748C2A172A30009843F4 /* HHButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHButton.swift; sourceTree = "<group>"; };
 		4CD8FE1B29252D8000304741 /* HHOCDemo_Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = HHOCDemo_Base.xcconfig; sourceTree = "<group>"; };
 		4CDDC886295449E70095DE6C /* HHDetectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHDetectionDelegate.h; sourceTree = "<group>"; };
@@ -1912,6 +1908,7 @@
 				4CEB0CA929BF705000F85D73 /* BottomView.swift */,
 				4CDF581F29F22DE400B5833C /* HHView.swift */,
 				4CD8748C2A172A30009843F4 /* HHButton.swift */,
+				4CD3D6002A4C094000B9F5B0 /* HHAppInfo.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -2157,9 +2154,6 @@
 		4CD3F3E627D5043A00BA0B02 /* HHAliyun */ = {
 			isa = PBXGroup;
 			children = (
-				4CD3F3F027D5043A00BA0B02 /* 0.png */,
-				4CD3F3EF27D5043A00BA0B02 /* 1.png */,
-				4CD3F3ED27D5043A00BA0B02 /* 2.png */,
 				4CD3F3E827D5043A00BA0B02 /* AliyunOSS.h */,
 				4CD3F3EB27D5043A00BA0B02 /* AliyunOSS.m */,
 				4CD3F3EA27D5043A00BA0B02 /* HHAliyunLogObjc.h */,
@@ -4502,7 +4496,6 @@
 				D256DD3C27A0F85400699953 /* icon_Play_Button@2x.png in Resources */,
 				D256DD4027A0F85400699953 /* icon_Play_Button@3x.png in Resources */,
 				D2C8FA862785AE65008021C7 /* Expression__32@2x.png in Resources */,
-				4CD3F3F427D5043A00BA0B02 /* 2.png in Resources */,
 				4CEB0C6229BF61DF00F85D73 /* icon_course@2x.png in Resources */,
 				D2C8FA1F2785AE64008021C7 /* Expression__87@2x.png in Resources */,
 				D2C8FA162785AE64008021C7 /* Expression__85@2x.png in Resources */,
@@ -4589,7 +4582,6 @@
 				D2C8FA072785AE64008021C7 /* Expression__21@3x.png in Resources */,
 				D246FA38279ABFE200CE418F /* icon_page_turn_sel.png in Resources */,
 				D2C8FA632785AE65008021C7 /* Expression__84@2x.png in Resources */,
-				4CD3F3F727D5043A00BA0B02 /* 0.png in Resources */,
 				D2C8FA672785AE65008021C7 /* Expression__86@3x.png in Resources */,
 				D2C8FAB52785AE65008021C7 /* Expression__49@2x.png in Resources */,
 				D2C8FABE2785AE65008021C7 /* Expression__73@2x.png in Resources */,
@@ -4645,7 +4637,6 @@
 				D2C8FA002785AE64008021C7 /* Expression__40@2x.png in Resources */,
 				D246FA40279ABFE200CE418F /* icon_page_turn.png in Resources */,
 				D2C8FA262785AE64008021C7 /* Expression__42@2x.png in Resources */,
-				4CD3F3F627D5043A00BA0B02 /* 1.png in Resources */,
 				D2C8FA6B2785AE65008021C7 /* Expression__65@2x.png in Resources */,
 				D2C8FA2C2785AE64008021C7 /* Expression__74@2x.png in Resources */,
 				D2C8FA272785AE64008021C7 /* Expression__19@3x.png in Resources */,
@@ -4980,6 +4971,7 @@
 				4CEDE873285630590077B46D /* FileGroupViewController.m in Sources */,
 				4C2CC75F29F9037200EE2CC5 /* Date.swift in Sources */,
 				D256DD7027A148FE00699953 /* HHCoreTextViewController.m in Sources */,
+				4CD3D6012A4C094000B9F5B0 /* HHAppInfo.swift in Sources */,
 				4C6A1E26292FC7C200B9F019 /* HHFMDBViewController.m in Sources */,
 				D2D7E1342796B0D700BA3EAD /* HHCrashTestViewController.m in Sources */,
 				4CCE002B2951BB9B00439F99 /* THBaseCameraController.m in Sources */,

@@ -10,6 +10,9 @@ import UIKit
 import AdSupport    //广告
 import AppTrackingTransparency
 
+import CrashReporter    //崩溃日志
+
+// MARK: 极光推送
 extension AppDelegate: JPUSHRegisterDelegate {
     
     //常量
@@ -131,7 +134,7 @@ extension AppDelegate: JPUSHRegisterDelegate {
         }, seq: 110)
     }
 }
-
+// MARK: 本地通知
 extension AppDelegate {
     func addLocalNotification() {
         let content = UNMutableNotificationContent()
@@ -151,5 +154,29 @@ extension AppDelegate {
     }
     func deleteLocalNotification() {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.example.notification"])
+    }
+}
+
+extension AppDelegate {
+    func crashReport() {
+        // Uncomment and implement isDebuggerAttached to safely run this code with a debugger.
+        // See: https://github.com/microsoft/plcrashreporter/blob/2dd862ce049e6f43feb355308dfc710f3af54c4d/Source/Crash%20Demo/main.m#L96
+        // if (!isDebuggerAttached()) {
+        
+        // It is strongly recommended that local symbolication only be enabled for non-release builds.
+        // Use [] for release versions.
+        let config = PLCrashReporterConfig(signalHandlerType: .mach, symbolicationStrategy: .all)
+        guard let crashReporter = PLCrashReporter(configuration: config) else {
+            print("Could not create an instance of PLCrashReporter")
+            return
+        }
+        
+        // Enable the Crash Reporter.
+        do {
+            try crashReporter.enableAndReturnError()
+        } catch let error {
+            print("Warning: Could not enable crash reporter: \(error)")
+        }
+        // }
     }
 }

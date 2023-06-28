@@ -8,7 +8,7 @@
 
 #import "HHCrashHandler.h"
 #import <execinfo.h>
-
+#import <SCM-Swift.h>
 static NSUncaughtExceptionHandler custom_exceptionHandler;
 static NSUncaughtExceptionHandler *oldhandler;
 
@@ -160,31 +160,10 @@ void InstallSignalHandler(void){
         [[NSFileManager defaultManager] createDirectoryAtPath:_libPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
-    // crash日期
-    NSDate *date = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"YYYYMMdd-HHmmss"];
-    NSString *dateString = [dateFormatter stringFromDate:date];
-    
-    exceptionInfo = [exceptionInfo stringByAppendingString:[self getAppInfo]];
-    NSString *savePath = [_libPath stringByAppendingFormat:@"/Crash%@.log",dateString];
+    exceptionInfo = [exceptionInfo stringByAppendingString:[HHAppInfo appInfo]];
+    NSString *savePath = [_libPath stringByAppendingFormat:@"/Crash.log"];
     BOOL success = [exceptionInfo writeToFile:savePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     NSLog(@"YES success:%d",success);
 }
 
-+ (NSString *)getAppInfo
-{
-    NSString *appInfo = [NSString stringWithFormat:@"\nApp :%@ %@ %@\nDevice : %@\nOS Version : %@ \nUDID :%@ \nDateime:%@",
-                         // 应用名
-                         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
-                         // 应用版本号
-                         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
-                         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
-                         [UIDevice currentDevice].systemName,
-                         [UIDevice currentDevice].systemVersion,
-                         [UIDevice currentDevice].identifierForVendor,
-                         [NSDate date]];
-    NSLog(@"Crash!!! %@",appInfo);
-    return appInfo;
-}
 @end
