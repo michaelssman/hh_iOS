@@ -167,6 +167,12 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
             stringValue = metadataCode.stringValue;
         }
         
+        //条码：(10)8419649(240)60729660(30)50
+        //扫描结果：108419649\x1d24060729660\x1d3050。"\x1d"通常用作分隔符，用于将不同的数据字段或条目分隔开来。在扫码结果中，数据被"\x1d"分隔为三个部分：108419649、24060729660和3050。
+        // 将字符串按"\x1d"进行分割得到字段数组
+        NSArray *fields = [stringValue componentsSeparatedByString:@"\x1d"];
+        // 拼接字段数组成整个字符串
+        stringValue = [fields componentsJoinedByString:@""];
         NSLog(@"扫描得到的：%@",stringValue);
         [self.detectionDelegate didDetect:metadataObjects];
     }

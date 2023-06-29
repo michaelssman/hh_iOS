@@ -9,6 +9,10 @@ import Foundation
 import Alamofire
 import RxSwift
 
+enum API {
+    static let baseURL = URL(string: "https://www.nmy.com/hh")!
+}
+
 enum APISessionError: Error {
     case networkError(error: Error, statusCode: Int)
     case invalidJSON
@@ -36,7 +40,7 @@ extension APISession {
     }
     
     var baseUrl: URL {
-        return URL(string: "https://www.nmy.com/hh")!
+        return API.baseURL
     }
     
     func post(_ path: String, headers: HTTPHeaders = [:], parameters: Parameters? = nil) -> Observable<ReponseType> {
