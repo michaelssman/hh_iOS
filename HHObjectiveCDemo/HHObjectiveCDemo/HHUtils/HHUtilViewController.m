@@ -8,6 +8,7 @@
 
 #import "HHUtilViewController.h"
 #import "HHUtil.h"
+#import <SCM-Swift.h>
 @interface HHUtilViewController ()
 
 @end
@@ -22,7 +23,7 @@
     NSString *countString = @"10002";
     NSLog(@"%@",[HHUtil transformCountString:countString]);
     
-    NSLog(@"%@",[HHUtil returnDecimalDigitsFormatter:countString decimalDigits:2 autoAddZero:YES]);
+    NSLog(@"%@",[HHDecimalNumber returnDecimalDigitsFormatter:countString decimalDigits:2 autoAddZero:YES]);
 
     double countDouble = [countString doubleValue];//10001.885
     float countFloat = [countString floatValue];//10001.8848

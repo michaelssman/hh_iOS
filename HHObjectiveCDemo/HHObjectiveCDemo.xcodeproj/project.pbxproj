@@ -49,6 +49,7 @@
 		4C3C34C9282ED4D500109EE0 /* HHAllocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3C34C8282ED4D500109EE0 /* HHAllocViewController.m */; };
 		4C3C34CC282ED51B00109EE0 /* LGPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3C34CB282ED51B00109EE0 /* LGPerson.m */; };
 		4C426B8429E7DBE5009D63C2 /* HHPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C426B8329E7DBE5009D63C2 /* HHPickerView.swift */; };
+		4C550B492A57C92A0023B360 /* HHDecimalNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C550B482A57C92A0023B360 /* HHDecimalNumber.swift */; };
 		4C5DECD829E928D30011FAC2 /* HHPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5DECD729E928D30011FAC2 /* HHPlaceholderView.swift */; };
 		4C5DECE429E9596C0011FAC2 /* HHOCDemo.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4C5DECE329E9596C0011FAC2 /* HHOCDemo.release.xcconfig */; };
 		4C5E7EFE28C8B4D2007194B3 /* HHMulDelegateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5E7EFD28C8B4D2007194B3 /* HHMulDelegateVC.m */; };
@@ -799,6 +800,7 @@
 		4C3C34CA282ED51B00109EE0 /* LGPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGPerson.h; sourceTree = "<group>"; };
 		4C3C34CB282ED51B00109EE0 /* LGPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGPerson.m; sourceTree = "<group>"; };
 		4C426B8329E7DBE5009D63C2 /* HHPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHPickerView.swift; sourceTree = "<group>"; };
+		4C550B482A57C92A0023B360 /* HHDecimalNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHDecimalNumber.swift; sourceTree = "<group>"; };
 		4C5DECD729E928D30011FAC2 /* HHPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHPlaceholderView.swift; sourceTree = "<group>"; };
 		4C5DECE329E9596C0011FAC2 /* HHOCDemo.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = HHOCDemo.release.xcconfig; sourceTree = "<group>"; };
 		4C5E7EFC28C8B4D2007194B3 /* HHMulDelegateVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HHMulDelegateVC.h; sourceTree = "<group>"; };
@@ -1909,6 +1911,7 @@
 				4CDF581F29F22DE400B5833C /* HHView.swift */,
 				4CD8748C2A172A30009843F4 /* HHButton.swift */,
 				4CD3D6002A4C094000B9F5B0 /* HHAppInfo.swift */,
+				4C550B482A57C92A0023B360 /* HHDecimalNumber.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -5033,6 +5036,7 @@
 				4CB1E43C28511BDF0080D7D0 /* HHRuntimeDemoVC.m in Sources */,
 				4CEB0C2129BF46D000F85D73 /* UIColorExtension.swift in Sources */,
 				D23E55D027840E6800877325 /* HHRouter+Utils.m in Sources */,
+				4C550B492A57C92A0023B360 /* HHDecimalNumber.swift in Sources */,
 				D2918896277F064A0020B1EA /* Aspects.m in Sources */,
 				4CEDE871285630590077B46D /* FilePerson.m in Sources */,
 				4C9006D529D6B5F8008814F2 /* HHTabHeaderViewController.m in Sources */,

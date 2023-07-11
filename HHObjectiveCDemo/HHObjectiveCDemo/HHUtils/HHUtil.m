@@ -10,57 +10,6 @@
 
 @implementation HHUtil
 
-//保持小数点后decimalDigits位，不足补小数点或者0.
-+ (NSString*)returnDecimalDigitsFormatter:(NSNumber *)value decimalDigits:(NSInteger)decimalDigits autoAddZero:(BOOL)autoAddZero {
-    //小数位为0 保留整数
-    if (decimalDigits == 0) {
-        return [NSString stringWithFormat:@"%d",value.intValue];
-    }
-    //四舍五入 保留小数
-    NSDecimalNumberHandler *decimalNumberHandler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:decimalDigits raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
-    NSDecimalNumber *aDN = [[NSDecimalNumber alloc]initWithDouble:[value doubleValue]];
-    NSDecimalNumber *resultDN = [aDN decimalNumberByRoundingAccordingToBehavior:decimalNumberHandler];
-    return resultDN.stringValue;
-    return [HHUtil reserveDecimalWithNumberString:resultDN.stringValue decimalDigits:decimalDigits autoAddZero:autoAddZero];
-}
-#pragma mark - 保留小数
-+ (NSString *)reserveDecimalWithNumberString:(NSString *)stringNumber
-                         decimalDigits:(NSInteger)decimalDigits
-                           autoAddZero:(BOOL)autoAddZero {
-    //防止传入Number类型
-    stringNumber = [NSString stringWithFormat:@"%@",stringNumber];
-    //没有小数点
-    if([stringNumber rangeOfString:@"."].location == NSNotFound) {
-        if (autoAddZero) {
-            //自动补0
-            NSString *string_comp=[NSString stringWithFormat:@"%@.",stringNumber];
-            for (int i = 0; i < decimalDigits; i++) {
-                string_comp = [string_comp stringByAppendingString:@"0"];
-            }
-            return string_comp;
-        } else {
-            //不需要自动补0
-            return stringNumber;
-        }
-    }
-    else
-    {
-        NSArray *arrays= [stringNumber componentsSeparatedByString:@"."];
-        NSString *s_f= [arrays objectAtIndex:0];
-        NSString *s_e = [arrays objectAtIndex:1];
-        if(s_e.length < decimalDigits) {
-            //补0
-            if (autoAddZero) {
-                while (s_e.length < decimalDigits) {
-                    s_e = [s_e stringByAppendingString:@"0"];
-                }
-            }
-        }
-        NSString* string_combine=[NSString stringWithFormat:@"%@.%@",s_f,s_e];
-        return string_combine;
-    }
-}
-
 + (NSString *)transformCountString:(NSString *)countString {
     double countValue = [countString doubleValue];
     if (countValue > 10000 || countValue < -10000) {
